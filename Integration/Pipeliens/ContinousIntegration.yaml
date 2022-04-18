@@ -1,0 +1,26 @@
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+
+- task: DotNetCoreCLI@2
+  displayName: 'Restore NuGet Dependencies'
+  continueOnError: false
+  inputs:
+    command: 'restore'
+    projects: '**/*.csproj'
+    feedsToUse: 'select'
+    
+- task: DotNetCoreCLI@2
+  displayName: 'Building Projects'
+  continueOnError: false
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Testing Backend'
+  continueOnError: false
+  inputs:
+    command: 'test'
+    projects: './Backend/Backend.Test/BigScreen.Backend.Test.csproj'
