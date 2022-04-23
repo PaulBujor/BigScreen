@@ -1,0 +1,41 @@
+trigger:
+- none
+
+parameters:
+  - name: testProjects
+    type: object
+    default: 
+      - '/Backend/BigScreen.Backend.Test/BigScreen.Backend.Test.csproj'
+
+pool:
+  vmImage: windows-latest
+
+steps:
+- task: UseDotNet@2
+  displayName: 'Install .NET 6'
+  inputs:
+    packageType: 'sdk'
+    version: '6.x'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Restore NuGet Dependencies'
+  continueOnError: false
+  inputs:
+    command: 'restore'
+    projects: '**/*.csproj'
+    
+- task: DotNetCoreCLI@2
+  displayName: 'Building Projects'
+  continueOnError: false
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+
+- ${{each path in parameters.testProjects}}:
+  - task: DotNetCoreCLI@2
+    displayName: 'Testing ${{path}}'
+    continueOnError: false
+    inputs:
+      command: 'test'
+      projects: $(Build.SourcesDirectory)${{path}}
+      arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'

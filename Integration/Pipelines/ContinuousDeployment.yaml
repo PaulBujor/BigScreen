@@ -1,0 +1,81 @@
+trigger:
+- main
+
+pool:
+  vmImage: windows-latest
+
+parameters:
+  - name: testProjects
+    type: object
+    default: 
+      - '/Backend/BigScreen.Backend.Test/BigScreen.Backend.Test.csproj'
+  - name: deploymentProjects
+    type: object
+    default:
+      - path: '/Frontend/BigScreen.Frontend/BigScreen.Frontend.csproj'
+        name: 'BigScreen'
+      - path: '/Backend/BigScreen.Backend/BigScreen.Backend.csproj'
+        name: 'BigScreen-API'
+
+steps:
+- task: UseDotNet@2
+  displayName: 'Install .NET 6'
+  inputs:
+    packageType: 'sdk'
+    version: '6.x'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Restore NuGet Dependencies'
+  continueOnError: false
+  inputs:
+    command: 'restore'
+    projects: '**/*.csproj'
+    
+- task: DotNetCoreCLI@2
+  displayName: 'Building Projects'
+  continueOnError: false
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+
+- ${{each path in parameters.testProjects}}:
+  - task: DotNetCoreCLI@2
+    displayName: 'Testing ${{path}}'
+    continueOnError: false
+    inputs:
+      command: 'test'
+      projects: $(Build.SourcesDirectory)${{path}}
+      arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+
+- task: AzureCLI@2
+  displayName: 'Deploying Azure Resources via Bicep'
+  inputs:
+    azureSubscription: 'Azure for Students(77e60d2f-f2a2-4b55-bcb2-fe31e15295cb)'
+    scriptType: 'ps'
+    scriptLocation: 'inlineScript'
+    inlineScript: | 
+      az --version
+      az deployment sub create --location northeurope --template-file $(Build.SourcesDirectory)\Integration\Bicep\BigScreenRG.bicep
+
+- ${{each deploymentProject in parameters.deploymentProjects}}:
+  - task: DotNetCoreCLI@2
+    displayName: 'Publishing ${{deploymentProject.name}}'
+    inputs:
+      command: publish
+      projects: $(Build.SourcesDirectory)${{deploymentProject.path}}
+      publishWebProjects: false
+      arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+      zipAfterPublish: true
+
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publishing Artifact ${{deploymentProject.name}}'
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)' 
+      artifactName: '${{deploymentProject.name}}_$(Build.BuildNumber)'
+
+  - task: DeleteFiles@1
+    displayName: 'Deleting Artifact ${{deploymentProject.name}}'
+    inputs:
+      SourceFolder: $(Build.ArtifactStagingDirectory)
+      Contents: '**/*'
+      RemoveDotFiles: true 
