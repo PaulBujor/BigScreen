@@ -20,8 +20,4 @@
         </PackageReference>
     </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\BigScreen.Backend.Core\BigScreen.Backend.Core.csproj"/>
-    </ItemGroup>
-
 </Project>

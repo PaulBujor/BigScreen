@@ -12,6 +12,8 @@ parameters:
     type: object
     default: 
       - '/Backend/BigScreen.Backend.Test/BigScreen.Backend.Test.csproj'
+      - '/SDK/BigScreen.SDK.DataAccess.Test/BigScreen.SDK.DataAccess.Test.csproj'
+      - '/SDK/BigScreen.SDK.WebAPI.Test/BigScreen.SDK.WebAPI.Test.csproj'
   - name: deploymentProjects
     type: object
     default:
