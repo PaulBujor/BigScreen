@@ -7,7 +7,7 @@ namespace BigScreen.SDK.DataAccess.Test;
 public class DbContainerAttributeExtensionsTests
 {
     [Fact]
-    public void Should_Retrieve_Partition_Key_Value_If_Correct()
+    public void Should_Retrieve_Partition_Key_Value_If_Case_Match()
     {
         var dbEntry = new CorrectlyNestedPartitionKeyDbEntry
         {
@@ -21,7 +21,7 @@ public class DbContainerAttributeExtensionsTests
     }
 
     [Fact]
-    public void Should_Retrieve_Partition_Key_Value_If_Incorrect()
+    public void Should_Retrieve_Partition_Key_Value_If_Case_Not_Match()
     {
         var dbEntry = new IncorrectlyNestedPartitionKeyDbEntry
         {
