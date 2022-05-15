@@ -9,8 +9,8 @@ namespace BigScreen.SDK.DataAccess.Abstractions;
 public interface IDatabaseConnector
 {
     /// <summary>
-    ///     Returns the <see cref="Container"/> for <typeparamref name="TDb"/>
+    ///     Returns the <see cref="Container" /> for <typeparamref name="TDb" />
     /// </summary>
-    /// <typeparam name="TDb">inheritor of <see cref="BaseDbEntry"/></typeparam>
+    /// <typeparam name="TDb">inheritor of <see cref="BaseDbEntry" /></typeparam>
     Container GetContainer<TDb>() where TDb : BaseDbEntry;
 }

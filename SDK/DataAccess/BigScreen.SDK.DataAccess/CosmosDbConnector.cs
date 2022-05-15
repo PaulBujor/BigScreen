@@ -1,5 +1,8 @@
-﻿using BigScreen.SDK.DataAccess.Abstractions;
+﻿using System.Reflection;
+using BigScreen.SDK.DataAccess.Abstractions;
+using BigScreen.SDK.DataAccess.Attributes;
 using BigScreen.SDK.DataAccess.Core;
+using BigScreen.SDK.DataAccess.Helpers;
 using Microsoft.Azure.Cosmos;
 
 namespace BigScreen.SDK.DataAccess;
@@ -16,7 +19,8 @@ internal class CosmosDbConnector : IDatabaseConnector
 
     public Container GetContainer<TDb>() where TDb : BaseDbEntry
     {
-        return _database.GetContainer(nameof(TDb));
+        var containerId = CosmosDbConnectorHelper.GetContainerId<TDb>();
+        return _database.GetContainer(containerId);
     }
 
     internal ContainerResponse CreateContainer<TDb>() where TDb : BaseDbEntry
@@ -24,18 +28,34 @@ internal class CosmosDbConnector : IDatabaseConnector
         return CreateContainerAsync<TDb>().Result;
     }
 
-    internal async Task<ContainerResponse> CreateContainerAsync<TDb>() where TDb : BaseDbEntry
+    private async Task<ContainerResponse> CreateContainerAsync<TDb>() where TDb : BaseDbEntry
     {
-        //todo validate if it has DbContainerAttribute
+        var dbContainerAttribute = typeof(TDb).GetCustomAttribute<DbContainerAttribute>();
+
+        if (dbContainerAttribute == null)
+            throw new InvalidOperationException(
+                $"{typeof(TDb).FullName} is missing the DbContainer attribute!");
+
+        var containerId = CosmosDbConnectorHelper.GetContainerId<TDb>();
+
+        if (string.IsNullOrWhiteSpace(dbContainerAttribute.PartitionKey))
+            throw new InvalidOperationException(
+                $"{typeof(TDb).FullName} does not have a Partition Key set in the DbContainer attribute!");
+        var containerPartitionKey = dbContainerAttribute.PartitionKey;
+
+        if (containerPartitionKey[0] != '/') containerPartitionKey = $"/{containerPartitionKey}";
+
+        //todo validate if partition key actually exists in model
+
         return await _database.CreateContainerIfNotExistsAsync(new ContainerProperties
         {
-            Id = typeof(TDb).Name,
-            PartitionKeyPath = "/StaticPartition" //todo take from DbContainerAttribute
+            Id = containerId,
+            PartitionKeyPath = containerPartitionKey
         });
     }
 
     internal async Task DeleteContainerAsync<TDb>() where TDb : BaseDbEntry
     {
-        await _database.GetContainer(typeof(TDb).Name).DeleteContainerAsync();
+        await _database.GetContainer(CosmosDbConnectorHelper.GetContainerId<TDb>()).DeleteContainerAsync();
     }
 }

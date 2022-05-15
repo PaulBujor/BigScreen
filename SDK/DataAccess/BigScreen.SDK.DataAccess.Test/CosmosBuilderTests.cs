@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using BigScreen.SDK.DataAccess.Abstractions;
 using BigScreen.SDK.DataAccess.Extensions;
-using BigScreen.SDK.DataAccess.Test.Models;
+using BigScreen.SDK.DataAccess.Test.Models.CosmosBuilderTest;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Xunit;
@@ -10,12 +10,11 @@ namespace BigScreen.SDK.DataAccess.Test;
 
 public class CosmosBuilderTests
 {
-    private const string HttpsLocalhost = "https://localhost:8081";
+    private const string HttpsLocalhost = TestConstants.HttpsLocalhost;
 
-    private const string AccessKey =
-        "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
+    private const string AccessKey = TestConstants.AccessKey;
 
-    private const string DatabaseName = "BigScreenTest";
+    private const string DatabaseName = TestConstants.DatabaseName;
 
     [Fact]
     public void Should_Build_Cosmos_Connector()
@@ -74,6 +73,6 @@ public class CosmosBuilderTests
 
         var connector = serviceProvider.GetService<IDatabaseConnector>() as CosmosDbConnector;
         await connector?.DeleteContainerAsync<TestDbEntry>()!;
-        await connector?.DeleteContainerAsync<AnotherTestDbEntry>()!;
+        await connector.DeleteContainerAsync<AnotherTestDbEntry>();
     }
 }
