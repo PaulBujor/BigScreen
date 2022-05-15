@@ -9,7 +9,7 @@ internal class CosmosDbBuilder : ICosmosDbBuilder
     private readonly CosmosDbConnector _databaseConnector;
     private readonly IServiceCollection _services;
 
-    public CosmosDbBuilder(string endpoint, string accessKey, string databaseName, IServiceCollection services)
+    internal CosmosDbBuilder(string endpoint, string accessKey, string databaseName, IServiceCollection services)
     {
         _services = services;
         _databaseConnector = new CosmosDbConnector(endpoint, accessKey, databaseName);

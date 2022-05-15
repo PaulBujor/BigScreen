@@ -90,4 +90,21 @@ public class DbContainerAttributeTests
             }
         }).Build();
     }
+
+    [Fact]
+    public void Should_Not_create_Container_Without_Attribute()
+    {
+        new HostBuilder().ConfigureServices(services =>
+        {
+            try
+            {
+                services.AddCosmosDb(HttpsLocalhost, AccessKey, DatabaseName)
+                    .AddDbSet<IncorrectDbEntryWithoutAttribute>();
+            }
+            catch (AggregateException ex)
+            {
+                Assert.Equal(typeof(InvalidOperationException), ex.InnerException?.GetType());
+            }
+        }).Build();
+    }
 }
