@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace BigScreen.SDK.DataAccess.Test.Models.DbContainerAttributeTest;
 
 [DbContainer(PartitionKey = "somePartition")]
-public class UnnamedDbEntry : BaseDbEntry
+public class CorrectDbEntryWithoutName : BaseDbEntry
 {
     [JsonProperty("somePartition")] public string? SomePartition { get; set; }
 }

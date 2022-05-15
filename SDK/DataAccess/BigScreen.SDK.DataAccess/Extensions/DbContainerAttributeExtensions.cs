@@ -7,6 +7,12 @@ namespace BigScreen.SDK.DataAccess.Extensions;
 
 internal static class DbContainerAttributeExtensions
 {
+    /// <summary>
+    ///     Will retrieve the Container ID from a <see cref="DbContainerAttribute" /> placed on the <typeparamref name="TDb" />
+    ///     , or the name of the <typeparamref name="TDb" />
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
     public static string GetContainerId(this Type type)
     {
         var dbContainerAttribute = type.GetDbContainerAttribute();
@@ -18,6 +24,13 @@ internal static class DbContainerAttributeExtensions
         return containerId;
     }
 
+    /// <summary>
+    ///     Will retrieve the Partition Key path from a <see cref="DbContainerAttribute" /> placed on the
+    ///     <typeparamref name="TDb" />. It will pre-pend it with '/' if missing.
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException"></exception>
     public static string GetPartitionKeyDefinition(this Type type)
     {
         var dbContainerAttribute = type.GetDbContainerAttribute();
@@ -32,6 +45,14 @@ internal static class DbContainerAttributeExtensions
         return containerPartitionKey;
     }
 
+    /// <summary>
+    ///     Will return the value that is used as partition key in <typeparamref name="TDb" />. It is case insensitive to the
+    ///     Partition Key defined in <see cref="DbContainerAttribute" />
+    /// </summary>
+    /// <param name="tdb"></param>
+    /// <typeparam name="TDb"></typeparam>
+    /// <returns></returns>
+    /// <exception cref="InvalidCastException"></exception>
     public static string GetPartitionKeyValue<TDb>(this TDb tdb) where TDb : BaseDbEntry
     {
         var partitionKeyPath = typeof(TDb).GetPartitionKeyDefinition().Split("/")

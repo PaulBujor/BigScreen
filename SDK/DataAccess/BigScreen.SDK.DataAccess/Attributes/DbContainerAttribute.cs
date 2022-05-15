@@ -13,6 +13,10 @@ public class DbContainerAttribute : Attribute
 
     /// <summary>
     ///     The partition key of this container. ICosmosDbBuilder will prepend with '/' if it is missing.
+    ///     <remarks>
+    ///         Be aware that the given Partition Key must match the JSON-serialized names for Cosmos DB to understand
+    ///         them correctly. If a property is serialized to 'camelCase', then the partition key should also be 'camelCase'.
+    ///     </remarks>
     /// </summary>
     public string PartitionKey { get; set; } = null!;
 }
