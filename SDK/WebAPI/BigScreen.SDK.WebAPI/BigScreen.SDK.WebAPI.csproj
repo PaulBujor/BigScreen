@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\BigScreen.SDK.WebAPI.Abstractions\BigScreen.SDK.WebAPI.Abstractions.csproj"/>
+    </ItemGroup>
+
 </Project>

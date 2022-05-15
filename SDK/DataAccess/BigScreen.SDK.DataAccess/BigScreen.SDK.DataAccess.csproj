@@ -6,4 +6,14 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\BigScreen.SDK.DataAccess.Abstractions\BigScreen.SDK.DataAccess.Abstractions.csproj"/>
+        <ProjectReference Include="..\BigScreen.SDK.DataAccess.Core\BigScreen.SDK.DataAccess.Core.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.27.0"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0"/>
+    </ItemGroup>
+
 </Project>

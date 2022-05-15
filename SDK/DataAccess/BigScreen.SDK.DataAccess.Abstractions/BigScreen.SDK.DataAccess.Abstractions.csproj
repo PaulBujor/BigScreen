@@ -7,4 +7,12 @@
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\BigScreen.SDK.DataAccess.Core\BigScreen.SDK.DataAccess.Core.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.27.0"/>
+    </ItemGroup>
+
 </Project>

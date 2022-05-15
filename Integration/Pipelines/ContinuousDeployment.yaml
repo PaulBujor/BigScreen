@@ -12,8 +12,8 @@ parameters:
     type: object
     default: 
       - '/Backend/BigScreen.Backend.Test/BigScreen.Backend.Test.csproj'
-      - '/SDK/BigScreen.SDK.DataAccess.Test/BigScreen.SDK.DataAccess.Test.csproj'
-      - '/SDK/BigScreen.SDK.WebAPI.Test/BigScreen.SDK.WebAPI.Test.csproj'
+      - '/SDK/DataAccess/BigScreen.SDK.DataAccess.Test/BigScreen.SDK.DataAccess.Test.csproj'
+      - '/SDK/WebAPI/BigScreen.SDK.WebAPI.Test/BigScreen.SDK.WebAPI.Test.csproj'
   - name: deploymentProjects
     type: object
     default:
@@ -28,6 +28,11 @@ steps:
   inputs:
     packageType: 'sdk'
     version: '6.x'
+
+- task: PowerShell@2
+  displayName: 'Install Cosmos Emulator'
+  inputs:
+    filePath: '$(Build.SourcesDirectory)\Integration\Pipelines\InstallCosmosEmulator.ps1'
 
 - task: DotNetCoreCLI@2
   displayName: 'Restore NuGet Dependencies'
