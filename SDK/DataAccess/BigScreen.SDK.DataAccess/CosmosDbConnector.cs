@@ -1,8 +1,6 @@
-﻿using System.Reflection;
-using BigScreen.SDK.DataAccess.Abstractions;
-using BigScreen.SDK.DataAccess.Attributes;
+﻿using BigScreen.SDK.DataAccess.Abstractions;
 using BigScreen.SDK.DataAccess.Core;
-using BigScreen.SDK.DataAccess.Helpers;
+using BigScreen.SDK.DataAccess.Extensions;
 using Microsoft.Azure.Cosmos;
 
 namespace BigScreen.SDK.DataAccess;
@@ -19,7 +17,7 @@ internal class CosmosDbConnector : IDatabaseConnector
 
     public Container GetContainer<TDb>() where TDb : BaseDbEntry
     {
-        var containerId = CosmosDbConnectorHelper.GetContainerId<TDb>();
+        var containerId = typeof(TDb).GetContainerId();
         return _database.GetContainer(containerId);
     }
 
@@ -30,20 +28,8 @@ internal class CosmosDbConnector : IDatabaseConnector
 
     private async Task<ContainerResponse> CreateContainerAsync<TDb>() where TDb : BaseDbEntry
     {
-        var dbContainerAttribute = typeof(TDb).GetCustomAttribute<DbContainerAttribute>();
-
-        if (dbContainerAttribute == null)
-            throw new InvalidOperationException(
-                $"{typeof(TDb).FullName} is missing the DbContainer attribute!");
-
-        var containerId = CosmosDbConnectorHelper.GetContainerId<TDb>();
-
-        if (string.IsNullOrWhiteSpace(dbContainerAttribute.PartitionKey))
-            throw new InvalidOperationException(
-                $"{typeof(TDb).FullName} does not have a Partition Key set in the DbContainer attribute!");
-        var containerPartitionKey = dbContainerAttribute.PartitionKey;
-
-        if (containerPartitionKey[0] != '/') containerPartitionKey = $"/{containerPartitionKey}";
+        var containerId = typeof(TDb).GetContainerId();
+        var containerPartitionKey = typeof(TDb).GetPartitionKeyDefinition();
 
         //todo validate if partition key actually exists in model
 
@@ -56,6 +42,6 @@ internal class CosmosDbConnector : IDatabaseConnector
 
     internal async Task DeleteContainerAsync<TDb>() where TDb : BaseDbEntry
     {
-        await _database.GetContainer(CosmosDbConnectorHelper.GetContainerId<TDb>()).DeleteContainerAsync();
+        await _database.GetContainer(typeof(TDb).GetContainerId()).DeleteContainerAsync();
     }
 }
