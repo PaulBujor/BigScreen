@@ -16,7 +16,7 @@ public class DbContainerAttributeTests
     private const string AccessKey = TestConstants.AccessKey;
 
     private const string DatabaseName = TestConstants.DatabaseName;
-    private readonly DbContainerAttributeExtensionsTests _dbContainerAttributeExtensionsTests = new();
+    private readonly DbContainerExtensionsTests _dbContainerExtensionsTests = new();
 
     [Fact]
     public async Task Should_Create_Container_With_Specified_Name()

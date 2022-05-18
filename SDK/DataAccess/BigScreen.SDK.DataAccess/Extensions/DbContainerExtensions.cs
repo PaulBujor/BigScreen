@@ -5,7 +5,7 @@ using BigScreen.SDK.DataAccess.Core.Attributes;
 
 namespace BigScreen.SDK.DataAccess.Extensions;
 
-internal static class DbContainerAttributeExtensions
+internal static class DbContainerExtensions
 {
     /// <summary>
     ///     Will retrieve the Container ID from a <see cref="DbContainerAttribute" /> placed on the <typeparamref name="TDb" />
@@ -64,21 +64,20 @@ internal static class DbContainerAttributeExtensions
                 ? Expression.PropertyOrField(property, path)
                 : Expression.PropertyOrField(parameter, path);
 
-        var lambda = Expression.Lambda<Func<TDb, string>>(property, parameter);
-        var compiledLambda = lambda.Compile();
-
-        string partitionKeyValue = null!;
         try
         {
+            var lambda = Expression.Lambda<Func<TDb, string>>(property, parameter);
+            var compiledLambda = lambda.Compile();
+
+            string partitionKeyValue = null!;
             partitionKeyValue = compiledLambda(tdb);
+            return partitionKeyValue;
         }
-        catch (InvalidCastException)
+        catch (ArgumentException)
         {
             throw new InvalidCastException(
                 $"The Partition Key set in the DbContainerAttribute of {typeof(TDb).FullName} is not a string!");
         }
-
-        return partitionKeyValue;
     }
 
     private static DbContainerAttribute GetDbContainerAttribute(this Type type)

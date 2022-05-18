@@ -2,7 +2,7 @@
 using BigScreen.SDK.DataAccess.Core.Attributes;
 using Newtonsoft.Json;
 
-namespace BigScreen.SDK.DataAccess.Test.Models.DbContainerAttributeExtensionTest;
+namespace BigScreen.SDK.DataAccess.Test.Models.DbContainerExtensionsTest;
 
 [DbContainer(PartitionKey = "/BigObject/Partition")]
 public class CorrectlyNestedPartitionKeyDbEntry : BaseDbEntry

@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BigScreen.SDK.DataAccess.Extensions;
 
-internal static class CosmosDbBuilderExtensions
+public static class CosmosDbBuilderExtensions
 {
     /// <summary>
     ///     Creates a Cosmos Connector builder
