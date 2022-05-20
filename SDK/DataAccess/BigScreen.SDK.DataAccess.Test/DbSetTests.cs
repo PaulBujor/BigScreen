@@ -325,6 +325,7 @@ public class DbSetTests : IDisposable
     {
         var person = new TestPersonDbEntry
         {
+            Id = Guid.NewGuid().ToString(),
             FirstName = "Johnny",
             LastName = "You know who"
         };
