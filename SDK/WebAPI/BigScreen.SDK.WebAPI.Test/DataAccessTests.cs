@@ -14,9 +14,10 @@ using Xunit;
 
 namespace BigScreen.SDK.WebAPI.Test;
 
+[Collection("WebAPI Data Access Tests")]
 public class DataAccessTests : IDisposable
 {
-    private readonly CosmosDbConnector? _cosmosDbConnector;
+    private readonly CosmosDbConnector? _connector;
     private readonly IDataAccess<TestDto>? _dataAccess;
 
     public DataAccessTests()
@@ -30,12 +31,13 @@ public class DataAccessTests : IDisposable
         var serviceProvider = host.Services;
 
         _dataAccess = serviceProvider.GetService<IDataAccess<TestDto>>();
-        _cosmosDbConnector = serviceProvider.GetService<IDatabaseConnector>() as CosmosDbConnector;
+        _connector = serviceProvider.GetService<IDatabaseConnector>() as CosmosDbConnector;
     }
 
     public void Dispose()
     {
-        _cosmosDbConnector?.DeleteContainerAsync<TestDbEntry>();
+        _connector?.DeleteContainerAsync<TestDbEntry>().ConfigureAwait(false);
+        _connector?.Dispose();
     }
 
     [Fact]
@@ -224,7 +226,7 @@ public class DataAccessTests : IDisposable
 
         var itemList = await _dataAccess?.GetAllAsync("Walnuts")!;
         Assert.NotNull(itemList);
-        Assert.Equal(3, itemList.Count());
+        Assert.Equal(3, itemList.Count);
 
         var testItem1 = itemList.FirstOrDefault(v => v.Id == testDto.Id);
         Assert.Equal(testDto.Test, testItem1!.Test);

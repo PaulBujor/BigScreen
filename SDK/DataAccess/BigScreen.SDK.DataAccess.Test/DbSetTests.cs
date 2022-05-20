@@ -11,6 +11,7 @@ using Xunit;
 
 namespace BigScreen.SDK.DataAccess.Test;
 
+[Collection("CosmosDB Data Access Tests")]
 public class DbSetTests : IDisposable
 {
     private readonly CosmosDbConnector? _connector;
@@ -30,7 +31,8 @@ public class DbSetTests : IDisposable
 
     public void Dispose()
     {
-        _connector?.DeleteContainerAsync<TestPersonDbEntry>();
+        _connector?.DeleteContainerAsync<TestPersonDbEntry>().ConfigureAwait(false);
+        _connector?.Dispose();
     }
 
     [Fact]
