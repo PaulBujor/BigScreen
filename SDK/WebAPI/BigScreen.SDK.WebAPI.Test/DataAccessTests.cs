@@ -114,9 +114,6 @@ public class DataAccessTests : IDisposable
         await _dataAccess?.CreateAsync(testDtoObj3)!;
 
         var item = await _dataAccess?.GetAsync(testDto.Id!, testDto.Test!)!;
-        Assert.NotNull(item);
-        Assert.NotNull(item.Id);
-        Assert.NotNull(item.ETag);
         Assert.Equal(item.Test, testDtoObj.Test);
         Assert.Equal(item.Test2, testDtoObj.Test2);
         Assert.Equal(item.Test3, testDtoObj.Test3);
@@ -269,8 +266,8 @@ public class DataAccessTests : IDisposable
 
         var item = await _dataAccess.UpdateAsync(testDto);
         Assert.NotNull(item);
-        Assert.NotEqual(testDtoObj.Test2, item.Test2);
-        Assert.NotEqual(testDtoObj.Test3, item.Test3);
+        Assert.Equal(testDto.Test2, item.Test2);
+        Assert.Equal(testDto.Test3, item.Test3);
     }
 
     [Fact]
@@ -289,8 +286,8 @@ public class DataAccessTests : IDisposable
         testDto.Test2 = "Dot";
         testDto.ETag = "Cat";
 
-        var item = async () => await _dataAccess.UpdateAsync(testDto);
-        await Assert.ThrowsAsync<InvalidOperationException>(item);
+        var updateAct = async () => await _dataAccess.UpdateAsync(testDto);
+        await Assert.ThrowsAsync<InvalidOperationException>(updateAct);
     }
 
 
@@ -308,8 +305,8 @@ public class DataAccessTests : IDisposable
 
         await _dataAccess.DeleteByIdAsync(testDto.Id!, testDto.Test!);
 
-        var deletedItem = async () => await _dataAccess?.GetAsync(testDto.Id!, testDto.Test!)!;
-        await Assert.ThrowsAsync<CosmosException>(deletedItem);
+        var getAct = async () => await _dataAccess?.GetAsync(testDto.Id!, testDto.Test!)!;
+        await Assert.ThrowsAsync<CosmosException>(getAct);
     }
 
     [Fact]

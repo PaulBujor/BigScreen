@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using BigScreen.SDK.WebAPI.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BigScreen.SDK.WebAPI.Extensions;
 

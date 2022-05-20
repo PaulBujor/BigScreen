@@ -20,14 +20,16 @@ public class DataAccess<TDto, TDbEntry> : IDataAccess<TDto> where TDto : BaseDto
 
     public async Task<List<TDto>> GetAllAsync()
     {
-        var result = _dbSet.ToList();
-        return await Task.FromResult(_mapper.Map<List<TDbEntry>, List<TDto>>(result));
+        var resultEntry = _dbSet.ToList();
+        var resultDto = _mapper.Map<List<TDbEntry>, List<TDto>>(resultEntry);
+        return await Task.FromResult(resultDto);
     }
 
     public async Task<List<TDto>> GetAllAsync(string partitionKey)
     {
-        var result = _dbSet.Where(entry => entry.GetPartitionKeyValue() == partitionKey).ToList();
-        return await Task.FromResult(_mapper.Map<List<TDbEntry>, List<TDto>>(result));
+        var resultEntry = _dbSet.Where(entry => entry.GetPartitionKeyValue() == partitionKey).ToList();
+        var resultDto = _mapper.Map<List<TDbEntry>, List<TDto>>(resultEntry);
+        return await Task.FromResult(resultDto);
     }
 
     public async Task<TDto> GetAsync(string id, string partitionKey)
