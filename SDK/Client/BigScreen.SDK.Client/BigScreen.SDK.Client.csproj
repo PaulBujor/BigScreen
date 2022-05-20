@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\WebAPI\BigScreen.SDK.WebAPI.Core\BigScreen.SDK.WebAPI.Core.csproj"/>
+        <ProjectReference Include="..\BigScreen.SDK.Client.Abstractions\BigScreen.SDK.Client.Abstractions.csproj"/>
+    </ItemGroup>
+
+</Project>

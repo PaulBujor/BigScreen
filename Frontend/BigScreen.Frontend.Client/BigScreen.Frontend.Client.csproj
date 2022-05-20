@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\SDK\Client\BigScreen.SDK.Client.Abstractions\BigScreen.SDK.Client.Abstractions.csproj"/>
+        <ProjectReference Include="..\..\SDK\SDK.BigScreen.Client.Abstractions\SDK.BigScreen.Client.Abstractions.csproj"/>
+        <ProjectReference Include="..\BigScreen.Frontend.Core\BigScreen.Frontend.Core.csproj"/>
+    </ItemGroup>
+
+</Project>
