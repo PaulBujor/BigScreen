@@ -23,8 +23,8 @@ public class DataAccessTests : IDisposable
     {
         var host = new HostBuilder().ConfigureServices(services =>
         {
-            services.AddDataAccess().Add<TestDto, TestDbEntry>().Build();
             services.AddLocalCosmosDb().AddDbSet<TestDbEntry>();
+            services.AddDataAccess().Add<TestDto, TestDbEntry>().Build();
         }).Build();
 
         var serviceProvider = host.Services;

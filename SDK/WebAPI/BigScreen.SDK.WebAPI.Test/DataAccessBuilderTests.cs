@@ -30,8 +30,8 @@ public class DataAccessBuilderTests
     {
         var host = new HostBuilder().ConfigureServices(services =>
         {
-            services.AddDataAccess().Add<TestDto, TestDbEntry>().Build();
             services.AddLocalCosmosDb().AddDbSet<TestDbEntry>();
+            services.AddDataAccess().Add<TestDto, TestDbEntry>().Build();
         }).Build();
 
         var serviceProvider = host.Services;
@@ -49,8 +49,8 @@ public class DataAccessBuilderTests
     {
         var host = new HostBuilder().ConfigureServices(services =>
         {
-            services.AddDataAccess().Add<TestDto, TestDbEntry>().Add<TestDto2, TestDbEntry2>().Build();
             services.AddLocalCosmosDb().AddDbSet<TestDbEntry>().AddDbSet<TestDbEntry2>();
+            services.AddDataAccess().Add<TestDto, TestDbEntry>().Add<TestDto2, TestDbEntry2>().Build();
         }).Build();
 
         var serviceProvider = host.Services;
@@ -65,6 +65,6 @@ public class DataAccessBuilderTests
 
         var connector = serviceProvider.GetService<IDatabaseConnector>() as CosmosDbConnector;
         await connector?.DeleteContainerAsync<TestDbEntry>()!;
-        await connector?.DeleteContainerAsync<TestDbEntry2>()!;
+        await connector.DeleteContainerAsync<TestDbEntry2>();
     }
 }
