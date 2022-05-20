@@ -7,18 +7,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.4"/>
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.4" PrivateAssets="all"/>
-        <PackageReference Include="MudBlazor" Version="6.0.9"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.4" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.4" PrivateAssets="all" />
+        <PackageReference Include="MudBlazor" Version="6.0.9" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\BigScreen.Frontend.Client\BigScreen.Frontend.Client.csproj"/>
-        <ProjectReference Include="..\..\SDK\BigScreen.SDK.Client\BigScreen.SDK.Client.csproj"/>
-        <ProjectReference Include="..\..\SDK\Client\BigScreen.SDK.Client\BigScreen.SDK.Client.csproj"/>
-        <ProjectReference Include="..\..\SDK\SDK.BigScreen.Client.Abstractions\SDK.BigScreen.Client.Abstractions.csproj"/>
-        <ProjectReference Include="..\BigScreen.Frontend.Client\BigScreen.Frontend.Client.csproj"/>
-        <ProjectReference Include="..\BigScreen.Frontend.Core\BigScreen.Frontend.Core.csproj"/>
+        <ProjectReference Include="..\..\SDK\Client\BigScreen.SDK.Client\BigScreen.SDK.Client.csproj" />
+        <ProjectReference Include="..\BigScreen.Frontend.Client\BigScreen.Frontend.Client.csproj" />
+        <ProjectReference Include="..\BigScreen.Frontend.Core\BigScreen.Frontend.Core.csproj" />
     </ItemGroup>
 
 

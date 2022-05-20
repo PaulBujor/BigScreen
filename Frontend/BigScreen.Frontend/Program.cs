@@ -15,8 +15,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 //todo this is conceptual
 builder.Services.AddScoped<IClient<MovieDto>, TmdbClient<MovieDto>>();
 builder.Services.AddScoped<IClient<OurMovieDto>, BaseODataClient<OurMovieDto>>();
-
-builder.Services.AddScoped(_ => new HttpClient {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)});
+builder.Services.AddHttpClient(TmdbClientConstants.ClientName,_ => _.BaseAddress = new Uri(TmdbClientConstants.BaseAddress));
 builder.Services.AddMudServices();
 
 await builder.Build().RunAsync();
