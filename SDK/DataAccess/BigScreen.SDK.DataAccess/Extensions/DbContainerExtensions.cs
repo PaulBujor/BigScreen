@@ -5,7 +5,7 @@ using BigScreen.SDK.DataAccess.Core.Attributes;
 
 namespace BigScreen.SDK.DataAccess.Extensions;
 
-internal static class DbContainerExtensions
+public static class DbContainerExtensions
 {
     /// <summary>
     ///     Will retrieve the Container ID from a <see cref="DbContainerAttribute" /> placed on the <typeparamref name="TDb" />
