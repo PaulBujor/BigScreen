@@ -2,7 +2,7 @@ dir "C:\Program Files\Azure Cosmos DB Emulator\"
 
 Import-Module "$env:ProgramFiles\Azure Cosmos DB Emulator\PSModules\Microsoft.Azure.CosmosDB.Emulator"
 
-$startEmulatorCmd = "Microsoft.Azure.Cosmos.Emulator.exe /DisableRateLimiting /NoUI /NoFirewall"
+$startEmulatorCmd = "Start-CosmosDbEmulator -NoFirewall -NoUI /DisableRateLimiting"
 Write-Host $startEmulatorCmd
 Invoke-Expression -Command $startEmulatorCmd
 
