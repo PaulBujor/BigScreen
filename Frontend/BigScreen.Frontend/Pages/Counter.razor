@@ -1,4 +1,5 @@
 ﻿@page "/counter"
+@using BigScreen.Frontend.Client.Handlers.Interfaces
 
 <PageTitle>Counter</PageTitle>
 
@@ -8,11 +9,16 @@
 
 
 @code {
+
+    [Inject]
+    private IMovieHandler _movieHandler { get; set; }
+
     private int _currentCount;
 
-    private void IncrementCount()
+
+    private async void IncrementCount()
     {
-        _currentCount++;
+        var aux = await _movieHandler.GetMovieById("550");
     }
 
 }
