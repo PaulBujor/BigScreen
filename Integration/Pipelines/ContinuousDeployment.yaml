@@ -29,11 +29,6 @@ steps:
     packageType: 'sdk'
     version: '6.x'
 
-- task: PowerShell@2
-  displayName: 'Install Cosmos Emulator'
-  inputs:
-    filePath: '$(Build.SourcesDirectory)\Integration\Pipelines\InstallCosmosEmulator.ps1'
-
 - task: DotNetCoreCLI@2
   displayName: 'Restore NuGet Dependencies'
   continueOnError: false
@@ -48,6 +43,11 @@ steps:
     command: 'build'
     projects: '**/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
+
+- task: PowerShell@2
+  displayName: 'Install Cosmos Emulator'
+  inputs:
+    filePath: '$(Build.SourcesDirectory)\Integration\Pipelines\InstallCosmosEmulator.ps1'
 
 - ${{each path in parameters.testProjects}}:
   - task: DotNetCoreCLI@2
@@ -69,7 +69,7 @@ steps:
     scriptLocation: 'inlineScript'
     inlineScript: | 
       az --version
-      az deployment sub create --location northeurope --template-file $(Build.SourcesDirectory)\Integration\Bicep\BigScreenRG.bicep --parameters tmdbApiKey='${env:API_KEY}'
+      az deployment sub create --location northeurope --template-file $(Build.SourcesDirectory)\Integration\Bicep\BigScreenRG.bicep --parameters tmdbApiKey='$env:API_KEY'
 
 - ${{each deploymentProject in parameters.deploymentProjects}}:
   - task: DotNetCoreCLI@2

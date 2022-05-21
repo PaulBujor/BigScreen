@@ -22,11 +22,6 @@ steps:
     packageType: 'sdk'
     version: '6.x'
 
-- task: PowerShell@2
-  displayName: 'Install Cosmos Emulator'
-  inputs:
-    filePath: '$(Build.SourcesDirectory)\Integration\Pipelines\InstallCosmosEmulator.ps1'
-
 - task: DotNetCoreCLI@2
   displayName: 'Restore NuGet Dependencies'
   continueOnError: false
@@ -41,6 +36,11 @@ steps:
     command: 'build'
     projects: '**/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
+
+- task: PowerShell@2
+  displayName: 'Install Cosmos Emulator'
+  inputs:
+    filePath: '$(Build.SourcesDirectory)\Integration\Pipelines\InstallCosmosEmulator.ps1'
 
 - ${{each path in parameters.testProjects}}:
   - task: DotNetCoreCLI@2
