@@ -22,7 +22,7 @@ builder.Services.AddScoped<TmdbClient<MovieDto>>();
 builder.Services.AddScoped<IMovieHandler, MovieHandler>();
 
 //Http Clients
-builder.Services.AddHttpClient(TmdbClientConstants.ClientName,_ => _.BaseAddress = new Uri(TmdbClientConstants.BaseAddress));
+builder.Services.AddHttpClient(TmdbClientConstants.ClientName,client => client.BaseAddress = new Uri(TmdbClientConstants.BaseAddress));
 builder.Services.AddMudServices();
 
 await builder.Build().RunAsync();
