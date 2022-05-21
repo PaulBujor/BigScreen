@@ -61,13 +61,15 @@ steps:
 
 - task: AzureCLI@2
   displayName: 'Deploying Azure Resources via Bicep'
+  env: 
+    API_KEY: $(tmdbApiKey)
   inputs:
     azureSubscription: 'Azure for Students(77e60d2f-f2a2-4b55-bcb2-fe31e15295cb)'
     scriptType: 'ps'
     scriptLocation: 'inlineScript'
     inlineScript: | 
       az --version
-      az deployment sub create --location northeurope --template-file $(Build.SourcesDirectory)\Integration\Bicep\BigScreenRG.bicep --parameters tmdbApiKey='${env:TMDBAPIKEY}'
+      az deployment sub create --location northeurope --template-file $(Build.SourcesDirectory)\Integration\Bicep\BigScreenRG.bicep --parameters tmdbApiKey='${env:API_KEY}'
 
 - ${{each deploymentProject in parameters.deploymentProjects}}:
   - task: DotNetCoreCLI@2
