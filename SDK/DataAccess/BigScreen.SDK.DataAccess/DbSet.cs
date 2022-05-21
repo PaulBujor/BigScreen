@@ -32,6 +32,7 @@ internal class DbSet<TDb> : IDbSet<TDb> where TDb : BaseDbEntry
 
     public async Task<TDb> CreateAsync(TDb tdb)
     {
+        tdb.Id = Guid.NewGuid().ToString();
         return await _container.CreateItemAsync(tdb);
     }
 
@@ -45,7 +46,7 @@ internal class DbSet<TDb> : IDbSet<TDb> where TDb : BaseDbEntry
         catch (CosmosException)
         {
             throw new InvalidOperationException(
-                $"Update operation unsuccessful: object with ID={tdb.Id} does not exist in Partition={tdb.GetPartitionKeyValue()}");
+                $"Update operation unsuccessful: object with ID={tdb.Id} does not exist in Partition={tdb.GetPartitionKeyValue()} \nYou cannot change partition key while updating.");
         }
 
         if (existingEntry.ETag != tdb.ETag)

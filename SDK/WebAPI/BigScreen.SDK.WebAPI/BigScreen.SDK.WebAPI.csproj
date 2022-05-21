@@ -7,7 +7,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\BigScreen.SDK.WebAPI.Abstractions\BigScreen.SDK.WebAPI.Abstractions.csproj"/>
+        <ProjectReference Include="..\..\DataAccess\BigScreen.SDK.DataAccess\BigScreen.SDK.DataAccess.csproj" />
+        <ProjectReference Include="..\BigScreen.SDK.WebAPI.Abstractions\BigScreen.SDK.WebAPI.Abstractions.csproj" />
+        <ProjectReference Include="..\BigScreen.SDK.WebAPI.Core\BigScreen.SDK.WebAPI.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="11.0.1" />
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+      <PackageReference Include="Microsoft.OData.Core" Version="7.11.0" />
     </ItemGroup>
 
 </Project>
