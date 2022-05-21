@@ -25,8 +25,7 @@ public class TmdbClient<TDto> : IClient<TDto> where TDto : TmdbDto
 
     public async Task<TDto>? GetAsync(string? id, string? additionalUri = null, Dictionary<string, string>? query = null)
     {
-        var requestUri = typeof(TDto).GetAttribute<TmdbDtoAttribute>().RequestUri;
-        var responseMessage = await _httpClient.GetAsync(requestUri + CreateUri(id,additionalUri,query));
+        var responseMessage = await _httpClient.GetAsync(CreateUri(id,additionalUri,query));
         responseMessage.EnsureSuccessStatusCode();
         var result = await responseMessage.Content.ReadAsStringAsync();
         var obj = JsonConvert.DeserializeObject<TDto>(result);
@@ -35,7 +34,7 @@ public class TmdbClient<TDto> : IClient<TDto> where TDto : TmdbDto
 
     private string CreateUri(string? id, string? additionalUri, Dictionary<string, string>? query)
     {
-        var uri = string.Empty;
+        var uri = typeof(TDto).GetAttribute<TmdbDtoAttribute>().RequestUri;
         if (!string.IsNullOrEmpty(id))
         {
             uri += id;
