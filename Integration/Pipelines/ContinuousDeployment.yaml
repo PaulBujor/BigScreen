@@ -67,7 +67,7 @@ steps:
     scriptLocation: 'inlineScript'
     inlineScript: | 
       az --version
-      az deployment sub create --location northeurope --template-file $(Build.SourcesDirectory)\Integration\Bicep\BigScreenRG.bicep
+      az deployment sub create --location northeurope --template-file $(Build.SourcesDirectory)\Integration\Bicep\BigScreenRG.bicep --parameters tmdbApiKey='${env:TMDBAPIKEY}'
 
 - ${{each deploymentProject in parameters.deploymentProjects}}:
   - task: DotNetCoreCLI@2
