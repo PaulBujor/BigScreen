@@ -2,9 +2,9 @@
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface)]
 public class TmdbDtoAttribute : Attribute
 {
-    public string RequestUri { get; }
+    public string? RequestUri { get; }
 
-    public TmdbDtoAttribute(string requestUri)
+    public TmdbDtoAttribute(string? requestUri)
     {
         RequestUri = requestUri;
     }

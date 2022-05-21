@@ -5,6 +5,7 @@ using System.Text.Json.Serialization;
 using BigScreen.Frontend.Core;
 using BigScreen.Frontend.Core.Attributes;
 using BigScreen.SDK.Client.Abstractions;
+using BigScreen.SDK.Utilities;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 
@@ -22,17 +23,36 @@ public class TmdbClient<TDto> : IClient<TDto> where TDto : TmdbDto
         _httpClient = httpClientFactory.CreateClient(TmdbClientConstants.ClientName);
     }
 
-    public async Task<TDto>? GetAsync(string? id, string? query)
+    public async Task<TDto>? GetAsync(string? id, string? additionalUri = null, Dictionary<string, string>? query = null)
     {
-        var responseMessage = await _httpClient.GetAsync(typeof(TmdbDto).GetCustomAttribute<TmdbDtoAttribute>()?.RequestUri);
+        var requestUri = typeof(TDto).GetAttribute<TmdbDtoAttribute>().RequestUri;
+        var responseMessage = await _httpClient.GetAsync(requestUri + CreateUri(id,additionalUri,query));
         responseMessage.EnsureSuccessStatusCode();
         var result = await responseMessage.Content.ReadAsStringAsync();
         var obj = JsonConvert.DeserializeObject<TDto>(result);
         return obj!;
-        
-        // to be used
-        // QueryHelpers.AddQueryString()
+    }
 
+    private string CreateUri(string? id, string? additionalUri, Dictionary<string, string>? query)
+    {
+        var uri = string.Empty;
+        if (!string.IsNullOrEmpty(id))
+        {
+            uri += id;
+        }
+        
+        if (!string.IsNullOrEmpty(additionalUri))
+        {
+            uri += string.IsNullOrEmpty(uri) ? additionalUri : $"/{additionalUri}";
+        }
+        
+        if (query != null && query.Any())
+        {
+            uri = QueryHelpers.AddQueryString(uri, query);
+        }
+        uri = QueryHelpers.AddQueryString(uri, "api_key", ApiKey);
+
+        return $"/{uri}";
     }
 
 }

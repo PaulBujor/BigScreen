@@ -2,6 +2,7 @@
 using System.Reflection;
 using BigScreen.SDK.DataAccess.Core;
 using BigScreen.SDK.DataAccess.Core.Attributes;
+using BigScreen.SDK.Utilities;
 
 namespace BigScreen.SDK.DataAccess.Extensions;
 
@@ -15,7 +16,7 @@ internal static class DbContainerExtensions
     /// <returns></returns>
     public static string GetContainerId(this Type type)
     {
-        var dbContainerAttribute = type.GetDbContainerAttribute();
+        var dbContainerAttribute = type.GetAttribute<DbContainerAttribute>();
 
         var containerId = string.IsNullOrWhiteSpace(dbContainerAttribute?.ContainerName)
             ? type.Name
@@ -33,7 +34,7 @@ internal static class DbContainerExtensions
     /// <exception cref="InvalidOperationException"></exception>
     public static string GetPartitionKeyDefinition(this Type type)
     {
-        var dbContainerAttribute = type.GetDbContainerAttribute();
+        var dbContainerAttribute = type.GetAttribute<DbContainerAttribute>();
 
         if (string.IsNullOrWhiteSpace(dbContainerAttribute.PartitionKey))
             throw new InvalidOperationException(
@@ -80,13 +81,5 @@ internal static class DbContainerExtensions
         }
     }
 
-    private static DbContainerAttribute GetDbContainerAttribute(this Type type)
-    {
-        var dbContainerAttribute = type.GetCustomAttribute<DbContainerAttribute>();
-        if (dbContainerAttribute == null)
-            throw new InvalidOperationException(
-                $"{type.FullName} is missing the DbContainer attribute!");
-
-        return dbContainerAttribute;
-    }
+    
 }

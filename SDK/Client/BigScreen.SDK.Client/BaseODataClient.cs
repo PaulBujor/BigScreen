@@ -5,7 +5,7 @@ namespace BigScreen.SDK.Client;
 
 public class BaseODataClient<TDto> : IClient<TDto> where TDto : BaseDto
 {
-    public Task<TDto> GetAsync(string? id, string? query)
+    public Task<TDto>? GetAsync(string? id, string? additionalUri, Dictionary<string, string>? query)
     {
         throw new NotImplementedException();
     }

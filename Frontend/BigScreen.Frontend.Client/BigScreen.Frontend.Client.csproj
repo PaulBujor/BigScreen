@@ -7,7 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\Core\BigScreen.Core\BigScreen.Core.csproj" />
         <ProjectReference Include="..\..\SDK\Client\BigScreen.SDK.Client.Abstractions\BigScreen.SDK.Client.Abstractions.csproj" />
+        <ProjectReference Include="..\..\SDK\Utilities\Utilities\BigScreen.SDK.Utilities.csproj" />
         <ProjectReference Include="..\BigScreen.Frontend.Core\BigScreen.Frontend.Core.csproj" />
     </ItemGroup>
 
