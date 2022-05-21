@@ -4,5 +4,5 @@ namespace BigScreen.Frontend.Client.Handlers.Interfaces;
 
 public interface IMovieHandler
 {
-    Task<MovieDto>? GetMovieById(string id);
+    Task<MovieDto?> GetMovieById(string id);
 }

@@ -13,5 +13,4 @@ public static class TypeExtensions
 
         return dbContainerAttribute;
     }
-    
 }

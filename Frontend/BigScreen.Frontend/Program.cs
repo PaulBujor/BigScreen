@@ -3,10 +3,6 @@ using BigScreen.Frontend;
 using BigScreen.Frontend.Client;
 using BigScreen.Frontend.Client.Handlers;
 using BigScreen.Frontend.Client.Handlers.Interfaces;
-using BigScreen.Frontend.Core;
-using BigScreen.SDK.Client;
-using BigScreen.SDK.Client.Abstractions;
-using BigScreen.SDK.WebAPI.Core;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
@@ -22,8 +18,8 @@ builder.Services.AddScoped<TmdbClient<MovieDto>>();
 builder.Services.AddScoped<IMovieHandler, MovieHandler>();
 
 //Http Clients
-builder.Services.AddHttpClient(TmdbClientConstants.ClientName,client => client.BaseAddress = new Uri(TmdbClientConstants.BaseAddress));
+builder.Services.AddHttpClient(TmdbClientConstants.ClientName,
+    client => client.BaseAddress = new Uri(TmdbClientConstants.BaseAddress));
 builder.Services.AddMudServices();
 
 await builder.Build().RunAsync();
-

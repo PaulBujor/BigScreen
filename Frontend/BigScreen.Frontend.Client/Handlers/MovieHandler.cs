@@ -1,6 +1,5 @@
 ﻿using BigScreen.Core.Models.TMDb;
 using BigScreen.Frontend.Client.Handlers.Interfaces;
-using Microsoft.AspNetCore.WebUtilities;
 
 namespace BigScreen.Frontend.Client.Handlers;
 
@@ -12,9 +11,9 @@ public class MovieHandler : IMovieHandler
     {
         _client = client;
     }
-    
-    public async Task<MovieDto>? GetMovieById(string id)
+
+    public async Task<MovieDto?> GetMovieById(string id)
     {
-        return await _client.GetAsync(id)!;
+        return await _client.GetAsync(id);
     }
 }

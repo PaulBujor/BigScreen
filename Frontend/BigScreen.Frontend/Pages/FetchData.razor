@@ -33,7 +33,7 @@ else
             <MudTd DataLabel="Summary">@context.Summary</MudTd>
         </RowTemplate>
         <PagerContent>
-            <MudTablePager PageSizeOptions="new[] {50, 100}"/>
+            <MudTablePager PageSizeOptions="new[] { 50, 100 }"/>
         </PagerContent>
     </MudTable>
 }
@@ -55,7 +55,7 @@ else
 
         public string? Summary { get; set; }
 
-        public int TemperatureF => 32 + (int) (TemperatureC / 0.5556);
+        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
     }
 
 }
