@@ -36,7 +36,7 @@ public class DataAccessTests : IDisposable
 
     public void Dispose()
     {
-        _connector?.DeleteContainerAsync<TestDbEntry>().ConfigureAwait(false);
+        _connector?.DeleteContainerAsync<TestDbEntry>().Wait();
         _connector?.Dispose();
     }
 

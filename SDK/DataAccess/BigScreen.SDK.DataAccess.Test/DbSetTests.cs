@@ -31,7 +31,7 @@ public class DbSetTests : IDisposable
 
     public void Dispose()
     {
-        _connector?.DeleteContainerAsync<TestPersonDbEntry>().ConfigureAwait(false);
+        _connector?.DeleteContainerAsync<TestPersonDbEntry>().Wait();
         _connector?.Dispose();
     }
 
