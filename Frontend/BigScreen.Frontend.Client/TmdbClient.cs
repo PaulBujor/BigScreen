@@ -31,7 +31,7 @@ public class TmdbClient<TDto> : IClient<TDto> where TDto : TmdbDto
 
     private string CreateUri(string? id, string? additionalUri, Dictionary<string, string>? query)
     {
-        var uri = $"{typeof(TDto).GetAttribute<TmdbDtoAttribute>().RequestUri}";
+        var uri = typeof(TDto).GetAttribute<TmdbDtoAttribute>().RequestUri;
         if (!string.IsNullOrEmpty(id))
         {
             uri += string.IsNullOrEmpty(uri) ? id : $"/{id}";
