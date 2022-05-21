@@ -31,15 +31,24 @@ public class TmdbClient<TDto> : IClient<TDto> where TDto : TmdbDto
 
     private string CreateUri(string? id, string? additionalUri, Dictionary<string, string>? query)
     {
-        var uri = typeof(TDto).GetAttribute<TmdbDtoAttribute>().RequestUri;
-        if (!string.IsNullOrEmpty(id)) uri += id;
+        var uri = $"{typeof(TDto).GetAttribute<TmdbDtoAttribute>().RequestUri}";
+        if (!string.IsNullOrEmpty(id))
+        {
+            uri += string.IsNullOrEmpty(uri) ? id : $"/{id}";
+        }
 
         if (!string.IsNullOrEmpty(additionalUri))
+        {
             uri += string.IsNullOrEmpty(uri) ? additionalUri : $"/{additionalUri}";
+        }
 
-        if (query != null && query.Any()) uri = QueryHelpers.AddQueryString(uri, query);
+        if (query != null && query.Any())
+        {
+            uri = QueryHelpers.AddQueryString(uri, query);
+        }
+
         uri = QueryHelpers.AddQueryString(uri, "api_key", ApiKey);
 
-        return $"/{uri}";
+        return uri;
     }
 }
