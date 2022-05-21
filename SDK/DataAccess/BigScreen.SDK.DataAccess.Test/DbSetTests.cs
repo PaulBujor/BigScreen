@@ -285,6 +285,24 @@ public class DbSetTests : IDisposable
     }
 
     [Fact]
+    public async Task Should_Not_Update_If_ETag_Is_Old()
+    {
+        var person = new TestPersonDbEntry
+        {
+            FirstName = "Johnny",
+            LastName = "You know who"
+        };
+
+        var result = await _dbSet.CreateAsync(person);
+        
+        result.FirstName = "Mary";
+        await _dbSet.UpdateAsync(result);
+        
+        result.FirstName = "Bob";
+        await Assert.ThrowsAsync<InvalidOperationException>(async () => await _dbSet.UpdateAsync(result));
+    }
+
+    [Fact]
     public async Task Should_Delete_By_Id()
     {
         var person = new TestPersonDbEntry

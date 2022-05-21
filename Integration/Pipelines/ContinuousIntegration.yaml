@@ -13,7 +13,7 @@ parameters:
       - '/SDK/WebAPI/BigScreen.SDK.WebAPI.Test/BigScreen.SDK.WebAPI.Test.csproj'
 
 pool:
-  vmImage: windows-latest
+  vmImage: windows-2019
 
 steps:
 - task: UseDotNet@2
@@ -45,6 +45,7 @@ steps:
 - ${{each path in parameters.testProjects}}:
   - task: DotNetCoreCLI@2
     displayName: 'Testing ${{path}}'
+    timeoutInMinutes: 5
     continueOnError: false
     inputs:
       command: 'test'
