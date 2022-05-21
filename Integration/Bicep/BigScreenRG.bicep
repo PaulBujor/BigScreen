@@ -1,5 +1,6 @@
 param location string = 'northeurope'
 param baseName string = 'BigScreen'
+param tmdbApiKey string
 
 targetScope = 'subscription'
 
@@ -17,3 +18,14 @@ module Apps 'BigScreenApps.bicep' = {
   }
 }
 
+module KeyVault 'BigScreenKeyVault.bicep' = {
+  name: 'KeyVault'
+  params: {
+    location: location
+    baseName: baseName
+    api: Apps.outputs.api
+    client: Apps.outputs.client
+    tmdbApiKey: tmdbApiKey
+  }
+  scope: ResourceGroup
+}
