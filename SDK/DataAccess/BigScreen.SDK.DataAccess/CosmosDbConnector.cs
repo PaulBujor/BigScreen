@@ -5,20 +5,26 @@ using Microsoft.Azure.Cosmos;
 
 namespace BigScreen.SDK.DataAccess;
 
-internal class CosmosDbConnector : IDatabaseConnector
+internal class CosmosDbConnector : IDatabaseConnector, IDisposable
 {
+    private readonly CosmosClient _cosmosClient;
     private readonly Database _database;
 
     internal CosmosDbConnector(string endpoint, string accessKey, string databaseName)
     {
-        var cosmosClient = new CosmosClient(endpoint, accessKey);
-        _database = cosmosClient.CreateDatabaseIfNotExistsAsync(databaseName).Result;
+        _cosmosClient = new CosmosClient(endpoint, accessKey);
+        _database = _cosmosClient.CreateDatabaseIfNotExistsAsync(databaseName).Result;
     }
 
     public Container GetContainer<TDb>() where TDb : BaseDbEntry
     {
         var containerId = typeof(TDb).GetContainerId();
         return _database.GetContainer(containerId);
+    }
+
+    public void Dispose()
+    {
+        _cosmosClient.Dispose();
     }
 
     internal ContainerResponse CreateContainer<TDb>() where TDb : BaseDbEntry

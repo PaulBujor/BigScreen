@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\DataAccess\BigScreen.SDK.DataAccess.Core\BigScreen.SDK.DataAccess.Core.csproj" />
+      <ProjectReference Include="..\BigScreen.SDK.WebAPI.Core\BigScreen.SDK.WebAPI.Core.csproj" />
+    </ItemGroup>
+
 </Project>
