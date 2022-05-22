@@ -49,7 +49,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BigScreen.SDK.Client.Abstra
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{985D63A3-4BBE-4A2D-90CD-382233DF060E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigScreen.SDK.Utilities", "SDK\Utilities\Utilities\BigScreen.SDK.Utilities.csproj", "{E3AEE0A8-BABF-43FB-AA7A-0D7D7A358009}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BigScreen.SDK.Utilities", "SDK\Utilities\Utilities\BigScreen.SDK.Utilities.csproj", "{E3AEE0A8-BABF-43FB-AA7A-0D7D7A358009}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
