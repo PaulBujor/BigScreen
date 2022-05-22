@@ -12,5 +12,11 @@
         <PackageReference Include="MudBlazor" Version="6.0.9"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\..\SDK\Client\BigScreen.SDK.Client\BigScreen.SDK.Client.csproj"/>
+        <ProjectReference Include="..\BigScreen.Frontend.Client\BigScreen.Frontend.Client.csproj"/>
+        <ProjectReference Include="..\BigScreen.Frontend.Core\BigScreen.Frontend.Core.csproj"/>
+    </ItemGroup>
+
 
 </Project>

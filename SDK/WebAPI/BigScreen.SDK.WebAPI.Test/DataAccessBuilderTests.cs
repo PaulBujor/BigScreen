@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
 using BigScreen.SDK.DataAccess;
 using BigScreen.SDK.DataAccess.Abstractions;
@@ -12,8 +13,21 @@ using Xunit;
 
 namespace BigScreen.SDK.WebAPI.Test;
 
-public class DataAccessBuilderTests
+[Collection("WebAPI Data Access Tests")]
+public class DataAccessBuilderTests : IDisposable
 {
+    private Action? _dispose;
+
+    public DataAccessBuilderTests()
+    {
+        _dispose = null;
+    }
+
+    public void Dispose()
+    {
+        _dispose?.Invoke();
+    }
+
     [Fact]
     public void Should_Add_IDataAccessBuilder()
     {
@@ -23,6 +37,9 @@ public class DataAccessBuilderTests
 
         var mapper = serviceProvider.GetService<IMapper>();
         Assert.NotNull(mapper);
+
+        var connector = serviceProvider.GetService<IDatabaseConnector>();
+        _dispose = () => (connector as CosmosDbConnector)?.Dispose();
     }
 
     [Fact]
@@ -30,8 +47,8 @@ public class DataAccessBuilderTests
     {
         var host = new HostBuilder().ConfigureServices(services =>
         {
-            services.AddDataAccess().Add<TestDto, TestDbEntry>().Build();
             services.AddLocalCosmosDb().AddDbSet<TestDbEntry>();
+            services.AddDataAccess().Add<TestDto, TestDbEntry>().Build();
         }).Build();
 
         var serviceProvider = host.Services;
@@ -42,6 +59,7 @@ public class DataAccessBuilderTests
 
         var connector = serviceProvider.GetService<IDatabaseConnector>() as CosmosDbConnector;
         await connector?.DeleteContainerAsync<TestDbEntry>()!;
+        _dispose = () => connector.Dispose();
     }
 
     [Fact]
@@ -49,8 +67,8 @@ public class DataAccessBuilderTests
     {
         var host = new HostBuilder().ConfigureServices(services =>
         {
-            services.AddDataAccess().Add<TestDto, TestDbEntry>().Add<TestDto2, TestDbEntry2>().Build();
             services.AddLocalCosmosDb().AddDbSet<TestDbEntry>().AddDbSet<TestDbEntry2>();
+            services.AddDataAccess().Add<TestDto, TestDbEntry>().Add<TestDto2, TestDbEntry2>().Build();
         }).Build();
 
         var serviceProvider = host.Services;
@@ -65,6 +83,7 @@ public class DataAccessBuilderTests
 
         var connector = serviceProvider.GetService<IDatabaseConnector>() as CosmosDbConnector;
         await connector?.DeleteContainerAsync<TestDbEntry>()!;
-        await connector?.DeleteContainerAsync<TestDbEntry2>()!;
+        await connector.DeleteContainerAsync<TestDbEntry2>();
+        _dispose = () => connector.Dispose();
     }
 }

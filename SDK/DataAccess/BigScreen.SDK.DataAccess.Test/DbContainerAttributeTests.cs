@@ -9,14 +9,26 @@ using Xunit;
 
 namespace BigScreen.SDK.DataAccess.Test;
 
-public class DbContainerAttributeTests
+[Collection("CosmosDB Data Access Tests")]
+public class DbContainerAttributeTests : IDisposable
 {
     private const string HttpsLocalhost = TestConstants.HttpsLocalhost;
 
     private const string AccessKey = TestConstants.AccessKey;
 
     private const string DatabaseName = TestConstants.DatabaseName;
-    private readonly DbContainerExtensionsTests _dbContainerExtensionsTests = new();
+
+    private Action? _dispose;
+
+    public DbContainerAttributeTests()
+    {
+        _dispose = null;
+    }
+
+    public void Dispose()
+    {
+        _dispose?.Invoke();
+    }
 
     [Fact]
     public async Task Should_Create_Container_With_Specified_Name()
@@ -36,6 +48,7 @@ public class DbContainerAttributeTests
 
         var connector = dbConnector as CosmosDbConnector;
         await connector?.DeleteContainerAsync<CorrectDbEntryWithName>()!;
+        _dispose = () => connector.Dispose();
     }
 
     [Fact]
@@ -55,6 +68,7 @@ public class DbContainerAttributeTests
 
         var connector = dbConnector as CosmosDbConnector;
         await connector?.DeleteContainerAsync<CorrectDbEntryWithoutName>()!;
+        _dispose = () => connector.Dispose();
     }
 
     [Fact]
@@ -74,6 +88,7 @@ public class DbContainerAttributeTests
 
         var connector = dbConnector as CosmosDbConnector;
         await connector?.DeleteContainerAsync<CorrectDbEntryWIthNestedPartitionKey>()!;
+        _dispose = () => connector.Dispose();
     }
 
     [Fact]

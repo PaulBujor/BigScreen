@@ -15,6 +15,9 @@ resource Backend 'Microsoft.Web/sites@2018-11-01' = {
   properties: {
     serverFarmId: AppPlan.id
   }
+  identity: {
+    type: 'SystemAssigned'
+  }
 }
 
 resource Frontend 'Microsoft.Web/sites@2018-11-01' = {
@@ -23,4 +26,10 @@ resource Frontend 'Microsoft.Web/sites@2018-11-01' = {
   properties: {
     serverFarmId: AppPlan.id
   }
+  identity: {
+    type: 'SystemAssigned'
+  }
 }
+
+output api string = Backend.identity.principalId
+output client string = Frontend.identity.principalId

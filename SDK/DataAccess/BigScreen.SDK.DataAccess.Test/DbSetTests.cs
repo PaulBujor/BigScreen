@@ -11,6 +11,7 @@ using Xunit;
 
 namespace BigScreen.SDK.DataAccess.Test;
 
+[Collection("CosmosDB Data Access Tests")]
 public class DbSetTests : IDisposable
 {
     private readonly CosmosDbConnector? _connector;
@@ -30,7 +31,8 @@ public class DbSetTests : IDisposable
 
     public void Dispose()
     {
-        _connector?.DeleteContainerAsync<TestPersonDbEntry>();
+        _connector?.DeleteContainerAsync<TestPersonDbEntry>().Wait();
+        _connector?.Dispose();
     }
 
     [Fact]
@@ -281,6 +283,24 @@ public class DbSetTests : IDisposable
         result.FirstName = "Mary";
         result.ETag = "1234";
 
+        await Assert.ThrowsAsync<InvalidOperationException>(async () => await _dbSet.UpdateAsync(result));
+    }
+
+    [Fact]
+    public async Task Should_Not_Update_If_ETag_Is_Old()
+    {
+        var person = new TestPersonDbEntry
+        {
+            FirstName = "Johnny",
+            LastName = "You know who"
+        };
+
+        var result = await _dbSet.CreateAsync(person);
+        
+        result.FirstName = "Mary";
+        await _dbSet.UpdateAsync(result);
+        
+        result.FirstName = "Bob";
         await Assert.ThrowsAsync<InvalidOperationException>(async () => await _dbSet.UpdateAsync(result));
     }
 
