@@ -3,11 +3,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using BigScreen.SDK.DataAccess;
 using BigScreen.SDK.DataAccess.Abstractions;
+using BigScreen.SDK.DataAccess.Exceptions;
 using BigScreen.SDK.WebAPI.Abstractions;
 using BigScreen.SDK.WebAPI.Extensions;
 using BigScreen.SDK.WebAPI.Test.Extensions;
 using BigScreen.SDK.WebAPI.Test.Models.DataAccessBuilderTest;
-using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Xunit;
@@ -227,7 +227,7 @@ public class DataAccessTests : IDisposable
         testDto.ETag = "Cat";
 
         var updateAct = async () => await _dataAccess.UpdateAsync(testDto);
-        await Assert.ThrowsAsync<InvalidOperationException>(updateAct);
+        await Assert.ThrowsAsync<ETagMismatchException>(updateAct);
     }
 
     [Fact]
@@ -245,24 +245,6 @@ public class DataAccessTests : IDisposable
         await _dataAccess.DeleteAsync(testDto.Id!);
 
         var getAct = async () => await _dataAccess?.GetAsync(testDto.Id!)!;
-        await Assert.ThrowsAsync<CosmosException>(getAct);
-    }
-
-    [Fact]
-    public async Task Should_Delete_Item_By_Object()
-    {
-        var testDtoObj = new TestDto
-        {
-            Test = "Walnuts",
-            Test2 = "Comma",
-            Test3 = "Alligator"
-        };
-
-        var testDto = await _dataAccess?.CreateAsync(testDtoObj)!;
-
-        await _dataAccess.DeleteAsync(testDto.Id!);
-
-        var getAct = (Func<Task<TestDto>>) (async () => await _dataAccess?.GetAsync(testDto.Id!)!);
-        await Assert.ThrowsAsync<CosmosException>(getAct);
+        await Assert.ThrowsAsync<ItemNotFoundException>(getAct);
     }
 }

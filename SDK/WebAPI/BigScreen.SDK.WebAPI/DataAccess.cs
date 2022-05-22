@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using BigScreen.SDK.DataAccess.Abstractions;
 using BigScreen.SDK.DataAccess.Core;
-using BigScreen.SDK.DataAccess.Extensions;
 using BigScreen.SDK.WebAPI.Abstractions;
 using BigScreen.SDK.WebAPI.Core;
 
@@ -27,9 +26,9 @@ public class DataAccess<TDto, TDbEntry> : IDataAccess<TDto> where TDto : BaseDto
 
     public async Task<TDto> GetAsync(string key)
     {
-        var resultEntry = _dbSet.FirstOrDefault(entry => entry.Id == key);
-        var resultDto = _mapper.Map<TDbEntry, TDto>(resultEntry!);
-        return await Task.FromResult(resultDto);
+        var resultEntry = await _dbSet.GetAsync(key);
+        var resultDto = _mapper.Map<TDbEntry, TDto>(resultEntry);
+        return resultDto;
     }
 
     public async Task<TDto> CreateAsync(TDto dto)
@@ -46,9 +45,8 @@ public class DataAccess<TDto, TDbEntry> : IDataAccess<TDto> where TDto : BaseDto
         return _mapper.Map<TDbEntry, TDto>(result);
     }
 
-    public Task DeleteAsync(string key)
+    public async Task DeleteAsync(string key)
     {
-        var dto = _dbSet.FirstOrDefault(entry => entry.Id == key);
-        return _dbSet.DeleteByIdAsync(dto!.Id!, dto.GetPartitionKeyValue());
+        await _dbSet.DeleteAsync(key);
     }
 }
