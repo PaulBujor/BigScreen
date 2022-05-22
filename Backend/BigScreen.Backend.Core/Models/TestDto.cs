@@ -1,9 +1,12 @@
-﻿using BigScreen.SDK.WebAPI.Core;
+﻿using System.Runtime.Serialization;
+using BigScreen.SDK.WebAPI.Core;
 
 namespace BigScreen.Backend.Core.Models;
 
+[DataContract]
 public class TestDto : BaseDto
 {
-    public string? PartitionKey { get; set; }
-    public string? Name { get; set; }
+    [DataMember] public string? PartitionKey { get; set; }
+
+    [DataMember] public string? Name { get; set; }
 }

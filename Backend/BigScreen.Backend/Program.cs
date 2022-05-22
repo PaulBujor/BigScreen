@@ -1,9 +1,9 @@
 using BigScreen.Backend.Core.Models;
 using BigScreen.SDK.DataAccess.Extensions;
 using BigScreen.SDK.WebAPI.Extensions;
-using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNetCore.OData;
 using Microsoft.OData.Edm;
+using Microsoft.OData.ModelBuilder;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +16,10 @@ const string databaseName = "BigScreenTest";
 // Add services to the container.
 builder.Services.AddCosmosDb(httpsLocalhost, accessKey, databaseName).AddDbSet<TestDbEntry>();
 builder.Services.AddDataAccess().Add<TestDto, TestDbEntry>().Build();
-builder.Services.AddControllers().AddOData(opt => opt.AddRouteComponents("odata", GetEdmModel()));
+builder.Services.AddControllers().AddOData(opt =>
+    opt.Select().Filter().OrderBy().Count()
+        .AddRouteComponents("test", GetEdmModel()));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

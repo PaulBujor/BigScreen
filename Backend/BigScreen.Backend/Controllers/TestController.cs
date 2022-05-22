@@ -1,58 +1,56 @@
-﻿using System.Web.Http;
-using BigScreen.Backend.Core.Models;
+﻿using BigScreen.Backend.Core.Models;
 using BigScreen.SDK.WebAPI;
 using BigScreen.SDK.WebAPI.Abstractions;
-using Microsoft.AspNet.OData;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Formatter;
 
 namespace BigScreen.Backend.Controllers;
 
-[Microsoft.AspNetCore.Mvc.Route("test")]
 public class TestController : BaseODataController<TestDto>
 {
     public TestController(IDataAccess<TestDto> dataAccess) : base(dataAccess)
     {
     }
 
-    [Microsoft.AspNetCore.Mvc.Route("")]
-    public override async Task<IHttpActionResult> Post([Microsoft.AspNetCore.Mvc.FromBody] TestDto dto)
+    public override async Task<IActionResult> Post([FromBody] TestDto dto)
     {
         return await base.Post(dto);
     }
 
-    [Microsoft.AspNetCore.Mvc.Route("{id}/{partitionKey}")]
-    public override async Task<IHttpActionResult> GetAsync([FromODataUri] string id,
+    [Route("{id}/{partitionKey}")]
+    public override async Task<IActionResult> GetAsync([FromODataUri] string id,
         [FromODataUri] string partitionKey)
     {
         return await base.GetAsync(id, partitionKey);
     }
 
-    [Microsoft.AspNetCore.Mvc.Route("")]
-    public override async Task<IHttpActionResult> GetAllAsync()
+    [Route("")]
+    public override async Task<IActionResult> GetAsync()
     {
-        return await base.GetAllAsync();
+        return await base.GetAsync();
     }
 
-    [Microsoft.AspNetCore.Mvc.Route("{partitionKey}")]
-    public override async Task<IHttpActionResult> GetAllAsync([FromODataUri] string partitionKey)
+    [Route("{partitionKey}")]
+    public override async Task<IActionResult> GetAsync([FromODataUri] string partitionKey)
     {
-        return await base.GetAllAsync(partitionKey);
+        return await base.GetAsync(partitionKey);
     }
 
-    [Microsoft.AspNetCore.Mvc.Route("")]
-    public override async Task<IHttpActionResult> UpdateAsync([Microsoft.AspNetCore.Mvc.FromBody] TestDto dto)
+    [Route("")]
+    public override async Task<IActionResult> UpdateAsync([FromBody] TestDto dto)
     {
         return await base.UpdateAsync(dto);
     }
 
-    [Microsoft.AspNetCore.Mvc.Route("")]
-    public override async Task<IHttpActionResult> DeleteAsync([FromODataUri] string id,
+    [Route("")]
+    public override async Task<IActionResult> DeleteAsync([FromODataUri] string id,
         [FromODataUri] string partitionKey)
     {
         return await base.DeleteAsync(id, partitionKey);
     }
 
-    [Microsoft.AspNetCore.Mvc.Route("")]
-    public override async Task<IHttpActionResult> DeleteAsync([FromBody] TestDto dto)
+    [Route("")]
+    public override async Task<IActionResult> DeleteAsync([FromBody] TestDto dto)
     {
         return await base.DeleteAsync(dto);
     }

@@ -1,13 +1,13 @@
-﻿using System.Web.Http;
-using BigScreen.SDK.WebAPI.Abstractions;
+﻿using BigScreen.SDK.WebAPI.Abstractions;
 using BigScreen.SDK.WebAPI.Core;
-using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Formatter;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
 using Microsoft.Azure.Cosmos;
 
 namespace BigScreen.SDK.WebAPI;
 
-[ApiController]
 public abstract class BaseODataController<TDto> : ODataController where TDto : BaseDto
 {
     private readonly IDataAccess<TDto> _dataAccess;
@@ -17,23 +17,9 @@ public abstract class BaseODataController<TDto> : ODataController where TDto : B
         _dataAccess = dataAccess;
     }
 
-
-    [Microsoft.AspNetCore.Mvc.HttpPost]
-    public virtual async Task<IHttpActionResult> Post([Microsoft.AspNetCore.Mvc.FromBody] TDto dto)
-    {
-        try
-        {
-            return Ok(await _dataAccess.CreateAsync(dto));
-        }
-        catch (CosmosException e)
-        {
-            return StatusCode(e.StatusCode);
-        }
-    }
-
-    [Microsoft.AspNetCore.Mvc.HttpGet]
+    [HttpGet]
     [EnableQuery]
-    public virtual async Task<IHttpActionResult> GetAsync([FromODataUri] string id,
+    public virtual async Task<IActionResult> GetAsync([FromODataUri] string id,
         [FromODataUri] string partitionKey)
     {
         try
@@ -42,13 +28,13 @@ public abstract class BaseODataController<TDto> : ODataController where TDto : B
         }
         catch (CosmosException e)
         {
-            return StatusCode(e.StatusCode);
+            return StatusCode((int) e.StatusCode);
         }
     }
 
-    [Microsoft.AspNetCore.Mvc.HttpGet]
+    [HttpGet]
     [EnableQuery]
-    public virtual async Task<IHttpActionResult> GetAllAsync()
+    public virtual async Task<IActionResult> GetAsync()
     {
         try
         {
@@ -56,13 +42,13 @@ public abstract class BaseODataController<TDto> : ODataController where TDto : B
         }
         catch (CosmosException e)
         {
-            return StatusCode(e.StatusCode);
+            return StatusCode((int) e.StatusCode);
         }
     }
 
-    [Microsoft.AspNetCore.Mvc.HttpGet]
+    [HttpGet]
     [EnableQuery]
-    public virtual async Task<IHttpActionResult> GetAllAsync([FromODataUri] string partitionKey)
+    public virtual async Task<IActionResult> GetAsync([FromODataUri] string partitionKey)
     {
         try
         {
@@ -70,12 +56,25 @@ public abstract class BaseODataController<TDto> : ODataController where TDto : B
         }
         catch (CosmosException e)
         {
-            return StatusCode(e.StatusCode);
+            return StatusCode((int) e.StatusCode);
         }
     }
 
-    [Microsoft.AspNetCore.Mvc.HttpPatch]
-    public virtual async Task<IHttpActionResult> UpdateAsync([Microsoft.AspNetCore.Mvc.FromBody] TDto dto)
+    [HttpPost]
+    public virtual async Task<IActionResult> Post([FromBody] TDto dto)
+    {
+        try
+        {
+            return Ok(await _dataAccess.CreateAsync(dto));
+        }
+        catch (CosmosException e)
+        {
+            return StatusCode((int) e.StatusCode);
+        }
+    }
+
+    [HttpPatch]
+    public virtual async Task<IActionResult> UpdateAsync([FromBody] TDto dto)
     {
         try
         {
@@ -83,40 +82,40 @@ public abstract class BaseODataController<TDto> : ODataController where TDto : B
         }
         catch (CosmosException e)
         {
-            return StatusCode(e.StatusCode);
+            return StatusCode((int) e.StatusCode);
         }
         catch (InvalidOperationException e)
         {
-            return InternalServerError(e);
+            return BadRequest(e.Message);
         }
     }
 
-    [Microsoft.AspNetCore.Mvc.HttpDelete]
-    public virtual async Task<IHttpActionResult> DeleteAsync([FromODataUri] string id,
+    [HttpDelete]
+    public virtual async Task<IActionResult> DeleteAsync([FromODataUri] string id,
         [FromODataUri] string partitionKey)
     {
         try
         {
             await _dataAccess.DeleteByIdAsync(id, partitionKey);
-            return Ok(204);
+            return NoContent();
         }
         catch (CosmosException e)
         {
-            return StatusCode(e.StatusCode);
+            return StatusCode((int) e.StatusCode);
         }
     }
 
-    [Microsoft.AspNetCore.Mvc.HttpDelete]
-    public virtual async Task<IHttpActionResult> DeleteAsync([Microsoft.AspNetCore.Mvc.FromBody] TDto dto)
+    [HttpDelete]
+    public virtual async Task<IActionResult> DeleteAsync([FromBody] TDto dto)
     {
         try
         {
             await _dataAccess.DeleteAsync(dto);
-            return Ok(204);
+            return NoContent();
         }
         catch (CosmosException e)
         {
-            return StatusCode(e.StatusCode);
+            return StatusCode((int) e.StatusCode);
         }
     }
 }
