@@ -13,7 +13,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\SDK\WebAPI\BigScreen.SDK.WebAPI\BigScreen.SDK.WebAPI.csproj" />
-        <ProjectReference Include="..\BigScreen.Backend.Core\BigScreen.Backend.Core.csproj" />
     </ItemGroup>
 
 </Project>
