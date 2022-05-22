@@ -7,16 +7,21 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\DataAccess\BigScreen.SDK.DataAccess\BigScreen.SDK.DataAccess.csproj" />
-        <ProjectReference Include="..\BigScreen.SDK.WebAPI.Abstractions\BigScreen.SDK.WebAPI.Abstractions.csproj" />
-        <ProjectReference Include="..\BigScreen.SDK.WebAPI.Core\BigScreen.SDK.WebAPI.Core.csproj" />
+        <ProjectReference Include="..\..\DataAccess\BigScreen.SDK.DataAccess\BigScreen.SDK.DataAccess.csproj"/>
+        <ProjectReference Include="..\BigScreen.SDK.WebAPI.Abstractions\BigScreen.SDK.WebAPI.Abstractions.csproj"/>
+        <ProjectReference Include="..\BigScreen.SDK.WebAPI.Core\BigScreen.SDK.WebAPI.Core.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="AutoMapper" Version="11.0.1" />
-      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
-      <PackageReference Include="Microsoft.OData.Core" Version="7.11.0" />
+        <PackageReference Include="AutoMapper" Version="11.0.1"/>
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0"/>
+        <PackageReference Include="Microsoft.AspNet.OData" Version="7.5.14"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="Microsoft.AspNetCore.Mvc.Core"/>
     </ItemGroup>
 
 </Project>
