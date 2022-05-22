@@ -7,13 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.OData" Version="8.0.10"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3"/>
+        <PackageReference Include="Microsoft.AspNetCore.OData" Version="8.0.10" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\SDK\WebAPI\BigScreen.SDK.WebAPI\BigScreen.SDK.WebAPI.csproj"/>
-        <ProjectReference Include="..\BigScreen.Backend.Core\BigScreen.Backend.Core.csproj"/>
+        <ProjectReference Include="..\..\SDK\WebAPI\BigScreen.SDK.WebAPI\BigScreen.SDK.WebAPI.csproj" />
+        <ProjectReference Include="..\BigScreen.Backend.Core\BigScreen.Backend.Core.csproj" />
     </ItemGroup>
 
 </Project>
