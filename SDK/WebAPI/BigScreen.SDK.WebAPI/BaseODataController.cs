@@ -17,28 +17,12 @@ public abstract class BaseODataController<TDto> : ODataController where TDto : B
         _dataAccess = dataAccess;
     }
 
-    [HttpGet]
-    [EnableQuery]
-    public virtual async Task<IActionResult> GetAsync([FromODataUri] string id,
-        [FromODataUri] string partitionKey)
-    {
-        try
-        {
-            return Ok(await _dataAccess.GetAsync(id, partitionKey));
-        }
-        catch (CosmosException e)
-        {
-            return StatusCode((int) e.StatusCode);
-        }
-    }
-
-    [HttpGet]
     [EnableQuery]
     public virtual async Task<IActionResult> GetAsync()
     {
         try
         {
-            return Ok(await _dataAccess.GetAllAsync());
+            return Ok(await _dataAccess.GetAsync());
         }
         catch (CosmosException e)
         {
@@ -46,13 +30,12 @@ public abstract class BaseODataController<TDto> : ODataController where TDto : B
         }
     }
 
-    [HttpGet]
     [EnableQuery]
-    public virtual async Task<IActionResult> GetAsync([FromODataUri] string partitionKey)
+    public virtual async Task<IActionResult> GetAsync([FromODataUri] string key)
     {
         try
         {
-            return Ok(await _dataAccess.GetAllAsync(partitionKey));
+            return Ok(await _dataAccess.GetAsync(key));
         }
         catch (CosmosException e)
         {
@@ -60,8 +43,7 @@ public abstract class BaseODataController<TDto> : ODataController where TDto : B
         }
     }
 
-    [HttpPost]
-    public virtual async Task<IActionResult> Post([FromBody] TDto dto)
+    public virtual async Task<IActionResult> PostAsync([FromBody] TDto dto)
     {
         try
         {
@@ -73,8 +55,7 @@ public abstract class BaseODataController<TDto> : ODataController where TDto : B
         }
     }
 
-    [HttpPatch]
-    public virtual async Task<IActionResult> UpdateAsync([FromBody] TDto dto)
+    public virtual async Task<IActionResult> PatchAsync([FromBody] TDto dto)
     {
         try
         {
@@ -90,27 +71,11 @@ public abstract class BaseODataController<TDto> : ODataController where TDto : B
         }
     }
 
-    [HttpDelete]
-    public virtual async Task<IActionResult> DeleteAsync([FromODataUri] string id,
-        [FromODataUri] string partitionKey)
+    public virtual async Task<IActionResult> DeleteAsync([FromODataUri] string key)
     {
         try
         {
-            await _dataAccess.DeleteByIdAsync(id, partitionKey);
-            return NoContent();
-        }
-        catch (CosmosException e)
-        {
-            return StatusCode((int) e.StatusCode);
-        }
-    }
-
-    [HttpDelete]
-    public virtual async Task<IActionResult> DeleteAsync([FromBody] TDto dto)
-    {
-        try
-        {
-            await _dataAccess.DeleteAsync(dto);
+            await _dataAccess.DeleteAsync(key);
             return NoContent();
         }
         catch (CosmosException e)

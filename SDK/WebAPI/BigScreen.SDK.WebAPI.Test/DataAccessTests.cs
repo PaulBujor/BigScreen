@@ -115,7 +115,7 @@ public class DataAccessTests : IDisposable
         await _dataAccess?.CreateAsync(testDtoObj2)!;
         await _dataAccess?.CreateAsync(testDtoObj3)!;
 
-        var item = await _dataAccess?.GetAsync(testDto.Id!, testDto.Test!)!;
+        var item = await _dataAccess?.GetAsync(testDto.Id!)!;
         Assert.Equal(item.Test, testDtoObj.Test);
         Assert.Equal(item.Test2, testDtoObj.Test2);
         Assert.Equal(item.Test3, testDtoObj.Test3);
@@ -159,7 +159,7 @@ public class DataAccessTests : IDisposable
         var testDto3 = await _dataAccess?.CreateAsync(testDtoObj3)!;
         var testDto4 = await _dataAccess?.CreateAsync(testDtoObj4)!;
 
-        var itemList = await _dataAccess?.GetAllAsync()!;
+        var itemList = await _dataAccess?.GetAsync()!;
         Assert.NotNull(itemList);
         Assert.Equal(4, itemList.Count());
 
@@ -186,68 +186,6 @@ public class DataAccessTests : IDisposable
         Assert.Equal(testDto4.Test2, testItem4.Test2);
         Assert.Equal(testDto4.Test3, testItem4.Test3);
         Assert.Equal(testDto4.ETag, testItem4.ETag);
-    }
-
-    [Fact]
-    public async Task Should_Get_Multiple_Items_From_Partition()
-    {
-        var testDtoObj = new TestDto
-        {
-            Test = "Walnuts",
-            Test2 = "Comma",
-            Test3 = "Alligator"
-        };
-
-        var testDtoObj2 = new TestDto
-        {
-            Test = "Walnuts",
-            Test2 = "Deez",
-            Test3 = "Sunrise"
-        };
-
-        var testDtoObj3 = new TestDto
-        {
-            Test = "Walnuts",
-            Test2 = "Dog",
-            Test3 = "Moon"
-        };
-
-        var testDtoObj4 = new TestDto
-        {
-            Test = "Peanuts",
-            Test2 = "Dog",
-            Test3 = "Moon"
-        };
-
-        var testDto = await _dataAccess?.CreateAsync(testDtoObj)!;
-        var testDto2 = await _dataAccess?.CreateAsync(testDtoObj2)!;
-        var testDto3 = await _dataAccess?.CreateAsync(testDtoObj3)!;
-        var testDto4 = await _dataAccess?.CreateAsync(testDtoObj4)!;
-
-        var itemList = await _dataAccess?.GetAllAsync("Walnuts")!;
-        Assert.NotNull(itemList);
-        Assert.Equal(3, itemList.Count);
-
-        var testItem1 = itemList.FirstOrDefault(v => v.Id == testDto.Id);
-        Assert.Equal(testDto.Test, testItem1!.Test);
-        Assert.Equal(testDto.Test2, testItem1.Test2);
-        Assert.Equal(testDto.Test3, testItem1.Test3);
-        Assert.Equal(testDto.ETag, testItem1.ETag);
-
-        var testItem2 = itemList.FirstOrDefault(v => v.Id == testDto2.Id);
-        Assert.Equal(testDto2.Test, testItem2!.Test);
-        Assert.Equal(testDto2.Test2, testItem2.Test2);
-        Assert.Equal(testDto2.Test3, testItem2.Test3);
-        Assert.Equal(testDto2.ETag, testItem2.ETag);
-
-        var testItem3 = itemList.FirstOrDefault(v => v.Id == testDto3.Id);
-        Assert.Equal(testDto3.Test, testItem3!.Test);
-        Assert.Equal(testDto3.Test2, testItem3.Test2);
-        Assert.Equal(testDto3.Test3, testItem3.Test3);
-        Assert.Equal(testDto3.ETag, testItem3.ETag);
-
-        var testItem4 = itemList.FirstOrDefault(v => v.Id == testDto4.Id);
-        Assert.Null(testItem4);
     }
 
     [Fact]
@@ -292,7 +230,6 @@ public class DataAccessTests : IDisposable
         await Assert.ThrowsAsync<InvalidOperationException>(updateAct);
     }
 
-
     [Fact]
     public async Task Should_Delete_Item_By_Id()
     {
@@ -305,9 +242,9 @@ public class DataAccessTests : IDisposable
 
         var testDto = await _dataAccess?.CreateAsync(testDtoObj)!;
 
-        await _dataAccess.DeleteByIdAsync(testDto.Id!, testDto.Test!);
+        await _dataAccess.DeleteAsync(testDto.Id!);
 
-        var getAct = async () => await _dataAccess?.GetAsync(testDto.Id!, testDto.Test!)!;
+        var getAct = async () => await _dataAccess?.GetAsync(testDto.Id!)!;
         await Assert.ThrowsAsync<CosmosException>(getAct);
     }
 
@@ -323,9 +260,9 @@ public class DataAccessTests : IDisposable
 
         var testDto = await _dataAccess?.CreateAsync(testDtoObj)!;
 
-        await _dataAccess.DeleteAsync(testDto);
+        await _dataAccess.DeleteAsync(testDto.Id!);
 
-        var getAct = (Func<Task<TestDto>>) (async () => await _dataAccess?.GetAsync(testDto.Id!, testDto.Test!)!);
+        var getAct = (Func<Task<TestDto>>) (async () => await _dataAccess?.GetAsync(testDto.Id!)!);
         await Assert.ThrowsAsync<CosmosException>(getAct);
     }
 }

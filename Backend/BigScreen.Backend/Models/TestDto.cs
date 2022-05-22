@@ -1,7 +1,7 @@
 ﻿using System.Runtime.Serialization;
 using BigScreen.SDK.WebAPI.Core;
 
-namespace BigScreen.Backend.Core.Models;
+namespace BigScreen.Backend.Models;
 
 [DataContract]
 public class TestDto : BaseDto

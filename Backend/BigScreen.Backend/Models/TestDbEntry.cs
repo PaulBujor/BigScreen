@@ -1,7 +1,7 @@
 ﻿using BigScreen.SDK.DataAccess.Core;
 using BigScreen.SDK.DataAccess.Core.Attributes;
 
-namespace BigScreen.Backend.Core.Models;
+namespace BigScreen.Backend.Models;
 
 [DbContainer(PartitionKey = nameof(PartitionKey))]
 public class TestDbEntry : BaseDbEntry
