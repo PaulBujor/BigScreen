@@ -1,4 +1,5 @@
-﻿using BigScreen.Frontend.Core;
+﻿using BigScreen.Frontend.Client.Constants;
+using BigScreen.Frontend.Core;
 using BigScreen.Frontend.Core.Attributes;
 using BigScreen.Frontend.Core.Helpers;
 using BigScreen.SDK.Client.Abstractions;
@@ -17,7 +18,7 @@ public class TmdbClient<TDto> : IClient<TDto> where TDto : TmdbDto
         _httpClient = httpClientFactory.CreateClient(TmdbClientConstants.ClientName);
     }
 
-    public async Task<TDto?> GetAsync(string? id, string? additionalUri = null,
+    public async Task<TDto?> GetAsync(string? id = null, string? additionalUri = null,
         Dictionary<string, string>? query = null)
     {
         var responseMessage = await _httpClient.GetAsync(await CreateUri(id, additionalUri, query));
@@ -44,8 +45,9 @@ public class TmdbClient<TDto> : IClient<TDto> where TDto : TmdbDto
         {
             uri = QueryHelpers.AddQueryString(uri, query);
         }
-        
-        uri = QueryHelpers.AddQueryString(uri, "api_key", await KeyVaultHelper.GetTmdbApiKey());
+
+        var key = KeyVaultHelper.GetTmdbApiKey();
+        uri = QueryHelpers.AddQueryString(uri, "api_key", key);
 
         return uri;
     }

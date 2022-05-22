@@ -1,0 +1,21 @@
+﻿@page "/search"
+@page "/search/{Query}"
+@using BigScreen.Frontend.Core.Enums
+
+<PageTitle>Search</PageTitle>
+
+<MudText Typo="Typo.h4" GutterBottom="true">Explore millions of movies, TV shows and people.</MudText>
+
+<MudGrid Justify="Justify.FlexEnd">
+    <MudItem xs="10">
+        <MudTextField @bind-Value="ViewModel.SearchQuery" Label="@ViewModel.SearchTextFieldText" Adornment="Adornment.End" AdornmentIcon="@Icons.Filled.Search"/>
+    </MudItem>
+    <MudItem xs="2">
+        <MudSelect @bind-Value="ViewModel.SearchFilter" Label="@ViewModel.SearchFilterText">
+            <MudSelectItem Value="SearchFilter.All">All</MudSelectItem>
+            <MudSelectItem Value="SearchFilter.Movies">Movies</MudSelectItem>
+            <MudSelectItem Value="SearchFilter.TvShows">TV Shows</MudSelectItem>
+            <MudSelectItem Value="SearchFilter.People">People</MudSelectItem>
+        </MudSelect>
+    </MudItem>
+</MudGrid>
