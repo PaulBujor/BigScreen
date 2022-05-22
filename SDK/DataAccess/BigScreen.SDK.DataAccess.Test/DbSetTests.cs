@@ -253,26 +253,6 @@ public class DbSetTests : IDisposable
     }
 
     [Fact]
-    public async Task Should_Not_Update_If_Cosmos_Problem()
-    {
-        var person = new TestPersonDbEntry
-        {
-            FirstName = "Johnny",
-            LastName = "You know who"
-        };
-
-        var result = await _dbSet.CreateAsync(person);
-
-        result.FirstName = "Mary";
-        result.LastName = "You know what";
-
-        //make Cosmos fail
-        _connector?.DeleteContainerAsync<TestPersonDbEntry>();
-
-        await Assert.ThrowsAsync<UpdateFailedException>(async () => await _dbSet.UpdateAsync(result));
-    }
-
-    [Fact]
     public async Task Should_Not_Update_If_Missing_ID_Changed()
     {
         var person = new TestPersonDbEntry
