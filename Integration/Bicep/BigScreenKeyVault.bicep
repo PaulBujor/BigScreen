@@ -4,6 +4,7 @@ param tenantId string = tenant().tenantId
 param api string
 param client string
 param tmdbApiKey string
+param cosmosName string
 
 resource KeyVault 'Microsoft.KeyVault/vaults@2021-10-01' = {
   location: location
@@ -69,10 +70,30 @@ resource KeyVault 'Microsoft.KeyVault/vaults@2021-10-01' = {
   }
 }
 
-resource keyVaultSecret 'Microsoft.KeyVault/vaults/secrets@2019-09-01' = {
+resource tmdbSecret 'Microsoft.KeyVault/vaults/secrets@2019-09-01' = {
   name: 'tmdbApiKey'
   parent: KeyVault
   properties: {
     value: tmdbApiKey
+  }
+}
+
+resource Cosmos 'Microsoft.DocumentDB/databaseAccounts@2021-10-15' existing = {
+  name: cosmosName
+}
+
+resource cosmosURL 'Microsoft.KeyVault/vaults/secrets@2019-09-01' = {
+  name: 'cosmosURL'
+  parent: KeyVault
+  properties: {
+    value: Cosmos.properties.documentEndpoint
+  }
+}
+
+resource cosmosAccessKey 'Microsoft.KeyVault/vaults/secrets@2019-09-01' = {
+  name: 'cosmosAccessKey'
+  parent: KeyVault
+  properties: {
+    value: Cosmos.listKeys().primaryMasterKey
   }
 }
