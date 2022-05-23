@@ -1,4 +1,7 @@
-﻿using Azure.Security.KeyVault.Secrets;
+﻿// ReSharper disable once RedundantUsingDirective
+
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 
 namespace BigScreen.Backend.Security;
 

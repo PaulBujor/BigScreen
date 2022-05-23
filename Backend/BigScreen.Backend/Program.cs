@@ -10,7 +10,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 var keyVaultClient = new KeyVaultClient();
 
-//todo move to KeyVault once we have production Cosmos DB
 var cosmosEndPoint = keyVaultClient.GetEndPoint();
 
 var accessKey = keyVaultClient.GetAccessKey();
