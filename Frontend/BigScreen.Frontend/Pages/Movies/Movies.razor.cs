@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿namespace BigScreen.Frontend.Pages.Movies;
 
-namespace BigScreen.Frontend.Pages.Movies;
+using Microsoft.AspNetCore.Components;
 
 public partial class Movies : ComponentBase
 {

@@ -1,8 +1,8 @@
-﻿using BigScreen.Core.Models.TMDb;
-using BigScreen.Frontend.Client.Handlers.Interfaces;
-using BigScreen.Frontend.Core.Enums;
+﻿namespace BigScreen.Frontend.Pages.Search.ViewModel;
 
-namespace BigScreen.Frontend.Pages.Search.ViewModel;
+using BigScreen.Core.Models.TMDb;
+using Client.Handlers.Interfaces;
+using Core.Enums;
 
 public class SearchViewModel : ISearchViewModel
 {
@@ -28,6 +28,7 @@ public class SearchViewModel : ISearchViewModel
             }
         }
     }
+
     public Action RefreshView { get; set; } = null!;
     public string SearchFilterText => "Search in";
     public string SearchTextFieldText => "Search";
@@ -61,7 +62,7 @@ public class SearchViewModel : ISearchViewModel
             }
         }
     }
-    
+
     public void DisposeViewModel()
     {
         _currentPage = 1;
@@ -80,5 +81,4 @@ public class SearchViewModel : ISearchViewModel
     {
         _currentPage = 1;
     }
-    
 }

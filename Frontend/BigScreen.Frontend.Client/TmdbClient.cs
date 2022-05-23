@@ -21,14 +21,14 @@ public class TmdbClient<TDto> : IClient<TDto> where TDto : TmdbDto
     public async Task<TDto?> GetAsync(string? id = null, string? additionalUri = null,
         Dictionary<string, string>? query = null)
     {
-        var responseMessage = await _httpClient.GetAsync(await CreateUri(id, additionalUri, query));
+        var responseMessage = await _httpClient.GetAsync(CreateUri(id, additionalUri, query));
         responseMessage.EnsureSuccessStatusCode();
         var result = await responseMessage.Content.ReadAsStringAsync();
         var obj = JsonConvert.DeserializeObject<TDto>(result);
         return obj;
     }
 
-    private async Task<string> CreateUri(string? id, string? additionalUri, Dictionary<string, string>? query)
+    private string CreateUri(string? id, string? additionalUri, Dictionary<string, string>? query)
     {
         var uri = typeof(TDto).GetAttribute<TmdbDtoAttribute>().RequestUri;
         if (!string.IsNullOrEmpty(id))

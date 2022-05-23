@@ -1,7 +1,7 @@
-﻿using BigScreen.Frontend.Pages.Home.ViewModel;
-using Microsoft.AspNetCore.Components;
+﻿namespace BigScreen.Frontend.Pages.Home;
 
-namespace BigScreen.Frontend.Pages.Home;
+using Microsoft.AspNetCore.Components;
+using ViewModel;
 
 public partial class Home : ComponentBase
 {

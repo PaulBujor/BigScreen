@@ -7,24 +7,24 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.4"/>
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.4" PrivateAssets="all"/>
-        <PackageReference Include="MudBlazor" Version="6.0.9"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.4" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.4" PrivateAssets="all" />
+        <PackageReference Include="MudBlazor" Version="6.0.9" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\SDK\Client\BigScreen.SDK.Client\BigScreen.SDK.Client.csproj"/>
-        <ProjectReference Include="..\BigScreen.Frontend.Client\BigScreen.Frontend.Client.csproj"/>
-        <ProjectReference Include="..\BigScreen.Frontend.Core\BigScreen.Frontend.Core.csproj"/>
+        <ProjectReference Include="..\..\SDK\Client\BigScreen.SDK.Client\BigScreen.SDK.Client.csproj" />
+        <ProjectReference Include="..\BigScreen.Frontend.Client\BigScreen.Frontend.Client.csproj" />
+        <ProjectReference Include="..\BigScreen.Frontend.Core\BigScreen.Frontend.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Components\"/>
-        <Folder Include="Pages\Home\ViewModel\"/>
-        <Folder Include="Pages\Movies\ViewModel\"/>
-        <Folder Include="Pages\People\ViewModel\"/>
-        <Folder Include="Pages\Search\ViewModel\"/>
-        <Folder Include="Pages\TvShows\ViewModel\"/>
+        <Folder Include="Components\" />
+        <Folder Include="Pages\Home\ViewModel\" />
+        <Folder Include="Pages\Movies\ViewModel\" />
+        <Folder Include="Pages\People\ViewModel\" />
+        <Folder Include="Pages\Search\ViewModel\" />
+        <Folder Include="Pages\TvShows\ViewModel\" />
     </ItemGroup>
 
 

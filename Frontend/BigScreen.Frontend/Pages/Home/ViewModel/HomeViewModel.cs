@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿namespace BigScreen.Frontend.Pages.Home.ViewModel;
 
-namespace BigScreen.Frontend.Pages.Home.ViewModel;
+using Microsoft.AspNetCore.Components;
 
 public class HomeViewModel : IHomeViewModel
 {

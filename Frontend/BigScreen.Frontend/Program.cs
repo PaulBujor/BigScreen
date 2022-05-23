@@ -4,6 +4,7 @@ using BigScreen.Frontend.Client;
 using BigScreen.Frontend.Client.Constants;
 using BigScreen.Frontend.Client.Handlers;
 using BigScreen.Frontend.Client.Handlers.Interfaces;
+using BigScreen.Frontend.Components.SearchResult.ViewModel;
 using BigScreen.Frontend.Core.Helpers;
 using BigScreen.Frontend.Pages.Home.ViewModel;
 using BigScreen.Frontend.Pages.Search.ViewModel;
@@ -33,6 +34,7 @@ builder.Services.AddScoped<ISearchPageResultsHandler, SearchPageResultsHandler>(
 
 // ViewModels
 builder.Services.AddScoped<ISearchViewModel, SearchViewModel>();
+builder.Services.AddTransient<ISearchResultViewModel, SearchResultViewModel>();
 builder.Services.AddScoped<IHomeViewModel, HomeViewModel>();
 
 builder.Services.AddMudServices();
