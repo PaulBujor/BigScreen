@@ -7,9 +7,9 @@ namespace BigScreen.Frontend.Pages.Search.ViewModel;
 public class SearchViewModel : ISearchViewModel
 {
     private readonly ISearchPageResultsHandler _searchHandler;
+    private int _currentPage = 1;
     private SearchFilter _searchFilter = SearchFilter.All;
     private string _searchQuery = string.Empty;
-    private int _currentPage = 1;
 
     public SearchViewModel(ISearchPageResultsHandler searchHandler)
     {
@@ -62,7 +62,7 @@ public class SearchViewModel : ISearchViewModel
             }
         }
     }
-    
+
     private async Task CallSearch(string query, int page = 1)
     {
         PageResults = await _searchHandler.GetSearchPageResults(SearchFilter, query, page);

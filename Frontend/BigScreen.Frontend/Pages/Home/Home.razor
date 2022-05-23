@@ -4,3 +4,7 @@
 
 <MudText Typo="Typo.h3" GutterBottom="true">Welcome to BigScreen!</MudText>
 <MudText Typo="Typo.h4">Get the bigger picture of your favorite movies, TV series, and actors.</MudText>
+
+<MudTextField T="string" ValueChanged="ViewModel.OnValueChanged" Label="Search" 
+              Variant="Variant.Filled" Class="mt-9" 
+              Adornment="Adornment.End" AdornmentIcon="@Icons.Filled.Search" DebounceInterval="500"/>

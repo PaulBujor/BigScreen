@@ -1,5 +1,5 @@
 ﻿@page "/search"
-@page "/search?query={Query}"
+@page "/search/{Query}"
 @using BigScreen.Frontend.Core.Enums
 
 <PageTitle>Search</PageTitle>
@@ -8,7 +8,8 @@
 
 <MudGrid Justify="Justify.FlexEnd">
     <MudItem xs="10">
-        <MudTextField @bind-Value="ViewModel.SearchQuery" Label="@ViewModel.SearchTextFieldText" Adornment="Adornment.End" AdornmentIcon="@Icons.Filled.Search" DebounceInterval="500"/>
+        <MudTextField @bind-Value="ViewModel.SearchQuery" Label="@ViewModel.SearchTextFieldText" 
+                      Adornment="Adornment.End" AdornmentIcon="@Icons.Filled.Search" DebounceInterval="500"/>
     </MudItem>
     <MudItem xs="2">
         <MudSelect @bind-Value="ViewModel.SearchFilter" Label="@ViewModel.SearchFilterText">
