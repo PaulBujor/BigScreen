@@ -21,9 +21,6 @@ module Apps 'BigScreenApps.bicep' = {
 module Cosmos 'BigScreenCosmos.bicep' = {
   name: 'Cosmos'
   scope: ResourceGroup
-  params: {
-    location: location
-  }
 }
 
 module KeyVault 'BigScreenKeyVault.bicep' = {

@@ -1,4 +1,4 @@
-param location string = 'northeurope'
+param location string = 'eastus'
 
 resource CosmosAccount 'Microsoft.DocumentDB/databaseAccounts@2021-10-15' = {
   name: 'bigscreen'
