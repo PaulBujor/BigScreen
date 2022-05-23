@@ -12,6 +12,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\Frontend\BigScreen.Frontend.Core\BigScreen.Frontend.Core.csproj"/>
+        <ProjectReference Include="..\..\SDK\WebAPI\BigScreen.SDK.WebAPI.Core\BigScreen.SDK.WebAPI.Core.csproj"/>
     </ItemGroup>
 
 </Project>
