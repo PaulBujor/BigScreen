@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using BigScreen.SDK.DataAccess.Abstractions;
 using BigScreen.SDK.DataAccess.Core;
-using BigScreen.SDK.DataAccess.Extensions;
 using BigScreen.SDK.WebAPI.Abstractions;
 using BigScreen.SDK.WebAPI.Core;
 
@@ -18,24 +17,18 @@ public class DataAccess<TDto, TDbEntry> : IDataAccess<TDto> where TDto : BaseDto
         _dbSet = dbSet;
     }
 
-    public async Task<List<TDto>> GetAllAsync()
+    public async Task<List<TDto>> GetAsync()
     {
         var resultEntry = _dbSet.ToList();
         var resultDto = _mapper.Map<List<TDbEntry>, List<TDto>>(resultEntry);
         return await Task.FromResult(resultDto);
     }
 
-    public async Task<List<TDto>> GetAllAsync(string partitionKey)
+    public async Task<TDto> GetAsync(string key)
     {
-        var resultEntry = _dbSet.Where(entry => entry.GetPartitionKeyValue() == partitionKey).ToList();
-        var resultDto = _mapper.Map<List<TDbEntry>, List<TDto>>(resultEntry);
-        return await Task.FromResult(resultDto);
-    }
-
-    public async Task<TDto> GetAsync(string id, string partitionKey)
-    {
-        var result = await _dbSet.GetAsync(id, partitionKey);
-        return _mapper.Map<TDbEntry, TDto>(result);
+        var resultEntry = await _dbSet.GetAsync(key);
+        var resultDto = _mapper.Map<TDbEntry, TDto>(resultEntry);
+        return resultDto;
     }
 
     public async Task<TDto> CreateAsync(TDto dto)
@@ -52,14 +45,8 @@ public class DataAccess<TDto, TDbEntry> : IDataAccess<TDto> where TDto : BaseDto
         return _mapper.Map<TDbEntry, TDto>(result);
     }
 
-    public Task DeleteByIdAsync(string id, string partitionKey)
+    public async Task DeleteAsync(string key)
     {
-        return _dbSet.DeleteByIdAsync(id, partitionKey);
-    }
-
-    public Task DeleteAsync(TDto dto)
-    {
-        var entry = _mapper.Map<TDto, TDbEntry>(dto);
-        return _dbSet.DeleteAsync(entry);
+        await _dbSet.DeleteAsync(key);
     }
 }

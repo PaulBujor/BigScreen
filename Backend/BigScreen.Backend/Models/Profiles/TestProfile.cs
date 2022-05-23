@@ -1,6 +1,6 @@
 ﻿using BigScreen.SDK.WebAPI.Core;
 
-namespace BigScreen.SDK.WebAPI.Test.Models.DataAccessBuilderTest.Profiles;
+namespace BigScreen.Backend.Models.Profiles;
 
 public class TestProfile : BaseProfile<TestDto, TestDbEntry>
 {
