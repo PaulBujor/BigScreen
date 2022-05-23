@@ -18,6 +18,14 @@ module Apps 'BigScreenApps.bicep' = {
   }
 }
 
+module Cosmos 'BigScreenCosmos.bicep' = {
+  name: 'Cosmos'
+  scope: ResourceGroup
+  params: {
+    location: location
+  }
+}
+
 module KeyVault 'BigScreenKeyVault.bicep' = {
   name: 'KeyVault'
   params: {
@@ -26,6 +34,7 @@ module KeyVault 'BigScreenKeyVault.bicep' = {
     api: Apps.outputs.api
     client: Apps.outputs.client
     tmdbApiKey: tmdbApiKey
+    cosmosName: Cosmos.outputs.cosmosName
   }
   scope: ResourceGroup
 }

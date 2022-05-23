@@ -1,4 +1,5 @@
 using BigScreen.Backend.Models;
+using BigScreen.Backend.Security;
 using BigScreen.SDK.DataAccess.Extensions;
 using BigScreen.SDK.WebAPI.Extensions;
 using Microsoft.AspNetCore.OData;
@@ -7,15 +8,22 @@ using Microsoft.OData.ModelBuilder;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//todo move to KeyVault once we have production Cosmos DB
-const string httpsLocalhost = "https://localhost:8081";
+var keyVaultClient = new KeyVaultClient();
 
-const string accessKey = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
+//todo move to KeyVault once we have production Cosmos DB
+var cosmosEndPoint = keyVaultClient.GetEndPoint();
+
+var accessKey = keyVaultClient.GetAccessKey();
 
 const string databaseName = "BigScreen";
 
 // Add services to the container.
-builder.Services.AddCosmosDb(httpsLocalhost, accessKey, databaseName).AddDbSet<TestDbEntry>();
+builder.Services.AddCosmosDb(cosmosEndPoint, accessKey, databaseName)
+    .AddDbSet<TestDbEntry>()
+    .AddDbSet<CommentDbEntry>()
+    .AddDbSet<RatingDbEntry>()
+    .AddDbSet<TopListDbEntry>()
+    .AddDbSet<UserDbEntry>();
 builder.Services.AddDataAccess().Add<TestDto, TestDbEntry>().Build();
 builder.Services.AddControllers().AddOData(opt =>
     opt.Select().Filter().OrderBy().Count()
