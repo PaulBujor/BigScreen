@@ -20,11 +20,17 @@
 
     <ItemGroup>
         <Folder Include="Components\" />
-        <Folder Include="Pages\Home\ViewModel\" />
-        <Folder Include="Pages\Movies\ViewModel\" />
-        <Folder Include="Pages\People\ViewModel\" />
+        <Folder Include="Pages\DetailsPages\Movie\ViewModel" />
+        <Folder Include="Pages\DetailsPages\Person\ViewModel" />
+        <Folder Include="Pages\DetailsPages\TvShow\ViewModel" />
         <Folder Include="Pages\Search\ViewModel\" />
-        <Folder Include="Pages\TvShows\ViewModel\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="Pages\GeneralPages\Movies\Movies.razor" />
+        <AdditionalFiles Include="Pages\GeneralPages\People\People.razor" />
+        <AdditionalFiles Include="Pages\GeneralPages\TvShows\TvShows.razor" />
+        <AdditionalFiles Include="Pages\Home\Home.razor" />
     </ItemGroup>
 
 

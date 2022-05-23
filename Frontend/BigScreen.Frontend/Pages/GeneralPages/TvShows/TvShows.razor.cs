@@ -1,4 +1,4 @@
-﻿namespace BigScreen.Frontend.Pages.TvShows;
+﻿namespace BigScreen.Frontend.Pages.GeneralPages.TvShows;
 
 using Microsoft.AspNetCore.Components;
 

@@ -28,7 +28,7 @@ public class SearchResultViewModel : ISearchResultViewModel
             SearchFilter.All => $"/{ConvertTypeForGeneralRouting(Result.Type)}",
             SearchFilter.Movies => $"/{RouteConstants.MoviesGeneral}",
             SearchFilter.People => $"/{RouteConstants.PeopleGeneral}",
-            SearchFilter.TvShows => $"/{RouteConstants.TvShowDetails}",
+            SearchFilter.TvShows => $"/{RouteConstants.TvShowsGeneral}",
             _ => throw new ArgumentOutOfRangeException()
         };
     }

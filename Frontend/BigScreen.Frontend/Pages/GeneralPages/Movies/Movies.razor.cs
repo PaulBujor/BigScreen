@@ -1,4 +1,4 @@
-﻿namespace BigScreen.Frontend.Pages.Movies;
+﻿namespace BigScreen.Frontend.Pages.GeneralPages.Movies;
 
 using Microsoft.AspNetCore.Components;
 

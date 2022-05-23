@@ -13,7 +13,7 @@ public class RouteConstants
     public const string MoviesGeneral = "movies";
 
     //Tv show
-    public const string TvShowDetails = "tvshows";
+    public const string TvShowDetails = "tvshow";
     public const string TvShowsGeneral = "tvshows";
 
     //People
