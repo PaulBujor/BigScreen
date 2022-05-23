@@ -1,4 +1,5 @@
-﻿using BigScreen.SDK.WebAPI.Abstractions;
+﻿using BigScreen.SDK.DataAccess.Exceptions;
+using BigScreen.SDK.WebAPI.Abstractions;
 using BigScreen.SDK.WebAPI.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Formatter;
@@ -24,9 +25,13 @@ public abstract class BaseODataController<TDto> : ODataController where TDto : B
         {
             return Ok(await _dataAccess.GetAsync());
         }
+        catch (ItemNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
         catch (CosmosException e)
         {
-            return StatusCode((int) e.StatusCode);
+            return StatusCode((int) e.StatusCode, e.Message);
         }
     }
 
@@ -37,9 +42,13 @@ public abstract class BaseODataController<TDto> : ODataController where TDto : B
         {
             return Ok(await _dataAccess.GetAsync(key));
         }
+        catch (ItemNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
         catch (CosmosException e)
         {
-            return StatusCode((int) e.StatusCode);
+            return StatusCode((int) e.StatusCode, e.Message);
         }
     }
 
@@ -51,7 +60,7 @@ public abstract class BaseODataController<TDto> : ODataController where TDto : B
         }
         catch (CosmosException e)
         {
-            return StatusCode((int) e.StatusCode);
+            return StatusCode((int) e.StatusCode, e.Message);
         }
     }
 
@@ -61,13 +70,21 @@ public abstract class BaseODataController<TDto> : ODataController where TDto : B
         {
             return Ok(await _dataAccess.UpdateAsync(dto));
         }
+
         catch (CosmosException e)
         {
-            return StatusCode((int) e.StatusCode);
+            return StatusCode((int) e.StatusCode, e.Message);
         }
-        catch (InvalidOperationException e)
+        catch (ItemNotFoundException e)
         {
-            return BadRequest(e.Message);
+            return NotFound(e.Message);
+        }
+        catch (Exception e)
+        {
+            if (e.GetType() == typeof(ETagMismatchException) || e.GetType() == typeof(PartitionMismatchException))
+                return BadRequest(e.Message);
+
+            return StatusCode(500, e.Message);
         }
     }
 
@@ -78,9 +95,13 @@ public abstract class BaseODataController<TDto> : ODataController where TDto : B
             await _dataAccess.DeleteAsync(key);
             return NoContent();
         }
+        catch (ItemNotFoundException e)
+        {
+            return StatusCode(404, e.Message);
+        }
         catch (CosmosException e)
         {
-            return StatusCode((int) e.StatusCode);
+            return StatusCode((int) e.StatusCode, e.Message);
         }
     }
 }
