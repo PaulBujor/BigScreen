@@ -12,4 +12,5 @@ public interface ISearchViewModel
     SearchPageResultsDto? PageResults { get; }
     Action RefreshView { get; set; }
     int CurrentPage { get; set; }
+    void DisposeViewModel();
 }

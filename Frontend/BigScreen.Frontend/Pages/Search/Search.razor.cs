@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace BigScreen.Frontend.Pages.Search;
 
-public partial class Search : ComponentBase
+public partial class Search : ComponentBase, IDisposable
 {
     [Parameter] public string? Query { get; set; }
 
@@ -18,5 +18,11 @@ public partial class Search : ComponentBase
 
         ViewModel.RefreshView += StateHasChanged;
         return base.OnInitializedAsync();
+    }
+
+    public void Dispose()
+    {
+        ViewModel.DisposeViewModel();
+        ViewModel.RefreshView -= StateHasChanged;
     }
 }

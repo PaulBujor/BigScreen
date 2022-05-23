@@ -5,5 +5,6 @@ namespace BigScreen.Frontend.Components;
 
 public partial class SearchResult : ComponentBase
 {
-    [Parameter] public SearchResultDto Result { get; set; }
+    [Parameter] public SearchResultDto? Result { get; set; }
+
 }

@@ -28,7 +28,6 @@ public class SearchViewModel : ISearchViewModel
             }
         }
     }
-
     public Action RefreshView { get; set; } = null!;
     public string SearchFilterText => "Search in";
     public string SearchTextFieldText => "Search";
@@ -62,6 +61,14 @@ public class SearchViewModel : ISearchViewModel
             }
         }
     }
+    
+    public void DisposeViewModel()
+    {
+        _currentPage = 1;
+        _searchFilter = SearchFilter.All;
+        _searchQuery = string.Empty;
+        PageResults = null;
+    }
 
     private async Task CallSearch(string query, int page = 1)
     {
@@ -73,4 +80,5 @@ public class SearchViewModel : ISearchViewModel
     {
         _currentPage = 1;
     }
+    
 }
