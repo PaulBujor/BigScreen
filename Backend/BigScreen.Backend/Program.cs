@@ -1,5 +1,6 @@
 using BigScreen.Backend.Models;
 using BigScreen.Backend.Security;
+using BigScreen.Core.Models.BigScreen;
 using BigScreen.SDK.DataAccess.Extensions;
 using BigScreen.SDK.WebAPI.Extensions;
 using Microsoft.AspNetCore.OData;
@@ -18,15 +19,19 @@ const string databaseName = "BigScreen";
 
 // Add services to the container.
 builder.Services.AddCosmosDb(cosmosEndPoint, accessKey, databaseName)
-    .AddDbSet<TestDbEntry>()
     .AddDbSet<CommentDbEntry>()
     .AddDbSet<RatingDbEntry>()
     .AddDbSet<TopListDbEntry>()
     .AddDbSet<UserDbEntry>();
-builder.Services.AddDataAccess().Add<TestDto, TestDbEntry>().Build();
+builder.Services.AddDataAccess().Add<CommentDto, CommentDbEntry>()
+    .Add<RatingDto, RatingDbEntry>()
+    .Add<TopListDto, TopListDbEntry>()
+    .Add<UserDto, UserDbEntry>()
+    .Build();
 builder.Services.AddControllers().AddOData(opt =>
-    opt.Select().Filter().OrderBy().Count()
-        .AddRouteComponents("api/movies", GetEdmModel()));
+    opt.Select().Filter().OrderBy().Count().Expand()
+        .AddRouteComponents("api", GetEdmModel()));
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -51,6 +56,9 @@ app.Run();
 static IEdmModel GetEdmModel()
 {
     var builder = new ODataConventionModelBuilder();
-    builder.EntitySet<TestDto>("Test");
+    builder.EntitySet<CommentDto>("Comments");
+    builder.EntitySet<RatingDto>("Ratings");
+    builder.EntitySet<UserDto>("Users");
+    builder.EntitySet<TopListDto>("TopLists");
     return builder.GetEdmModel();
 }
