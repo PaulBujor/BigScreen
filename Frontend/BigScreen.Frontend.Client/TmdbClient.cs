@@ -1,4 +1,5 @@
-﻿using BigScreen.Frontend.Core;
+﻿using BigScreen.Frontend.Client.Constants;
+using BigScreen.Frontend.Core;
 using BigScreen.Frontend.Core.Attributes;
 using BigScreen.Frontend.Core.Helpers;
 using BigScreen.SDK.Client.Abstractions;
@@ -17,17 +18,17 @@ public class TmdbClient<TDto> : IClient<TDto> where TDto : TmdbDto
         _httpClient = httpClientFactory.CreateClient(TmdbClientConstants.ClientName);
     }
 
-    public async Task<TDto?> GetAsync(string? id, string? additionalUri = null,
+    public async Task<TDto?> GetAsync(string? id = null, string? additionalUri = null,
         Dictionary<string, string>? query = null)
     {
-        var responseMessage = await _httpClient.GetAsync(await CreateUri(id, additionalUri, query));
+        var responseMessage = await _httpClient.GetAsync(CreateUri(id, additionalUri, query));
         responseMessage.EnsureSuccessStatusCode();
         var result = await responseMessage.Content.ReadAsStringAsync();
         var obj = JsonConvert.DeserializeObject<TDto>(result);
         return obj;
     }
 
-    private async Task<string> CreateUri(string? id, string? additionalUri, Dictionary<string, string>? query)
+    private string CreateUri(string? id, string? additionalUri, Dictionary<string, string>? query)
     {
         var uri = typeof(TDto).GetAttribute<TmdbDtoAttribute>().RequestUri;
         if (!string.IsNullOrEmpty(id))
@@ -44,8 +45,9 @@ public class TmdbClient<TDto> : IClient<TDto> where TDto : TmdbDto
         {
             uri = QueryHelpers.AddQueryString(uri, query);
         }
-        
-        uri = QueryHelpers.AddQueryString(uri, "api_key", await KeyVaultHelper.GetTmdbApiKey());
+
+        var key = KeyVaultHelper.TmdbApiKey;
+        uri = QueryHelpers.AddQueryString(uri, "api_key", key);
 
         return uri;
     }

@@ -1,0 +1,20 @@
+﻿<MudPaper Elevation="2" Class="my-8 d-flex">
+    @if (string.IsNullOrEmpty(Result.ImageUrl))
+    {
+        <div class="image-not-found d-flex justify-center align-center mud-theme-dark">
+            <MudIcon Icon="@Icons.Outlined.ImageNotSupported" Size="Size.Large"/>
+        </div>
+    }
+    else
+    {
+        <MudLink Href="@ViewModel.GetResultHref()" Underline="Underline.None">
+            <MudImage Src="@Result.ImageUrl" Style="vertical-align: bottom"/>
+        </MudLink>
+    }
+    <div class="d-flex flex-column">
+        <div class="d-flex flex-column px-2 py-2">
+            <MudLink Href="@ViewModel.GetResultHref()" Typo="Typo.h6" Color="Color.Dark" Underline="Underline.None">@Result.Name</MudLink>
+            <MudLink Href="@ViewModel.GetTypeHref()" Typo="Typo.caption" Color="Color.Dark" Underline="Underline.None">@ViewModel.GetTypeDisplay()</MudLink>
+        </div>
+    </div>
+</MudPaper>

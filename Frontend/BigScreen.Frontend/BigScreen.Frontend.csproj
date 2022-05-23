@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
@@ -16,6 +16,21 @@
         <ProjectReference Include="..\..\SDK\Client\BigScreen.SDK.Client\BigScreen.SDK.Client.csproj"/>
         <ProjectReference Include="..\BigScreen.Frontend.Client\BigScreen.Frontend.Client.csproj"/>
         <ProjectReference Include="..\BigScreen.Frontend.Core\BigScreen.Frontend.Core.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Components\"/>
+        <Folder Include="Pages\DetailsPages\Movie\ViewModel"/>
+        <Folder Include="Pages\DetailsPages\Person\ViewModel"/>
+        <Folder Include="Pages\DetailsPages\TvShow\ViewModel"/>
+        <Folder Include="Pages\Search\ViewModel\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="Pages\GeneralPages\Movies\Movies.razor"/>
+        <AdditionalFiles Include="Pages\GeneralPages\People\People.razor"/>
+        <AdditionalFiles Include="Pages\GeneralPages\TvShows\TvShows.razor"/>
+        <AdditionalFiles Include="Pages\Home\Home.razor"/>
     </ItemGroup>
 
 

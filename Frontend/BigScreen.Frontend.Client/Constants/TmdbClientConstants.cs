@@ -1,4 +1,4 @@
-﻿namespace BigScreen.Frontend.Client;
+﻿namespace BigScreen.Frontend.Client.Constants;
 
 public class TmdbClientConstants
 {
