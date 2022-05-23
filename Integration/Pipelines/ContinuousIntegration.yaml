@@ -8,7 +8,6 @@ parameters:
   - name: testProjects
     type: object
     default: 
-      - '/Backend/BigScreen.Backend.Test/BigScreen.Backend.Test.csproj'
       - '/SDK/DataAccess/BigScreen.SDK.DataAccess.Test/BigScreen.SDK.DataAccess.Test.csproj'
       - '/SDK/WebAPI/BigScreen.SDK.WebAPI.Test/BigScreen.SDK.WebAPI.Test.csproj'
 
