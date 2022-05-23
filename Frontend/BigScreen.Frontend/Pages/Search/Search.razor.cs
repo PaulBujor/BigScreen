@@ -15,6 +15,8 @@ public partial class Search : ComponentBase
         {
             ViewModel.SearchQuery = Query;
         }
+
+        ViewModel.RefreshView += StateHasChanged;
         return base.OnInitializedAsync();
     }
 }

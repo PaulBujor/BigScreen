@@ -8,6 +8,10 @@ public class SearchResultDto
 {
     [JsonProperty(PropertyName = "id")] public int Id { get; set; }
     [JsonProperty(PropertyName = "name")] public string? Name { get; set; }
+    [JsonProperty(PropertyName = "title")] private string? Title
+    {
+        set => Name = value;
+    }
 
     [JsonProperty(PropertyName = "media_type")]
     public string? Type { get; set; }

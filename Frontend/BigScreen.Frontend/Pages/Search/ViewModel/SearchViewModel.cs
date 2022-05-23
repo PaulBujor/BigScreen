@@ -1,4 +1,5 @@
-﻿using BigScreen.Frontend.Client.Handlers.Interfaces;
+﻿using BigScreen.Core.Models.TMDb;
+using BigScreen.Frontend.Client.Handlers.Interfaces;
 using BigScreen.Frontend.Core.Enums;
 
 namespace BigScreen.Frontend.Pages.Search.ViewModel;
@@ -6,16 +7,34 @@ namespace BigScreen.Frontend.Pages.Search.ViewModel;
 public class SearchViewModel : ISearchViewModel
 {
     private readonly ISearchPageResultsHandler _searchHandler;
-    private string _searchQuery;
+    private SearchFilter _searchFilter = SearchFilter.All;
+    private string _searchQuery = null!;
 
     public SearchViewModel(ISearchPageResultsHandler searchHandler)
     {
         _searchHandler = searchHandler;
     }
 
-    public string SearchFilterText => "Search by";
+    public Action RefreshView { get; set; } = null!;
+
+    public string SearchFilterText => "Search in";
     public string SearchTextFieldText => "Search";
-    public SearchFilter SearchFilter { get; set; } = SearchFilter.All;
+
+    public SearchFilter SearchFilter
+    {
+        get => _searchFilter;
+        set
+        {
+            _searchFilter = value;
+
+            if (!string.IsNullOrEmpty(SearchQuery))
+            {
+                CallSearch(SearchQuery);
+            }
+        }
+    }
+
+    public SearchPageResultsDto? PageResults { get; set; }
 
     public string SearchQuery
     {
@@ -32,7 +51,7 @@ public class SearchViewModel : ISearchViewModel
 
     public async Task CallSearch(string query)
     {
-        var results = await _searchHandler.GetSearchPageResultsByType(SearchFilter, query);
-        Console.WriteLine("works");
+        PageResults = await _searchHandler.GetSearchPageResultsByType(SearchFilter, query);
+        RefreshView.Invoke();
     }
 }

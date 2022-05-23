@@ -46,7 +46,7 @@ public class TmdbClient<TDto> : IClient<TDto> where TDto : TmdbDto
             uri = QueryHelpers.AddQueryString(uri, query);
         }
 
-        var key = KeyVaultHelper.GetTmdbApiKey();
+        var key = KeyVaultHelper.TmdbApiKey;
         uri = QueryHelpers.AddQueryString(uri, "api_key", key);
 
         return uri;

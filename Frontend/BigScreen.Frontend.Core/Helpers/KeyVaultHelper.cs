@@ -5,15 +5,23 @@ namespace BigScreen.Frontend.Core.Helpers;
 
 public class KeyVaultHelper
 {
-    private const string TmbdApiKeySecretName = "tmdbApiKey";
+    private const string TmdbApiKeySecretName = "tmdbApiKey";
+    private readonly SecretClient _secretClient;
+    private readonly Uri KeyVaultName;
+    public const string TmdbApiKey = "460ff555602c9fc58a41487667e40b74";
 
-
-    public static string GetTmdbApiKey()
+    public KeyVaultHelper()
     {
-    var KeyVaultName = new Uri("https://bigscreen-vault.vault.azure.net/");
-    var defaultAzureCredential = new DefaultAzureCredential();
-    var SecretClient = new SecretClient(KeyVaultName, defaultAzureCredential);
-    var secret =  SecretClient.GetSecret(TmbdApiKeySecretName);
+        KeyVaultName = new Uri("https://bigscreen-vault.vault.azure.net/");
+        var defaultAzureCredential = new ManagedIdentityCredential();
+        _secretClient = new SecretClient(KeyVaultName, defaultAzureCredential);
+    }
+
+    // KeyVault doesn't work because of CORS
+    // Web and Azure KeyVault limitation
+    public async Task<string> GetTmdbApiKey()
+    {
+        var secret = await _secretClient.GetSecretAsync(TmdbApiKeySecretName);
         return secret.Value.Value;
     }
 }

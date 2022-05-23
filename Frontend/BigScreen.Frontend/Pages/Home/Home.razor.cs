@@ -4,5 +4,4 @@ namespace BigScreen.Frontend.Pages.Home;
 
 public partial class Home : ComponentBase
 {
-    
 }
