@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using BigScreen.SDK.DataAccess.Abstractions;
 using BigScreen.SDK.DataAccess.Core;
+using BigScreen.SDK.DataAccess.Exceptions;
 using BigScreen.SDK.DataAccess.Extensions;
 using Microsoft.Azure.Cosmos;
 
@@ -25,9 +26,19 @@ internal class DbSet<TDb> : IDbSet<TDb> where TDb : BaseDbEntry
         return GetEnumerator();
     }
 
-    public async Task<TDb> GetAsync(string id, string partitionKey)
+    public async Task<TDb> GetAsync(string key)
     {
-        return await _container.ReadItemAsync<TDb>(id, new PartitionKey(partitionKey));
+        try
+        {
+            var existingEntry = this.FirstOrDefault(entry => entry.Id == key);
+            if (existingEntry == null) throw new ItemNotFoundException(key);
+
+            return await Task.FromResult(existingEntry);
+        }
+        catch (CosmosException ce)
+        {
+            throw new ItemNotFoundException(key);
+        }
     }
 
     public async Task<TDb> CreateAsync(TDb tdb)
@@ -38,32 +49,27 @@ internal class DbSet<TDb> : IDbSet<TDb> where TDb : BaseDbEntry
 
     public async Task<TDb> UpdateAsync(TDb tdb)
     {
-        TDb existingEntry;
+        if (tdb.Id == null) throw new InvalidModelException(nameof(tdb.Id));
+
+        var existingEntry = await GetAsync(tdb.Id);
+        if (existingEntry.GetPartitionKeyValue() != tdb.GetPartitionKeyValue())
+            throw new PartitionMismatchException(tdb.Id, tdb.GetPartitionKeyValue());
+
+        if (existingEntry.ETag != tdb.ETag) throw new ETagMismatchException(tdb.Id, tdb.ETag!);
+
         try
         {
-            existingEntry = await GetAsync(tdb.Id!, tdb.GetPartitionKeyValue());
+            return await _container.UpsertItemAsync(tdb, new PartitionKey(tdb.GetPartitionKeyValue()));
         }
-        catch (CosmosException)
+        catch (CosmosException ce)
         {
-            throw new InvalidOperationException(
-                $"Update operation unsuccessful: object with ID={tdb.Id} does not exist in Partition={tdb.GetPartitionKeyValue()} \nYou cannot change partition key while updating.");
+            throw new UpdateFailedException(tdb.Id, ce);
         }
-
-        if (existingEntry.ETag != tdb.ETag)
-            throw new InvalidOperationException(
-                $"ETag mismatch when trying to updated object with ID={tdb.Id} in Partition={tdb.GetPartitionKeyValue()}");
-
-        return await _container.UpsertItemAsync(tdb, new PartitionKey(tdb.GetPartitionKeyValue()));
     }
 
-    public async Task DeleteByIdAsync(string id, string partitionKey)
+    public async Task DeleteAsync(string key)
     {
-        var tdb = await GetAsync(id, partitionKey);
-        await DeleteAsync(tdb);
-    }
-
-    public async Task DeleteAsync(TDb tdb)
-    {
-        await _container.DeleteItemAsync<TDb>(tdb.Id, new PartitionKey(tdb.GetPartitionKeyValue()));
+        var existingEntry = await GetAsync(key);
+        await _container.DeleteItemAsync<TDb>(existingEntry.Id, new PartitionKey(existingEntry.GetPartitionKeyValue()));
     }
 }

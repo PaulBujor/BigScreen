@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 using BigScreen.SDK.DataAccess.Abstractions;
+using BigScreen.SDK.DataAccess.Exceptions;
 using BigScreen.SDK.DataAccess.Extensions;
 using BigScreen.SDK.DataAccess.Test.Models.DbSetTest;
-using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Xunit;
@@ -62,7 +62,7 @@ public class DbSetTests : IDisposable
         };
 
         await _dbSet.CreateAsync(person);
-        var read = await _dbSet.GetAsync(person.Id!, person.GetPartitionKeyValue());
+        var read = await _dbSet.GetAsync(person.Id!);
 
         Assert.Equal(person.FirstName, read.FirstName);
         Assert.Equal(person.LastName, read.LastName);
@@ -228,7 +228,7 @@ public class DbSetTests : IDisposable
         Assert.NotEqual(result.ETag, update.ETag);
 
         //check that data is not duplicated - a second entry would be lower in the database and therefore not retrieved first by GetAsync
-        var readAgain = await _dbSet.GetAsync(person.Id!, person.GetPartitionKeyValue());
+        var readAgain = await _dbSet.GetAsync(person.Id!);
         Assert.Equal(update.FirstName, readAgain.FirstName);
         Assert.Equal(update.LastName, readAgain.LastName);
         Assert.Equal(update.Id, readAgain.Id);
@@ -249,7 +249,19 @@ public class DbSetTests : IDisposable
         result.FirstName = "Mary";
         result.LastName = "You know what";
 
-        await Assert.ThrowsAsync<InvalidOperationException>(async () => await _dbSet.UpdateAsync(result));
+        await Assert.ThrowsAsync<PartitionMismatchException>(async () => await _dbSet.UpdateAsync(result));
+    }
+
+    [Fact]
+    public async Task Should_Not_Update_If_Missing_ID_Changed()
+    {
+        var person = new TestPersonDbEntry
+        {
+            FirstName = "Johnny",
+            LastName = "You know who"
+        };
+
+        await Assert.ThrowsAsync<InvalidModelException>(async () => await _dbSet.UpdateAsync(person));
     }
 
     [Fact]
@@ -266,7 +278,7 @@ public class DbSetTests : IDisposable
         result.FirstName = "Mary";
         result.ETag = null;
 
-        await Assert.ThrowsAsync<InvalidOperationException>(async () => await _dbSet.UpdateAsync(result));
+        await Assert.ThrowsAsync<ETagMismatchException>(async () => await _dbSet.UpdateAsync(result));
     }
 
     [Fact]
@@ -283,7 +295,7 @@ public class DbSetTests : IDisposable
         result.FirstName = "Mary";
         result.ETag = "1234";
 
-        await Assert.ThrowsAsync<InvalidOperationException>(async () => await _dbSet.UpdateAsync(result));
+        await Assert.ThrowsAsync<ETagMismatchException>(async () => await _dbSet.UpdateAsync(result));
     }
 
     [Fact]
@@ -296,12 +308,12 @@ public class DbSetTests : IDisposable
         };
 
         var result = await _dbSet.CreateAsync(person);
-        
+
         result.FirstName = "Mary";
         await _dbSet.UpdateAsync(result);
-        
+
         result.FirstName = "Bob";
-        await Assert.ThrowsAsync<InvalidOperationException>(async () => await _dbSet.UpdateAsync(result));
+        await Assert.ThrowsAsync<ETagMismatchException>(async () => await _dbSet.UpdateAsync(result));
     }
 
     [Fact]
@@ -315,29 +327,11 @@ public class DbSetTests : IDisposable
 
         var result = await _dbSet.CreateAsync(person);
 
-        await _dbSet.DeleteByIdAsync(result.Id!, result.GetPartitionKeyValue());
+        await _dbSet.DeleteAsync(result.Id!);
 
         //check object cannot be retrieved from the database because it should not exist anymore
-        await Assert.ThrowsAsync<CosmosException>(
-            async () => await _dbSet.GetAsync(result.Id!, result.GetPartitionKeyValue()));
-    }
-
-    [Fact]
-    public async Task Should_Delete_By_DbEntry()
-    {
-        var person = new TestPersonDbEntry
-        {
-            FirstName = "Johnny",
-            LastName = "You know who"
-        };
-
-        var result = await _dbSet.CreateAsync(person);
-
-        await _dbSet.DeleteAsync(result);
-
-        //check object cannot be retrieved from the database because it should not exist anymore
-        await Assert.ThrowsAsync<CosmosException>(
-            async () => await _dbSet.GetAsync(result.Id!, result.GetPartitionKeyValue()));
+        await Assert.ThrowsAsync<ItemNotFoundException>(
+            async () => await _dbSet.GetAsync(result.Id!));
     }
 
     [Fact]
@@ -350,6 +344,6 @@ public class DbSetTests : IDisposable
             LastName = "You know who"
         };
 
-        await Assert.ThrowsAsync<CosmosException>(async () => await _dbSet.DeleteAsync(person));
+        await Assert.ThrowsAsync<ItemNotFoundException>(async () => await _dbSet.DeleteAsync(person.Id));
     }
 }

@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using BigScreen.SDK.DataAccess.Core;
-using BigScreen.SDK.WebAPI.Core;
 
-namespace BigScreen.SDK.WebAPI;
+namespace BigScreen.SDK.WebAPI.Core;
 
 public class BaseProfile<TDto, TDbEntry> : Profile where TDto : BaseDto where TDbEntry : BaseDbEntry
 {

@@ -11,38 +11,22 @@ namespace BigScreen.SDK.DataAccess.Abstractions;
 public interface IDbSet<TDb> : IEnumerable<TDb> where TDb : BaseDbEntry
 {
     /// <summary>
-    ///     Get an item by its ID
+    ///     Returns a single item with the specified key
     /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    Task<TDb> GetAsync(string id, string partitionKey);
+    Task<TDb> GetAsync(string key);
 
     /// <summary>
     ///     Create an item
     /// </summary>
-    /// <param name="tdb"></param>
-    /// <returns></returns>
     Task<TDb> CreateAsync(TDb tdb);
 
     /// <summary>
     ///     Update and item
     /// </summary>
-    /// <param name="tdb"></param>
-    /// <returns></returns>
     Task<TDb> UpdateAsync(TDb tdb);
-
-    /// <summary>
-    ///     Delete an item by its ID
-    /// </summary>
-    /// <param name="id"></param>
-    /// <param name="partitionKey"></param>
-    /// <returns></returns>
-    Task DeleteByIdAsync(string id, string partitionKey);
 
     /// <summary>
     ///     Delete an item by its Object
     /// </summary>
-    /// <param name="tdb"></param>
-    /// <returns></returns>
-    Task DeleteAsync(TDb tdb);
+    Task DeleteAsync(string key);
 }
