@@ -7,9 +7,11 @@ namespace BigScreen.Core.Models.TMDb;
 [TmdbDto("movie")]
 public class MovieDto : TmdbDto
 {
-    [JsonProperty(PropertyName = "id")] public int Id { get; set; }
+    [JsonProperty(PropertyName = "id")]
+    public int Id { get; set; }
 
-    [JsonProperty(PropertyName = "title")] public string? Title { get; set; }
+    [JsonProperty(PropertyName = "title")]
+    public string? Title { get; set; }
 
     [JsonProperty(PropertyName = "release_date")]
     public DateTime? ReleaseDate { get; set; }

@@ -1,13 +1,15 @@
-﻿namespace BigScreen.Frontend.Pages.Search;
-
+﻿using BigScreen.Frontend.Pages.Search.ViewModel;
 using Microsoft.AspNetCore.Components;
-using ViewModel;
+
+namespace BigScreen.Frontend.Pages.Search;
 
 public partial class Search : ComponentBase, IDisposable
 {
-    [Parameter] public string? Query { get; set; }
+    [Parameter]
+    public string? Query { get; set; }
 
-    [Inject] public ISearchViewModel ViewModel { get; set; } = null!;
+    [Inject]
+    public ISearchViewModel ViewModel { get; set; } = null!;
 
     public void Dispose()
     {

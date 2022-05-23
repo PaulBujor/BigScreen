@@ -1,6 +1,6 @@
-﻿namespace BigScreen.Frontend.Pages.Home.ViewModel;
+﻿using Microsoft.AspNetCore.Components;
 
-using Microsoft.AspNetCore.Components;
+namespace BigScreen.Frontend.Pages.Home.ViewModel;
 
 public class HomeViewModel : IHomeViewModel
 {
@@ -10,7 +10,6 @@ public class HomeViewModel : IHomeViewModel
     {
         _navigationManager = navigationManager;
     }
-
 
     public void OnValueChanged(string query)
     {

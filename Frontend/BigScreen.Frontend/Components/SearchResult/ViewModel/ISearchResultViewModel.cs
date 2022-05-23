@@ -1,7 +1,7 @@
-﻿namespace BigScreen.Frontend.Components.SearchResult.ViewModel;
+﻿using BigScreen.Core.Models.TMDb;
+using BigScreen.Frontend.Core.Enums;
 
-using BigScreen.Core.Models.TMDb;
-using Core.Enums;
+namespace BigScreen.Frontend.Components.SearchResult.ViewModel;
 
 public interface ISearchResultViewModel
 {

@@ -1,8 +1,9 @@
-﻿namespace BigScreen.Frontend.Pages.DetailsPages.Person;
+﻿using Microsoft.AspNetCore.Components;
 
-using Microsoft.AspNetCore.Components;
+namespace BigScreen.Frontend.Pages.DetailsPages.Person;
 
 public partial class Person : ComponentBase
 {
-    [Parameter] public int Id { get; set; }
+    [Parameter]
+    public int Id { get; set; }
 }

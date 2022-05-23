@@ -1,9 +1,10 @@
-﻿namespace BigScreen.Frontend.Pages.Home;
-
+﻿using BigScreen.Frontend.Pages.Home.ViewModel;
 using Microsoft.AspNetCore.Components;
-using ViewModel;
+
+namespace BigScreen.Frontend.Pages.Home;
 
 public partial class Home : ComponentBase
 {
-    [Inject] public IHomeViewModel ViewModel { get; set; } = null!;
+    [Inject]
+    public IHomeViewModel ViewModel { get; set; } = null!;
 }

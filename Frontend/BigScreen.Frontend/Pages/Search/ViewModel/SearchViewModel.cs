@@ -1,8 +1,8 @@
-﻿namespace BigScreen.Frontend.Pages.Search.ViewModel;
+﻿using BigScreen.Core.Models.TMDb;
+using BigScreen.Frontend.Client.Handlers.Interfaces;
+using BigScreen.Frontend.Core.Enums;
 
-using BigScreen.Core.Models.TMDb;
-using Client.Handlers.Interfaces;
-using Core.Enums;
+namespace BigScreen.Frontend.Pages.Search.ViewModel;
 
 public class SearchViewModel : ISearchViewModel
 {

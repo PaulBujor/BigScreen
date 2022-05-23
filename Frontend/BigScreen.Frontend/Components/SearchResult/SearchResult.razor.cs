@@ -1,9 +1,9 @@
-﻿namespace BigScreen.Frontend.Components.SearchResult;
-
-using BigScreen.Core.Models.TMDb;
-using Core.Enums;
+﻿using BigScreen.Core.Models.TMDb;
+using BigScreen.Frontend.Components.SearchResult.ViewModel;
+using BigScreen.Frontend.Core.Enums;
 using Microsoft.AspNetCore.Components;
-using ViewModel;
+
+namespace BigScreen.Frontend.Components.SearchResult;
 
 public partial class SearchResult : ComponentBase
 {
@@ -21,5 +21,6 @@ public partial class SearchResult : ComponentBase
         set => ViewModel.FilterContext = value;
     }
 
-    [Inject] public ISearchResultViewModel ViewModel { get; set; } = null!;
+    [Inject]
+    public ISearchResultViewModel ViewModel { get; set; } = null!;
 }
