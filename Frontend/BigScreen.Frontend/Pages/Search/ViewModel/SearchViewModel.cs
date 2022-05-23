@@ -8,17 +8,31 @@ public class SearchViewModel : ISearchViewModel
 {
     private readonly ISearchPageResultsHandler _searchHandler;
     private SearchFilter _searchFilter = SearchFilter.All;
-    private string _searchQuery = null!;
+    private string _searchQuery = string.Empty;
+    private int _currentPage = 1;
 
     public SearchViewModel(ISearchPageResultsHandler searchHandler)
     {
         _searchHandler = searchHandler;
     }
 
-    public Action RefreshView { get; set; } = null!;
+    public int CurrentPage
+    {
+        get => _currentPage;
+        set
+        {
+            _currentPage = value;
+            if (!string.IsNullOrEmpty(SearchQuery))
+            {
+                CallSearch(SearchQuery, value);
+            }
+        }
+    }
 
+    public Action RefreshView { get; set; } = null!;
     public string SearchFilterText => "Search in";
     public string SearchTextFieldText => "Search";
+    public SearchPageResultsDto? PageResults { get; private set; }
 
     public SearchFilter SearchFilter
     {
@@ -30,11 +44,10 @@ public class SearchViewModel : ISearchViewModel
             if (!string.IsNullOrEmpty(SearchQuery))
             {
                 CallSearch(SearchQuery);
+                ResetCurrentPage();
             }
         }
     }
-
-    public SearchPageResultsDto? PageResults { get; set; }
 
     public string SearchQuery
     {
@@ -45,13 +58,19 @@ public class SearchViewModel : ISearchViewModel
             if (!string.IsNullOrEmpty(value))
             {
                 CallSearch(value);
+                ResetCurrentPage();
             }
         }
     }
-
-    public async Task CallSearch(string query)
+    
+    private async Task CallSearch(string query, int page = 1)
     {
-        PageResults = await _searchHandler.GetSearchPageResultsByType(SearchFilter, query);
+        PageResults = await _searchHandler.GetSearchPageResults(SearchFilter, query, page);
         RefreshView.Invoke();
+    }
+
+    private void ResetCurrentPage()
+    {
+        _currentPage = 1;
     }
 }

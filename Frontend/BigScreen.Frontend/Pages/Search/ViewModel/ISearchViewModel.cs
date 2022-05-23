@@ -9,7 +9,7 @@ public interface ISearchViewModel
     string SearchTextFieldText { get; }
     SearchFilter SearchFilter { get; set; }
     string SearchQuery { get; set; }
-    SearchPageResultsDto PageResults { get; set; }
+    SearchPageResultsDto? PageResults { get; }
     Action RefreshView { get; set; }
-    Task CallSearch(string query);
+    int CurrentPage { get; set; }
 }

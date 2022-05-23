@@ -1,5 +1,5 @@
 ﻿@page "/search"
-@page "/search/{Query}"
+@page "/search?query={Query}"
 @using BigScreen.Frontend.Core.Enums
 
 <PageTitle>Search</PageTitle>
@@ -23,7 +23,7 @@
         {
             foreach (var result in ViewModel.PageResults.Results)
             {
-                <SearchResult Result="result"/>
+                <SearchResult Result="result" @key="result.Id"/>
             }
         }
         @if (ViewModel.PageResults is not null && ViewModel.PageResults.TotalResults == 0)
@@ -31,6 +31,14 @@
             <div class="d-flex flex-column justify-center align-center mt-3">
                 <MudText Typo="Typo.h6" Color="Color.Info">There are no matches for this query.</MudText>
                 <MudIcon Icon="@Icons.Filled.SearchOff" Size="Size.Large" Color="Color.Info" Class="mt-2"/>
+            </div>
+        }
+    </MudItem>
+    <MudItem xs="12">
+        @if (ViewModel.PageResults is not null && ViewModel.PageResults.TotalResults > 0)
+        {
+            <div class="d-flex justify-center">
+                <MudPagination Count="ViewModel.PageResults.TotalPages" @bind-Selected="ViewModel.CurrentPage"></MudPagination>
             </div>
         }
     </MudItem>

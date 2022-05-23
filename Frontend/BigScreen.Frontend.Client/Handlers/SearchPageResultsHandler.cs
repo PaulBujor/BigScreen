@@ -13,10 +13,11 @@ public class SearchPageResultsHandler : ISearchPageResultsHandler
         _client = client;
     }
 
-    public async Task<SearchPageResultsDto?> GetSearchPageResultsByType(SearchFilter type, string query)
+    public async Task<SearchPageResultsDto?> GetSearchPageResults(SearchFilter type, string query, int page)
     {
         var queries = new Dictionary<string, string>();
         queries.Add("query", query);
+        queries.Add("page", page.ToString());
         var results = await _client.GetAsync(additionalUri: GetSearchFilterQuery(type), query: queries);
         return results;
     }
