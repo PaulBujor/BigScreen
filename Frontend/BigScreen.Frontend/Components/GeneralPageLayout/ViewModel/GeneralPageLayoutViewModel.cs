@@ -52,7 +52,7 @@ public class GeneralPageLayoutViewModel : IGeneralPageLayoutViewModel
 
     public EventCallback<SearchContext> SearchContextChanged { get; set; }
 
-    public int GetPaginationCount(int numberOfPages) => numberOfPages > 1000 ? 1000 : numberOfPages;
+    public int GetPaginationCount(int numberOfPages) => numberOfPages > 500 ? 500 : numberOfPages;
 
     private void ResetCurrentPage()
     {

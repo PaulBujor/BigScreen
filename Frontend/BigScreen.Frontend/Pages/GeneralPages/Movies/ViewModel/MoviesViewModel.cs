@@ -15,11 +15,11 @@ public class MoviesViewModel : IMoviesViewModel
         _handler = handler;
     }
 
-    public MoviesGeneralSearchResultsDto? Results { get; private set; }
+    public MoviesGeneralSearchResultsDto? PageResults { get; private set; }
 
     public async Task CallSearch(SortFilter sortFilter, int page)
     {
-        Results = await _handler.GetGeneralSearchBySortType(sortFilter, page);
+        PageResults = await _handler.GetGeneralSearchBySortType(sortFilter, page);
     }
 
     public async Task OnSearchContextChanged(SearchContext searchContext)

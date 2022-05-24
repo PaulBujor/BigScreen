@@ -6,7 +6,7 @@ namespace BigScreen.Frontend.Pages.GeneralPages.Movies.ViewModel;
 
 public interface IMoviesViewModel
 {
-    MoviesGeneralSearchResultsDto? Results { get; }
+    MoviesGeneralSearchResultsDto? PageResults { get; }
     Task CallSearch(SortFilter sortFilter = SortFilter.Popularity, int page = 1);
     Task OnSearchContextChanged(SearchContext searchContext);
 }

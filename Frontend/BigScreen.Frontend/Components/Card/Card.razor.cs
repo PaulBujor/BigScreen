@@ -35,9 +35,8 @@ public partial class Card : ComponentBase
     protected override void OnParametersSet()
     {
         var idMissing = Id is null;
-        var imageMissing = string.IsNullOrEmpty(Image);
         var routableToMissing = RoutableTo is null;
-        var mandatoryParametersMissing = idMissing || imageMissing || routableToMissing;
+        var mandatoryParametersMissing = idMissing || routableToMissing;
 
         if (mandatoryParametersMissing)
         {

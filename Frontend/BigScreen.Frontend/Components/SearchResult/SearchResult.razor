@@ -1,9 +1,7 @@
 ﻿<MudPaper Elevation="2" Class="my-8 d-flex">
     @if (string.IsNullOrEmpty(Result.ImageUrl))
     {
-        <div class="image-not-found d-flex justify-center align-center mud-theme-dark">
-            <MudIcon Icon="@Icons.Outlined.ImageNotSupported" Size="Size.Large"/>
-        </div>
+        <NoImageAvailable Width="92px" Height="138px"></NoImageAvailable>
     }
     else
     {

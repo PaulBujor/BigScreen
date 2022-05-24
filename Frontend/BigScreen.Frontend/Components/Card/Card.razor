@@ -1,6 +1,13 @@
 ﻿<MudPaper Elevation="2" MaxWidth="154px" MaxHeight="400px" Class="d-flex flex-auto flex-column">
     <MudLink Href="@ViewModel.GetUrl()" Underline="Underline.None">
-        <MudImage Src="@Image" Style="vertical-align: bottom"></MudImage>
+        @if (string.IsNullOrEmpty(Image))
+        {
+            <NoImageAvailable Width="154px" Height="231px"></NoImageAvailable>
+        }
+        else
+        {
+            <MudImage Src="@Image" Style="vertical-align: bottom"></MudImage>
+        }
     </MudLink>
     <div class="py-2 px-3 d-flex flex-column overflow-hidden">
         <MudLink Href="@ViewModel.GetUrl()" Typo="Typo.h6" Style="line-height: 25px" Color="Color.Dark" Underline="Underline.None">@Header</MudLink>

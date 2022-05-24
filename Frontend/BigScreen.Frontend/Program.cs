@@ -44,7 +44,7 @@ builder.Services.AddScoped<IHomeViewModel, HomeViewModel>();
 builder.Services.AddScoped<ISearchViewModel, SearchViewModel>();
 builder.Services.AddTransient<ISearchResultViewModel, SearchResultViewModel>();
 builder.Services.AddScoped<IMoviesViewModel, MoviesViewModel>();
-builder.Services.AddScoped<ICardViewModel, CardViewModel>();
+builder.Services.AddTransient<ICardViewModel, CardViewModel>();
 builder.Services.AddTransient<IGeneralPageLayoutViewModel, GeneralPageLayoutViewModel>();
 
 builder.Services.AddMudServices();
