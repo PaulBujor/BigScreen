@@ -3,3 +3,13 @@
 <PageTitle>Movies</PageTitle>
 
 <MudText Typo="Typo.h3" GutterBottom="true">Movies</MudText>
+
+<div class="d-flex flex-wrap gap-3">
+    @if (ViewModel.Results is not null && ViewModel.Results.Results.Any())
+    {
+        @foreach (var result in ViewModel.Results.Results)
+        {
+            <Card Header="@result.Name" Id="result.Id" Caption="@result.Overview" Image="@result.ImageUrl"/>
+        }
+    }
+</div>
