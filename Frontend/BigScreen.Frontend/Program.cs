@@ -27,10 +27,12 @@ builder.Services.AddSingleton<KeyVaultHelper>();
 // TmdbClients
 builder.Services.AddScoped<TmdbClient<MovieDto>>();
 builder.Services.AddScoped<TmdbClient<SearchPageResultsDto>>();
+builder.Services.AddScoped<TmdbClient<MoviesGeneralSearchResultsDto>>();
 
 // Handlers
 builder.Services.AddScoped<IMovieHandler, MovieHandler>();
 builder.Services.AddScoped<ISearchPageResultsHandler, SearchPageResultsHandler>();
+builder.Services.AddScoped<IGeneralSearchPageResults<MoviesGeneralSearchResultsDto>, GeneralSearchPageResults<MoviesGeneralSearchResultsDto>>();
 
 // ViewModels
 builder.Services.AddScoped<ISearchViewModel, SearchViewModel>();
