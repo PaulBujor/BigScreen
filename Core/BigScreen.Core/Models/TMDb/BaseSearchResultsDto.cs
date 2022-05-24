@@ -9,7 +9,7 @@ public class BaseSearchResultsDto<TResultType> : TmdbDto where TResultType : cla
     public int Page { get; set; }
 
     [JsonProperty(PropertyName = "results")]
-    public IEnumerable<TResultType> Results { get; set; } = null!;
+    public IEnumerable<TResultType>? Results { get; set; }
 
     [JsonProperty(PropertyName = "total_pages")]
     public int TotalPages { get; set; }

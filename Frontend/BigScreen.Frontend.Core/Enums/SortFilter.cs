@@ -3,6 +3,5 @@
 public enum SortFilter
 {
     Popularity,
-    Rating,
-    Latest
+    Rating
 }

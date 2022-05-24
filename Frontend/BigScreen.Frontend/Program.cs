@@ -5,6 +5,7 @@ using BigScreen.Frontend.Client.Constants;
 using BigScreen.Frontend.Client.Handlers;
 using BigScreen.Frontend.Client.Handlers.Interfaces;
 using BigScreen.Frontend.Components.Card.ViewModel;
+using BigScreen.Frontend.Components.GeneralPageLayout.ViewModel;
 using BigScreen.Frontend.Components.SearchResult.ViewModel;
 using BigScreen.Frontend.Core.Helpers;
 using BigScreen.Frontend.Pages.GeneralPages.Movies.ViewModel;
@@ -34,7 +35,9 @@ builder.Services.AddScoped<TmdbClient<MoviesGeneralSearchResultsDto>>();
 // Handlers
 builder.Services.AddScoped<IMovieHandler, MovieHandler>();
 builder.Services.AddScoped<ISearchPageResultsHandler, SearchPageResultsHandler>();
-builder.Services.AddScoped<IGeneralSearchPageResults<MoviesGeneralSearchResultsDto>, GeneralSearchPageResults<MoviesGeneralSearchResultsDto>>();
+builder.Services
+    .AddScoped<IGeneralSearchPageResults<MoviesGeneralSearchResultsDto>,
+        GeneralSearchPageResults<MoviesGeneralSearchResultsDto>>();
 
 // ViewModels
 builder.Services.AddScoped<IHomeViewModel, HomeViewModel>();
@@ -42,6 +45,7 @@ builder.Services.AddScoped<ISearchViewModel, SearchViewModel>();
 builder.Services.AddTransient<ISearchResultViewModel, SearchResultViewModel>();
 builder.Services.AddScoped<IMoviesViewModel, MoviesViewModel>();
 builder.Services.AddScoped<ICardViewModel, CardViewModel>();
+builder.Services.AddTransient<IGeneralPageLayoutViewModel, GeneralPageLayoutViewModel>();
 
 builder.Services.AddMudServices();
 

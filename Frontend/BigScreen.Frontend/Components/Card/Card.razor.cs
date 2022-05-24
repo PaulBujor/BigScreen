@@ -8,7 +8,7 @@ public partial class Card : ComponentBase
 {
     [Inject]
     public ICardViewModel ViewModel { get; set; } = null!;
-    
+
     [Parameter]
     public int? Id
     {
@@ -18,13 +18,13 @@ public partial class Card : ComponentBase
 
     [Parameter]
     public string? Image { get; set; }
-    
+
     [Parameter]
     public string? Header { get; set; }
-    
+
     [Parameter]
     public string? Caption { get; set; }
-    
+
     [Parameter]
     public RoutableTo? RoutableTo
     {
@@ -38,12 +38,12 @@ public partial class Card : ComponentBase
         var imageMissing = string.IsNullOrEmpty(Image);
         var routableToMissing = RoutableTo is null;
         var mandatoryParametersMissing = idMissing || imageMissing || routableToMissing;
-        
+
         if (mandatoryParametersMissing)
         {
             throw new ArgumentException("Id, Image and RoutableTo are mandatory parameters for Card component");
         }
-        
+
         base.OnParametersSet();
     }
 }

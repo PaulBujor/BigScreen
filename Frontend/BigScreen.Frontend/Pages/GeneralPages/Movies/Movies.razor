@@ -4,13 +4,17 @@
 <PageTitle>Movies</PageTitle>
 
 <MudText Typo="Typo.h3" GutterBottom="true">Movies</MudText>
-
-<div class="d-flex flex-wrap gap-3">
-    @if (ViewModel.Results is not null && ViewModel.Results.Results.Any())
-    {
-        @foreach (var result in ViewModel.Results.Results)
-        {
-            <Card Id="result.Id" Image="@result.ImageUrl" RoutableTo="RoutableTo.Movie" Header="@result.Name" Caption="@result.ReleaseDate?.ToString("MMMM dd, yyyy")" />
-        }
-    }
-</div>
+@if (ViewModel.Results is not null)
+{
+    <GeneralPageLayout PaginationCount="ViewModel.Results.TotalPages" SortFilterOptions="new[] { SortFilter.Popularity, SortFilter.Rating }" SearchContextChanged="ViewModel.OnSearchContextChanged">
+        <div class="d-flex flex-wrap gap-3">
+            @if (ViewModel.Results.Results is not null && ViewModel.Results.Results.Any())
+            {
+                @foreach (var result in ViewModel.Results.Results)
+                {
+                    <Card Id="result.Id" Image="@result.ImageUrl" RoutableTo="RoutableTo.Movie" Header="@result.Name" Caption="@result.ReleaseDate?.ToString("MMMM dd, yyyy")"/>
+                }
+            }
+        </div>
+    </GeneralPageLayout>
+}

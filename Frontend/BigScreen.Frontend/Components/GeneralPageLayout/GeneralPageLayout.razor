@@ -1,0 +1,25 @@
+﻿<MudGrid Justify="Justify.FlexEnd">
+    <MudItem xs="12" md="10">
+        <MudTextField @bind-Value="ViewModel.SearchQuery" Label="Search"
+                      Adornment="Adornment.End" AdornmentIcon="@Icons.Filled.Search" DebounceInterval="500"/>
+    </MudItem>
+    <MudItem xs="12" md="2">
+        <MudSelect @bind-Value="@ViewModel.CurrentSortFilter" Label="Sort by">
+            @foreach (var option in SortFilterOptions!)
+            {
+                <MudSelectItem Value="@option">@option.ToString()</MudSelectItem>
+            }
+        </MudSelect>
+    </MudItem>
+    <MudItem xs="12">
+        @if (ChildContent is not null)
+        {
+            @ChildContent
+        }
+    </MudItem>
+    <MudItem xs="12">
+        <div class="d-flex justify-center">
+            <MudPagination Count="@ViewModel.GetPaginationCount(PaginationCount!.Value)" @bind-Selected="ViewModel.CurrentPage"/>
+        </div>
+    </MudItem>
+</MudGrid>

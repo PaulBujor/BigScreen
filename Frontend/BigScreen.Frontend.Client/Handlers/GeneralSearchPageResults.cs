@@ -13,11 +13,15 @@ public class GeneralSearchPageResults<TGeneralSearchDto> : IGeneralSearchPageRes
         _client = client;
     }
 
-    public async Task<TGeneralSearchDto?> GetGeneralSearchBySortType(SortFilter filter) => await _client.GetAsync(additionalUri: GetSortFilterQuery(filter));
+    public async Task<TGeneralSearchDto?> GetGeneralSearchBySortType(SortFilter filter, int page)
+    {
+        var queries = new Dictionary<string, string>();
+        queries.Add("page", page.ToString());
+        return await _client.GetAsync(additionalUri: GetSortFilterQuery(filter), query: queries);
+    }
 
     private string GetSortFilterQuery(SortFilter type) => type switch
     {
-        SortFilter.Latest => "latest",
         SortFilter.Popularity => "popular",
         SortFilter.Rating => "top_rated",
         _ => throw new ArgumentOutOfRangeException(nameof(type), $"Not expected sort filter value: {type}")

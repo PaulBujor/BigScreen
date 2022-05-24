@@ -37,7 +37,7 @@
         @if (ViewModel.PageResults is not null && ViewModel.PageResults.TotalResults > 0)
         {
             <div class="d-flex justify-center">
-                <MudPagination Count="ViewModel.PageResults.TotalPages" @bind-Selected="ViewModel.CurrentPage"></MudPagination>
+                <MudPagination Count="ViewModel.PageResults.TotalPages" @bind-Selected="ViewModel.CurrentPage"/>
             </div>
         }
     </MudItem>
