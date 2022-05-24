@@ -4,6 +4,7 @@ using BigScreen.Frontend.Client;
 using BigScreen.Frontend.Client.Constants;
 using BigScreen.Frontend.Client.Handlers;
 using BigScreen.Frontend.Client.Handlers.Interfaces;
+using BigScreen.Frontend.Components.Card.ViewModel;
 using BigScreen.Frontend.Components.SearchResult.ViewModel;
 using BigScreen.Frontend.Core.Helpers;
 using BigScreen.Frontend.Pages.GeneralPages.Movies.ViewModel;
@@ -40,6 +41,7 @@ builder.Services.AddScoped<IHomeViewModel, HomeViewModel>();
 builder.Services.AddScoped<ISearchViewModel, SearchViewModel>();
 builder.Services.AddTransient<ISearchResultViewModel, SearchResultViewModel>();
 builder.Services.AddScoped<IMoviesViewModel, MoviesViewModel>();
+builder.Services.AddScoped<ICardViewModel, CardViewModel>();
 
 builder.Services.AddMudServices();
 

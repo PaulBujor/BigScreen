@@ -1,4 +1,5 @@
 ﻿@page "/movies"
+@using BigScreen.Frontend.Core.Enums
 
 <PageTitle>Movies</PageTitle>
 
@@ -9,7 +10,7 @@
     {
         @foreach (var result in ViewModel.Results.Results)
         {
-            <Card Header="@result.Name" Id="result.Id" Caption="@result.Overview" Image="@result.ImageUrl"/>
+            <Card Id="result.Id" Image="@result.ImageUrl" RoutableTo="RoutableTo.Movie" Header="@result.Name" Caption="@result.ReleaseDate?.ToString("MMMM dd, yyyy")" />
         }
     }
 </div>

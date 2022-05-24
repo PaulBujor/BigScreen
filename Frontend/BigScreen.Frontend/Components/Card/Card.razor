@@ -1,7 +1,9 @@
-﻿<MudPaper Elevation="2" MaxWidth="154px" MaxHeight="400px"  Class="d-flex flex-auto flex-column">
-    <MudImage Src="@Image"></MudImage>
-    <div class="py-2 px-4 d-flex flex-column overflow-hidden">
-        <MudText Typo="Typo.h6" Style="line-height: 25px">@Header</MudText>
-        <MudText Typo="Typo.caption" Class="mt-1 overflow-hidden" Style="white-space: break-spaces;">11-11-2011</MudText>
+﻿<MudPaper Elevation="2" MaxWidth="154px" MaxHeight="400px" Class="d-flex flex-auto flex-column">
+    <MudLink Href="@ViewModel.GetUrl()" Underline="Underline.None">
+        <MudImage Src="@Image" Style="vertical-align: bottom"></MudImage>
+    </MudLink>
+    <div class="py-2 px-3 d-flex flex-column overflow-hidden">
+        <MudLink Href="@ViewModel.GetUrl()" Typo="Typo.h6" Style="line-height: 25px" Color="Color.Dark" Underline="Underline.None">@Header</MudLink>
+        <MudText Typo="Typo.caption" Class="mt-1 overflow-hidden" Style="white-space: break-spaces;">@Caption</MudText>
     </div>
 </MudPaper>

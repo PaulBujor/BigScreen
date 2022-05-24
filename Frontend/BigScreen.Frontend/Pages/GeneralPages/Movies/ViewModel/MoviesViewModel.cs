@@ -1,6 +1,7 @@
 ﻿using BigScreen.Core.Models.TMDb;
 using BigScreen.Frontend.Client.Handlers.Interfaces;
 using BigScreen.Frontend.Core.Enums;
+using BigScreen.Frontend.Core.Helpers;
 
 namespace BigScreen.Frontend.Pages.GeneralPages.Movies.ViewModel;
 
@@ -20,4 +21,5 @@ public class MoviesViewModel : IMoviesViewModel
     {
         Results = await _handler.GetGeneralSearchBySortType(sortFilter);
     }
+
 }
