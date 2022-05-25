@@ -21,8 +21,6 @@ public partial class Search : ComponentBase, IDisposable
 
     protected override Task OnInitializedAsync()
     {
-        
-
         ViewModel.RefreshView += StateHasChanged;
         return base.OnInitializedAsync();
     }
@@ -33,6 +31,7 @@ public partial class Search : ComponentBase, IDisposable
         {
             ViewModel.LayoutInstance.SetSearchQuery(Query);
         }
+
         base.OnAfterRender(firstRender);
     }
 }

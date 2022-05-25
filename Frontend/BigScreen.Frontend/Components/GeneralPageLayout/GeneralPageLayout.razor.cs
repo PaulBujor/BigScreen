@@ -1,6 +1,5 @@
 ﻿using BigScreen.Frontend.Components.GeneralPageLayout.Models;
 using BigScreen.Frontend.Components.GeneralPageLayout.ViewModel;
-using BigScreen.Frontend.Core.Enums;
 using Microsoft.AspNetCore.Components;
 
 namespace BigScreen.Frontend.Components.GeneralPageLayout;
@@ -39,7 +38,8 @@ public partial class GeneralPageLayout<TFilter> : ComponentBase
         var childContentMissing = ChildContent is null;
         var paginationCountMissing = PaginationCount is null;
         var searchContextChangedMissing = !SearchContextChanged.HasDelegate;
-        var mandatoryParametersMissing = sortFilterOptionsMissing || childContentMissing || searchContextChangedMissing || paginationCountMissing;
+        var mandatoryParametersMissing = sortFilterOptionsMissing || childContentMissing ||
+                                         searchContextChangedMissing || paginationCountMissing;
         if (mandatoryParametersMissing)
         {
             throw new ArgumentException("Mandatory parameters not provided for GeneralPageLayout component.");
