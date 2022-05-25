@@ -3,6 +3,6 @@
 namespace BigScreen.Core.Models.TMDb;
 
 [TmdbDto("movie")]
-public class MoviesGeneralSearchResultsDto : BaseSearchResultsDto<MovieSearchResultDto>
+public class MoviesSearchResultsDto : BaseSearchResultsDto<MovieSearchResultDto>
 {
 }

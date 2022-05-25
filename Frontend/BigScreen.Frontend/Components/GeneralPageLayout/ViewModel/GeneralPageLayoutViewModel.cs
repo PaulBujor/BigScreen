@@ -5,7 +5,7 @@ namespace BigScreen.Frontend.Components.GeneralPageLayout.ViewModel;
 
 public class GeneralPageLayoutViewModel<TFilter> : IGeneralPageLayoutViewModel<TFilter>
 {
-    private TFilter _currentFilter;
+    private TFilter _currentFilter = default!;
     private int _currentPage = 1;
     private string _searchQuery = string.Empty;
 

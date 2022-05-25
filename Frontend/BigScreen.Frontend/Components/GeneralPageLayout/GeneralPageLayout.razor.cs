@@ -7,7 +7,7 @@ namespace BigScreen.Frontend.Components.GeneralPageLayout;
 public partial class GeneralPageLayout<TFilter> : ComponentBase
 {
     [Inject]
-    public IGeneralPageLayoutViewModel<TFilter> ViewModel { get; set; }
+    public IGeneralPageLayoutViewModel<TFilter> ViewModel { get; set; } = null!;
 
     [Parameter]
     public TFilter[]? FilterOptions { get; set; }
@@ -31,6 +31,9 @@ public partial class GeneralPageLayout<TFilter> : ComponentBase
         get => ViewModel.HasSearch;
         set => ViewModel.HasSearch = value;
     }
+
+    [Parameter]
+    public string DropdownLabel { get; set; } = "Sort by";
 
     protected override void OnParametersSet()
     {

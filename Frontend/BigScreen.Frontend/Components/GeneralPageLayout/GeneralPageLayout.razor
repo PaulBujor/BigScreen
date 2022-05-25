@@ -9,10 +9,10 @@
         </MudItem>
     }
     <MudItem xs="12" md="2">
-        <MudSelect @bind-Value="@ViewModel.CurrentFilter" Label="Sort by">
+        <MudSelect @bind-Value="@ViewModel.CurrentFilter" Label="@DropdownLabel">
             @foreach (var option in FilterOptions!)
             {
-                <MudSelectItem Value="@option">@option.ToString()</MudSelectItem>
+                <MudSelectItem Value="@option">@option?.ToString()</MudSelectItem>
             }
         </MudSelect>
     </MudItem>

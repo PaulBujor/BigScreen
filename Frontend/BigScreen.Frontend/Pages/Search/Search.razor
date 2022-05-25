@@ -9,7 +9,7 @@
 
 <GeneralPageLayout @ref="ViewModel.LayoutInstance" TFilter="SearchFilter" HasSearch="true" PaginationCount="ViewModel.GetNumberOfPages()"
                    FilterOptions="new[] { SearchFilter.All, SearchFilter.Movies, SearchFilter.TvShows, SearchFilter.People }"
-                   SearchContextChanged="ViewModel.OnSearchContextChanged">
+                   SearchContextChanged="ViewModel.OnSearchContextChanged" DropdownLabel="Search in">
     @if (ViewModel.PageResults is not null)
     {
         foreach (var result in ViewModel.PageResults.Results!)
