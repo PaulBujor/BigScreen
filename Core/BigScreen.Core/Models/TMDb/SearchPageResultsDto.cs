@@ -1,6 +1,4 @@
-﻿using BigScreen.Frontend.Core;
-using BigScreen.Frontend.Core.Attributes;
-using Newtonsoft.Json;
+﻿using BigScreen.Frontend.Core.Attributes;
 
 namespace BigScreen.Core.Models.TMDb;
 

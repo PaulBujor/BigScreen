@@ -10,7 +10,7 @@ public partial class Search : ComponentBase
 
     [Inject]
     public ISearchViewModel ViewModel { get; set; } = null!;
-    
+
     protected override void OnAfterRender(bool firstRender)
     {
         if (!string.IsNullOrEmpty(Query) && firstRender)

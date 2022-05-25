@@ -31,10 +31,11 @@ public class GeneralPageLayoutViewModel<TFilter> : IGeneralPageLayoutViewModel<T
             }
         }
     }
-    
+
     public EventCallback<SearchContext<TFilter>> SearchContextChanged { get; set; }
 
     public int GetPaginationCount(int numberOfPages) => numberOfPages > 500 ? 500 : numberOfPages;
+
     public async Task OnFilterChanged(TFilter filter)
     {
         _currentFilter = filter;

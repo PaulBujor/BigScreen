@@ -28,7 +28,7 @@
         @if (ViewModel.GetPaginationCount(PaginationCount!.Value) > 0)
         {
             <div class="d-flex justify-center">
-                <MudPagination Count="@ViewModel.GetPaginationCount(PaginationCount!.Value)" 
+                <MudPagination Count="@ViewModel.GetPaginationCount(PaginationCount!.Value)"
                                SelectedChanged="async args => await ViewModel.OnPageChanged(args)"/>
             </div>
         }

@@ -4,17 +4,18 @@ using BigScreen.Frontend.Core.Enums;
 
 namespace BigScreen.Frontend.Pages.GeneralPages.ViewModel;
 
-public abstract class BaseGeneralPageViewModel<TSearchResultsDto> : IBaseGeneralPageViewModel<TSearchResultsDto> where TSearchResultsDto : class
+public abstract class BaseGeneralPageViewModel<TSearchResultsDto> : IBaseGeneralPageViewModel<TSearchResultsDto>
+    where TSearchResultsDto : class
 {
-    public virtual TSearchResultsDto? PageResults { get; set; }
-
     private readonly IGeneralSearchPageResultsHandler<TSearchResultsDto> _handler;
-    
+
     protected BaseGeneralPageViewModel(IGeneralSearchPageResultsHandler<TSearchResultsDto> handler)
     {
         _handler = handler;
     }
-    
+
+    public virtual TSearchResultsDto? PageResults { get; set; }
+
     public virtual async Task CallSearch(SortFilter sortFilter, int page)
     {
         PageResults = await _handler.GetGeneralSearchBySortType(sortFilter, page);

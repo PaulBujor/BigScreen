@@ -11,13 +11,13 @@ public class PersonSearchResultDto
 
     [JsonProperty(PropertyName = "name")]
     public string? Name { get; set; }
-    
+
     [JsonProperty(PropertyName = "overview")]
     public string? Overview { get; set; }
-    
+
     [JsonProperty(PropertyName = "known_for")]
     public IEnumerable<BaseMediaSearchResultDto>? KnownFor { get; set; }
-    
+
     [JsonIgnore]
     public string? ImageUrl { get; set; }
 

@@ -12,7 +12,6 @@ using BigScreen.Frontend.Core.Helpers;
 using BigScreen.Frontend.Pages.GeneralPages.Movies.ViewModel;
 using BigScreen.Frontend.Pages.GeneralPages.People.ViewModel;
 using BigScreen.Frontend.Pages.GeneralPages.TvShows.ViewModel;
-using BigScreen.Frontend.Pages.GeneralPages.ViewModel;
 using BigScreen.Frontend.Pages.Home.ViewModel;
 using BigScreen.Frontend.Pages.Search.ViewModel;
 using Microsoft.AspNetCore.Components.Web;

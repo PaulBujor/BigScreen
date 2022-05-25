@@ -9,11 +9,12 @@ namespace BigScreen.Frontend.Pages.Search.ViewModel;
 public class SearchViewModel : ISearchViewModel
 {
     private readonly ISearchPageResultsHandler _searchHandler;
+
     public SearchViewModel(ISearchPageResultsHandler searchHandler)
     {
         _searchHandler = searchHandler;
     }
-    
+
     public GeneralPageLayout<SearchFilter>? LayoutInstance { get; set; }
     public SearchPageResultsDto? PageResults { get; private set; }
 
