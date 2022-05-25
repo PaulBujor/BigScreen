@@ -40,10 +40,10 @@ builder.Services
         GeneralSearchPageResults<MoviesGeneralSearchResultsDto>>();
 
 // ViewModels
-builder.Services.AddScoped<IHomeViewModel, HomeViewModel>();
-builder.Services.AddScoped<ISearchViewModel, SearchViewModel>();
+builder.Services.AddTransient<IHomeViewModel, HomeViewModel>();
+builder.Services.AddTransient<ISearchViewModel, SearchViewModel>();
 builder.Services.AddTransient<ISearchResultViewModel, SearchResultViewModel>();
-builder.Services.AddScoped<IMoviesViewModel, MoviesViewModel>();
+builder.Services.AddTransient<IMoviesViewModel, MoviesViewModel>();
 builder.Services.AddTransient<ICardViewModel, CardViewModel>();
 builder.Services.AddTransient<IGeneralPageLayoutViewModel, GeneralPageLayoutViewModel>();
 
