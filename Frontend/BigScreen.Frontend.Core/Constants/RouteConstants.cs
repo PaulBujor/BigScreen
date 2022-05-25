@@ -1,4 +1,4 @@
-﻿namespace BigScreen.Frontend.Constants;
+﻿namespace BigScreen.Frontend.Core.Constants;
 
 public class RouteConstants
 {

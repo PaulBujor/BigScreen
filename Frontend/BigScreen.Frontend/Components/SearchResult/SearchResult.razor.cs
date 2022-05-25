@@ -14,7 +14,7 @@ public partial class SearchResult : ComponentBase
         set => ViewModel.Result = value;
     }
 
-    [Parameter]
+    [CascadingParameter]
     public SearchFilter FilterContext
     {
         get => ViewModel.FilterContext;
@@ -23,4 +23,16 @@ public partial class SearchResult : ComponentBase
 
     [Inject]
     public ISearchResultViewModel ViewModel { get; set; } = null!;
+
+    // Workaround
+    // Weird issue that has deep root causes in Blazor
+    protected override bool ShouldRender()
+    {
+        if (FilterContext == SearchFilter.All && Result.Type is null)
+        {
+            return false;
+        }
+
+        return true;
+    }
 }

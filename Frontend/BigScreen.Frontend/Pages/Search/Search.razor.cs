@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace BigScreen.Frontend.Pages.Search;
 
-public partial class Search : ComponentBase, IDisposable
+public partial class Search : ComponentBase
 {
     [Parameter]
     public string? Query { get; set; }
@@ -11,22 +11,13 @@ public partial class Search : ComponentBase, IDisposable
     [Inject]
     public ISearchViewModel ViewModel { get; set; } = null!;
 
-    public void Dispose()
+    protected override void OnAfterRender(bool firstRender)
     {
-        ViewModel.DisposeViewModel();
-#pragma warning disable CS8601
-        ViewModel.RefreshView -= StateHasChanged;
-#pragma warning restore CS8601
-    }
-
-    protected override Task OnInitializedAsync()
-    {
-        if (!string.IsNullOrEmpty(Query))
+        if (!string.IsNullOrEmpty(Query) && firstRender)
         {
-            ViewModel.SearchQuery = Query;
+            ViewModel.LayoutInstance?.SetSearchQuery(Query);
         }
 
-        ViewModel.RefreshView += StateHasChanged;
-        return base.OnInitializedAsync();
+        base.OnAfterRender(firstRender);
     }
 }

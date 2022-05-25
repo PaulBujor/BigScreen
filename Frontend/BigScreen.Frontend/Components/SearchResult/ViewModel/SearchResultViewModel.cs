@@ -1,5 +1,5 @@
 ﻿using BigScreen.Core.Models.TMDb;
-using BigScreen.Frontend.Constants;
+using BigScreen.Frontend.Core.Constants;
 using BigScreen.Frontend.Core.Enums;
 
 namespace BigScreen.Frontend.Components.SearchResult.ViewModel;

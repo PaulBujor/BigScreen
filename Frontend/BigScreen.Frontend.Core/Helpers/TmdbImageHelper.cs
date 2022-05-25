@@ -18,7 +18,8 @@ public class TmdbImageHelper
     private static string GetImageWidth(ImageSize size) => size switch
     {
         ImageSize.InSearch => "w92",
-        ImageSize.InDetailsPage => "w185",
+        ImageSize.InDetailsPage => "w300",
+        ImageSize.InGeneralPage => "w154",
         _ => throw new ArgumentOutOfRangeException(nameof(size), $"Not expected image size with value: {size}")
         // Known size from api docs: 45, 92, 154, 185, 300, 342, 500, 780, original
     };

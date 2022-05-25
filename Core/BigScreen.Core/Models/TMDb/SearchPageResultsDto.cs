@@ -1,21 +1,8 @@
-﻿using BigScreen.Frontend.Core;
-using BigScreen.Frontend.Core.Attributes;
-using Newtonsoft.Json;
+﻿using BigScreen.Frontend.Core.Attributes;
 
 namespace BigScreen.Core.Models.TMDb;
 
 [TmdbDto("search")]
-public class SearchPageResultsDto : TmdbDto
+public class SearchPageResultsDto : BaseSearchResultsDto<SearchResultDto>
 {
-    [JsonProperty(PropertyName = "page")]
-    public int Page { get; set; }
-
-    [JsonProperty(PropertyName = "results")]
-    public IEnumerable<SearchResultDto> Results { get; set; } = null!;
-
-    [JsonProperty(PropertyName = "total_pages")]
-    public int TotalPages { get; set; }
-
-    [JsonProperty(PropertyName = "total_results")]
-    public int TotalResults { get; set; }
 }

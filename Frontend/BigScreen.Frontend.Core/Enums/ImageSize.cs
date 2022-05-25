@@ -3,5 +3,6 @@
 public enum ImageSize
 {
     InSearch,
-    InDetailsPage
+    InDetailsPage,
+    InGeneralPage
 }
