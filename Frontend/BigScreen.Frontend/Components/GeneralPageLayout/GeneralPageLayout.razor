@@ -1,4 +1,6 @@
-﻿<MudGrid Justify="Justify.FlexEnd">
+﻿@typeparam TFilter
+
+<MudGrid Justify="Justify.FlexEnd">
     @if (ViewModel.HasSearch)
     {
         <MudItem xs="12" md="10">
@@ -7,8 +9,8 @@
         </MudItem>
     }
     <MudItem xs="12" md="2">
-        <MudSelect @bind-Value="@ViewModel.CurrentSortFilter" Label="Sort by">
-            @foreach (var option in SortFilterOptions!)
+        <MudSelect @bind-Value="@ViewModel.CurrentFilter" Label="Sort by">
+            @foreach (var option in FilterOptions!)
             {
                 <MudSelectItem Value="@option">@option.ToString()</MudSelectItem>
             }
@@ -17,12 +19,17 @@
     <MudItem xs="12">
         @if (ChildContent is not null)
         {
-            @ChildContent
+            <CascadingValue Value="ViewModel.CurrentFilter">
+                @ChildContent
+            </CascadingValue>
         }
     </MudItem>
     <MudItem xs="12">
-        <div class="d-flex justify-center">
-            <MudPagination Count="@ViewModel.GetPaginationCount(PaginationCount!.Value)" @bind-Selected="ViewModel.CurrentPage"/>
-        </div>
+        @if (ViewModel.GetPaginationCount(PaginationCount!.Value) > 0)
+        {
+            <div class="d-flex justify-center">
+                <MudPagination Count="@ViewModel.GetPaginationCount(PaginationCount!.Value)" @bind-Selected="ViewModel.CurrentPage"/>
+            </div>
+        }
     </MudItem>
 </MudGrid>

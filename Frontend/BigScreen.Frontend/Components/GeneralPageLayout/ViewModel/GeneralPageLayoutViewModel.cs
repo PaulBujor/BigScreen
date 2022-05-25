@@ -1,17 +1,16 @@
 ﻿using BigScreen.Frontend.Components.GeneralPageLayout.Models;
-using BigScreen.Frontend.Core.Enums;
 using Microsoft.AspNetCore.Components;
 
 namespace BigScreen.Frontend.Components.GeneralPageLayout.ViewModel;
 
-public class GeneralPageLayoutViewModel : IGeneralPageLayoutViewModel
+public class GeneralPageLayoutViewModel<TFilter> : IGeneralPageLayoutViewModel<TFilter>
 {
+    private TFilter _currentFilter;
     private int _currentPage = 1;
-    private SortFilter _currentSortFilter = SortFilter.Popularity;
     private string _searchQuery = string.Empty;
 
     public bool HasSearch { get; set; }
-    
+
     public string SearchQuery
     {
         get => _searchQuery;
@@ -26,15 +25,12 @@ public class GeneralPageLayoutViewModel : IGeneralPageLayoutViewModel
         }
     }
 
-    public SortFilter[] SortFilterOptions { get; set; } = null!;
-
-
-    public SortFilter CurrentSortFilter
+    public TFilter CurrentFilter
     {
-        get => _currentSortFilter;
+        get => _currentFilter;
         set
         {
-            _currentSortFilter = value;
+            _currentFilter = value;
             ResetCurrentPage();
             InvokeSearchContextChanged();
         }
@@ -50,7 +46,7 @@ public class GeneralPageLayoutViewModel : IGeneralPageLayoutViewModel
         }
     }
 
-    public EventCallback<SearchContext> SearchContextChanged { get; set; }
+    public EventCallback<SearchContext<TFilter>> SearchContextChanged { get; set; }
 
     public int GetPaginationCount(int numberOfPages) => numberOfPages > 500 ? 500 : numberOfPages;
 
@@ -63,11 +59,12 @@ public class GeneralPageLayoutViewModel : IGeneralPageLayoutViewModel
     {
         if (HasSearch)
         {
-            await SearchContextChanged.InvokeAsync(new SearchContext(_currentPage, _currentSortFilter, _searchQuery));
+            await SearchContextChanged.InvokeAsync(new SearchContext<TFilter>(_currentPage, _currentFilter,
+                _searchQuery));
         }
         else
         {
-            await SearchContextChanged.InvokeAsync(new SearchContext(_currentPage, _currentSortFilter));
+            await SearchContextChanged.InvokeAsync(new SearchContext<TFilter>(_currentPage, _currentFilter));
         }
     }
 }

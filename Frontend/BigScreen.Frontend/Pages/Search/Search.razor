@@ -7,38 +7,55 @@
 
 <MudText Typo="Typo.h4" GutterBottom="true">Explore millions of movies, TV shows and people.</MudText>
 
-<MudGrid Justify="Justify.FlexEnd">
-    <MudItem xs="10">
-        <MudTextField @bind-Value="ViewModel.SearchQuery" Label="@ViewModel.SearchTextFieldText"
-                      Adornment="Adornment.End" AdornmentIcon="@Icons.Filled.Search" DebounceInterval="500"/>
-    </MudItem>
-    <MudItem xs="2">
-        <MudSelect @bind-Value="ViewModel.SearchFilter" Label="@ViewModel.SearchFilterText">
-            <MudSelectItem Value="SearchFilter.All">All</MudSelectItem>
-            <MudSelectItem Value="SearchFilter.Movies">Movies</MudSelectItem>
-            <MudSelectItem Value="SearchFilter.TvShows">TV Shows</MudSelectItem>
-            <MudSelectItem Value="SearchFilter.People">People</MudSelectItem>
-        </MudSelect>
-    </MudItem>
-    <MudItem xs="12">
-        @if (ViewModel.PageResults is not null)
+@* <MudGrid Justify="Justify.FlexEnd"> *@
+@*     <MudItem xs="10"> *@
+@*         <MudTextField @bind-Value="ViewModel.SearchQuery" Label="@ViewModel.SearchTextFieldText" *@
+@*                       Adornment="Adornment.End" AdornmentIcon="@Icons.Filled.Search" DebounceInterval="500"/> *@
+@*     </MudItem> *@
+@*     <MudItem xs="2"> *@
+@*         <MudSelect @bind-Value="ViewModel.SearchFilter" Label="@ViewModel.SearchFilterText"> *@
+@*             <MudSelectItem Value="SearchFilter.All">All</MudSelectItem> *@
+@*             <MudSelectItem Value="SearchFilter.Movies">Movies</MudSelectItem> *@
+@*             <MudSelectItem Value="SearchFilter.TvShows">TV Shows</MudSelectItem> *@
+@*             <MudSelectItem Value="SearchFilter.People">People</MudSelectItem> *@
+@*         </MudSelect> *@
+@*     </MudItem> *@
+@*     <MudItem xs="12"> *@
+@*         @if (ViewModel.PageResults is not null) *@
+@*         { *@
+@*             foreach (var result in ViewModel.PageResults.Results!) *@
+@*             { *@
+@*                 <SearchResult Result="result" FilterContext="ViewModel.SearchFilter" @key="result"/> *@
+@*             } *@
+@*         } *@
+@*         @if (ViewModel.PageResults is not null && ViewModel.PageResults.TotalResults == 0) *@
+@*         { *@
+@*             <NoQueryResults/> *@
+@*         } *@
+@*     </MudItem> *@
+@*     <MudItem xs="12"> *@
+@*         @if (ViewModel.PageResults is not null && ViewModel.PageResults.TotalResults > 0) *@
+@*         { *@
+@*             <div class="d-flex justify-center"> *@
+@*                 <MudPagination Count="ViewModel.PageResults.TotalPages" @bind-Selected="ViewModel.CurrentPage"/> *@
+@*             </div> *@
+@*         } *@
+@*     </MudItem> *@
+@* </MudGrid> *@
+
+
+<GeneralPageLayout @ref="ViewModel.LayoutInstance" TFilter="SearchFilter" HasSearch="true" PaginationCount="ViewModel.GetNumberOfPages()" 
+                   FilterOptions="new[] { SearchFilter.All, SearchFilter.Movies, SearchFilter.TvShows, SearchFilter.People }"
+                   SearchContextChanged="ViewModel.OnSearchContextChanged">
+    @if (ViewModel.PageResults is not null)
+    {
+        foreach (var result in ViewModel.PageResults.Results!)
         {
-            foreach (var result in ViewModel.PageResults.Results!)
-            {
-                <SearchResult Result="result" FilterContext="ViewModel.SearchFilter" @key="result.Id"/>
-            }
+            <SearchResult Result="result" @key="result"/>
         }
-        @if (ViewModel.PageResults is not null && ViewModel.PageResults.TotalResults == 0)
-        {
-            <NoQueryResults/>
-        }
-    </MudItem>
-    <MudItem xs="12">
-        @if (ViewModel.PageResults is not null && ViewModel.PageResults.TotalResults > 0)
-        {
-            <div class="d-flex justify-center">
-                <MudPagination Count="ViewModel.PageResults.TotalPages" @bind-Selected="ViewModel.CurrentPage"/>
-            </div>
-        }
-    </MudItem>
-</MudGrid>
+    }
+    @if (ViewModel.PageResults is not null && ViewModel.PageResults.TotalResults == 0)
+    {
+        <NoQueryResults/>
+    }
+</GeneralPageLayout>

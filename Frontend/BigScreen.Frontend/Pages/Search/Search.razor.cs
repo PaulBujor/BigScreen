@@ -21,12 +21,18 @@ public partial class Search : ComponentBase, IDisposable
 
     protected override Task OnInitializedAsync()
     {
-        if (!string.IsNullOrEmpty(Query))
-        {
-            ViewModel.SearchQuery = Query;
-        }
+        
 
         ViewModel.RefreshView += StateHasChanged;
         return base.OnInitializedAsync();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!string.IsNullOrEmpty(Query) && firstRender)
+        {
+            ViewModel.LayoutInstance.SetSearchQuery(Query);
+        }
+        base.OnAfterRender(firstRender);
     }
 }

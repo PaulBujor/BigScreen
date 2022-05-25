@@ -22,8 +22,8 @@ public class MoviesViewModel : IMoviesViewModel
         PageResults = await _handler.GetGeneralSearchBySortType(sortFilter, page);
     }
 
-    public async Task OnSearchContextChanged(SearchContext searchContext)
+    public async Task OnSearchContextChanged(SearchContext<SortFilter> searchContext)
     {
-        await CallSearch(searchContext.SortFilter, searchContext.Page);
+        await CallSearch(searchContext.Filter, searchContext.Page);
     }
 }

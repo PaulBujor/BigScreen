@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Components;
 
 namespace BigScreen.Frontend.Components.GeneralPageLayout;
 
-public partial class GeneralPageLayout : ComponentBase
+public partial class GeneralPageLayout<TFilter> : ComponentBase
 {
     [Inject]
-    public IGeneralPageLayoutViewModel ViewModel { get; set; }
+    public IGeneralPageLayoutViewModel<TFilter> ViewModel { get; set; }
 
     [Parameter]
-    public SortFilter[]? SortFilterOptions { get; set; }
+    public TFilter[]? FilterOptions { get; set; }
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -20,7 +20,7 @@ public partial class GeneralPageLayout : ComponentBase
     public int? PaginationCount { get; set; }
 
     [Parameter]
-    public EventCallback<SearchContext> SearchContextChanged
+    public EventCallback<SearchContext<TFilter>> SearchContextChanged
     {
         get => ViewModel.SearchContextChanged;
         set => ViewModel.SearchContextChanged = value;
@@ -29,23 +29,27 @@ public partial class GeneralPageLayout : ComponentBase
     [Parameter]
     public bool HasSearch
     {
-        get => throw new NotImplementedException();
-        set => throw new NotImplementedException();
+        get => ViewModel.HasSearch;
+        set => ViewModel.HasSearch = value;
     }
 
     protected override void OnParametersSet()
     {
-        var sortFilterOptionsMissing = SortFilterOptions is null || !SortFilterOptions.Any();
+        var sortFilterOptionsMissing = FilterOptions is null || !FilterOptions.Any();
         var childContentMissing = ChildContent is null;
         var paginationCountMissing = PaginationCount is null;
         var searchContextChangedMissing = !SearchContextChanged.HasDelegate;
-        var mandatoryParametersMissing = sortFilterOptionsMissing || childContentMissing || paginationCountMissing ||
-                                         searchContextChangedMissing;
+        var mandatoryParametersMissing = sortFilterOptionsMissing || childContentMissing || searchContextChangedMissing || paginationCountMissing;
         if (mandatoryParametersMissing)
         {
             throw new ArgumentException("Mandatory parameters not provided for GeneralPageLayout component.");
         }
 
         base.OnParametersSet();
+    }
+
+    public void SetSearchQuery(string query)
+    {
+        ViewModel.SearchQuery = query;
     }
 }

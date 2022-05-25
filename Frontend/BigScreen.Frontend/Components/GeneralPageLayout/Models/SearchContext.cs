@@ -1,23 +1,21 @@
-﻿using BigScreen.Frontend.Core.Enums;
+﻿namespace BigScreen.Frontend.Components.GeneralPageLayout.Models;
 
-namespace BigScreen.Frontend.Components.GeneralPageLayout.Models;
-
-public class SearchContext
+public class SearchContext<TFilter>
 {
-    public int Page { get; }
-    public SortFilter SortFilter { get; }
-    public string? Query { get; }    
-    
-    public SearchContext(int page, SortFilter sortFilter)
+    public SearchContext(int page, TFilter filter)
     {
         Page = page;
-        SortFilter = sortFilter;
+        Filter = filter;
     }
-    
-    public SearchContext(int page, SortFilter sortFilter, string query)
+
+    public SearchContext(int page, TFilter filter, string query)
     {
         Page = page;
-        SortFilter = sortFilter;
+        Filter = filter;
         Query = query;
     }
+
+    public int Page { get; }
+    public TFilter Filter { get; }
+    public string? Query { get; }
 }

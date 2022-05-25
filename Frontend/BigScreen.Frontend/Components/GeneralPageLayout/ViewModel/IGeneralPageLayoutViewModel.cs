@@ -1,16 +1,14 @@
 ﻿using BigScreen.Frontend.Components.GeneralPageLayout.Models;
-using BigScreen.Frontend.Core.Enums;
 using Microsoft.AspNetCore.Components;
 
 namespace BigScreen.Frontend.Components.GeneralPageLayout.ViewModel;
 
-public interface IGeneralPageLayoutViewModel
+public interface IGeneralPageLayoutViewModel<TFilter>
 {
-    SortFilter[] SortFilterOptions { get; set; }
-    SortFilter CurrentSortFilter { get; set; }
+    TFilter CurrentFilter { get; set; }
     int CurrentPage { get; set; }
-    EventCallback<SearchContext> SearchContextChanged { get; set; }
-    int GetPaginationCount(int numberOfPages);
+    EventCallback<SearchContext<TFilter>> SearchContextChanged { get; set; }
     bool HasSearch { get; set; }
     string SearchQuery { get; set; }
+    int GetPaginationCount(int numberOfPages);
 }

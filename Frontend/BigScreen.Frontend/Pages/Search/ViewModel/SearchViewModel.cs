@@ -1,5 +1,7 @@
 ﻿using BigScreen.Core.Models.TMDb;
 using BigScreen.Frontend.Client.Handlers.Interfaces;
+using BigScreen.Frontend.Components.GeneralPageLayout;
+using BigScreen.Frontend.Components.GeneralPageLayout.Models;
 using BigScreen.Frontend.Core.Enums;
 
 namespace BigScreen.Frontend.Pages.Search.ViewModel;
@@ -16,52 +18,12 @@ public class SearchViewModel : ISearchViewModel
         _searchHandler = searchHandler;
     }
 
-    public int CurrentPage
-    {
-        get => _currentPage;
-        set
-        {
-            _currentPage = value;
-            if (!string.IsNullOrEmpty(SearchQuery))
-            {
-                CallSearch(SearchQuery, value);
-            }
-        }
-    }
 
     public Action RefreshView { get; set; } = null!;
+    public GeneralPageLayout<SearchFilter> LayoutInstance { get; set; }
     public string SearchFilterText => "Search in";
     public string SearchTextFieldText => "Search";
     public SearchPageResultsDto? PageResults { get; private set; }
-
-    public SearchFilter SearchFilter
-    {
-        get => _searchFilter;
-        set
-        {
-            _searchFilter = value;
-
-            if (!string.IsNullOrEmpty(SearchQuery))
-            {
-                CallSearch(SearchQuery);
-                ResetCurrentPage();
-            }
-        }
-    }
-
-    public string SearchQuery
-    {
-        get => _searchQuery;
-        set
-        {
-            _searchQuery = value;
-            if (!string.IsNullOrEmpty(value))
-            {
-                CallSearch(value);
-                ResetCurrentPage();
-            }
-        }
-    }
 
     public void DisposeViewModel()
     {
@@ -71,14 +33,18 @@ public class SearchViewModel : ISearchViewModel
         PageResults = null;
     }
 
-    private async Task CallSearch(string query, int page = 1)
+    public async Task OnSearchContextChanged(SearchContext<SearchFilter> searchContext)
     {
-        PageResults = await _searchHandler.GetSearchPageResults(SearchFilter, query, page);
-        RefreshView.Invoke();
+        if (searchContext.Query != null)
+        {
+            await CallSearch(searchContext.Query, searchContext.Filter, searchContext.Page);
+        }
     }
 
-    private void ResetCurrentPage()
+    public int GetNumberOfPages() => PageResults?.TotalPages ?? 0;
+
+    private async Task CallSearch(string query, SearchFilter searchFilter = SearchFilter.All, int page = 1)
     {
-        _currentPage = 1;
+        PageResults = await _searchHandler.GetSearchPageResults(searchFilter, query, page);
     }
 }

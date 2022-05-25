@@ -8,5 +8,5 @@ public interface IMoviesViewModel
 {
     MoviesGeneralSearchResultsDto? PageResults { get; }
     Task CallSearch(SortFilter sortFilter = SortFilter.Popularity, int page = 1);
-    Task OnSearchContextChanged(SearchContext searchContext);
+    Task OnSearchContextChanged(SearchContext<SortFilter> searchContext);
 }
