@@ -7,13 +7,15 @@
 
 @if (ViewModel.PageResults is not null)
 {
-    <GeneralPageLayout TFilter="SortFilter" PaginationCount="ViewModel.PageResults.TotalPages" FilterOptions="new[] { SortFilter.Popularity}" SearchContextChanged="ViewModel.OnSearchContextChanged">
-        <div class="d-flex flex-wrap justify-space-between gap-3">
+    <GeneralPageLayout TFilter="SortFilter" PaginationCount="ViewModel.PageResults.TotalPages" FilterOptions="new[] { SortFilter.Popularity}" 
+                       SearchContextChanged="ViewModel.OnSearchContextChanged">
+        <div class="d-flex flex-wrap justify-space-between gap-5">
             @if (ViewModel.PageResults.Results is not null && ViewModel.PageResults.Results.Any())
             {
                 @foreach (var result in ViewModel.PageResults.Results)
                 {
-                    <Card @key="result.Id" Id="result.Id" Image="@result.ImageUrl" RoutableTo="RoutableTo.Movie" Header="@result.Name" Caption="@ViewModel.GetCardOverview(result)"/>
+                    <Card @key="result" Id="result.Id" Image="@result.ImageUrl" RoutableTo="RoutableTo.Person" Header="@result.Name" 
+                          Caption="@ViewModel.GetCardOverview(result)"/>
                 }
             }
         </div>

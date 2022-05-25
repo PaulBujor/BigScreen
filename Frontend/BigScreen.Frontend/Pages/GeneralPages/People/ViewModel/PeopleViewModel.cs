@@ -10,7 +10,7 @@ public class PeopleViewModel : BaseGeneralPageViewModel<PeopleSearchResultsDto>,
 {
     private IPeopleViewModel _peopleViewModelImplementation;
 
-    public PeopleViewModel(IGeneralSearchPageResults<PeopleSearchResultsDto> handler) : base(handler)
+    public PeopleViewModel(IGeneralSearchPageResultsHandler<PeopleSearchResultsDto> handler) : base(handler)
     {
     }
     

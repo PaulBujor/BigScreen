@@ -2,7 +2,7 @@
 
 namespace BigScreen.Frontend.Client.Handlers.Interfaces;
 
-public interface IGeneralSearchPageResults<TGeneralSearchDto> where TGeneralSearchDto : class
+public interface IGeneralSearchPageResultsHandler<TGeneralSearchDto> where TGeneralSearchDto : class
 {
     Task<TGeneralSearchDto?> GetGeneralSearchBySortType(SortFilter filter, int page);
 }

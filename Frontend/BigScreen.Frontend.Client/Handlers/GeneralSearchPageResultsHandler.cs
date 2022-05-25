@@ -4,11 +4,11 @@ using BigScreen.Frontend.Core.Enums;
 
 namespace BigScreen.Frontend.Client.Handlers;
 
-public class GeneralSearchPageResults<TGeneralSearchDto> : IGeneralSearchPageResults<TGeneralSearchDto> where TGeneralSearchDto : TmdbDto
+public class GeneralSearchPageResultsHandler<TGeneralSearchDto> : IGeneralSearchPageResultsHandler<TGeneralSearchDto> where TGeneralSearchDto : TmdbDto
 {
     private readonly TmdbClient<TGeneralSearchDto> _client;
 
-    public GeneralSearchPageResults(TmdbClient<TGeneralSearchDto> client)
+    public GeneralSearchPageResultsHandler(TmdbClient<TGeneralSearchDto> client)
     {
         _client = client;
     }

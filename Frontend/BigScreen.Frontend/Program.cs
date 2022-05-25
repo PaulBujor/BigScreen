@@ -11,6 +11,7 @@ using BigScreen.Frontend.Core.Enums;
 using BigScreen.Frontend.Core.Helpers;
 using BigScreen.Frontend.Pages.GeneralPages.Movies.ViewModel;
 using BigScreen.Frontend.Pages.GeneralPages.People.ViewModel;
+using BigScreen.Frontend.Pages.GeneralPages.TvShows.ViewModel;
 using BigScreen.Frontend.Pages.GeneralPages.ViewModel;
 using BigScreen.Frontend.Pages.Home.ViewModel;
 using BigScreen.Frontend.Pages.Search.ViewModel;
@@ -34,25 +35,30 @@ builder.Services.AddSingleton<KeyVaultHelper>();
 builder.Services.AddScoped<TmdbClient<MovieDto>>();
 builder.Services.AddScoped<TmdbClient<SearchPageResultsDto>>();
 builder.Services.AddScoped<TmdbClient<MoviesSearchResultsDto>>();
+builder.Services.AddScoped<TmdbClient<TvShowsSearchResultsDto>>();
 builder.Services.AddScoped<TmdbClient<PeopleSearchResultsDto>>();
 
 // Handlers
 builder.Services.AddScoped<IMovieHandler, MovieHandler>();
 builder.Services.AddScoped<ISearchPageResultsHandler, SearchPageResultsHandler>();
 builder.Services
-    .AddScoped<IGeneralSearchPageResults<MoviesSearchResultsDto>,
-        GeneralSearchPageResults<MoviesSearchResultsDto>>();
+    .AddScoped<IGeneralSearchPageResultsHandler<MoviesSearchResultsDto>,
+        GeneralSearchPageResultsHandler<MoviesSearchResultsDto>>();
 builder.Services
-    .AddScoped<IGeneralSearchPageResults<PeopleSearchResultsDto>,
-        GeneralSearchPageResults<PeopleSearchResultsDto>>();
+    .AddScoped<IGeneralSearchPageResultsHandler<PeopleSearchResultsDto>,
+        GeneralSearchPageResultsHandler<PeopleSearchResultsDto>>();
+builder.Services
+    .AddScoped<IGeneralSearchPageResultsHandler<TvShowsSearchResultsDto>,
+        GeneralSearchPageResultsHandler<TvShowsSearchResultsDto>>();
 
 // ViewModels
 builder.Services.AddTransient<IHomeViewModel, HomeViewModel>();
 builder.Services.AddTransient<ISearchViewModel, SearchViewModel>();
-builder.Services.AddTransient<ISearchResultViewModel, SearchResultViewModel>();
 builder.Services.AddTransient<IMoviesViewModel, MoviesViewModel>();
-builder.Services.AddTransient<ICardViewModel, CardViewModel>();
 builder.Services.AddTransient<IPeopleViewModel, PeopleViewModel>();
+builder.Services.AddTransient<ITvShowsViewModel, TvShowsViewModel>();
+builder.Services.AddTransient<ISearchResultViewModel, SearchResultViewModel>();
+builder.Services.AddTransient<ICardViewModel, CardViewModel>();
 builder.Services.AddTransient<IGeneralPageLayoutViewModel<SortFilter>, GeneralPageLayoutViewModel<SortFilter>>();
 builder.Services.AddTransient<IGeneralPageLayoutViewModel<SearchFilter>, GeneralPageLayoutViewModel<SearchFilter>>();
 

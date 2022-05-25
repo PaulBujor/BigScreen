@@ -8,7 +8,7 @@ namespace BigScreen.Frontend.Pages.GeneralPages.Movies.ViewModel;
 
 public class MoviesViewModel : BaseGeneralPageViewModel<MoviesSearchResultsDto>, IMoviesViewModel
 {
-    public MoviesViewModel(IGeneralSearchPageResults<MoviesSearchResultsDto> handler) : base(handler)
+    public MoviesViewModel(IGeneralSearchPageResultsHandler<MoviesSearchResultsDto> handler) : base(handler)
     {
     }
 }

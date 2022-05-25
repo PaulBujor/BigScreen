@@ -8,9 +8,9 @@ public abstract class BaseGeneralPageViewModel<TSearchResultsDto> : IBaseGeneral
 {
     public virtual TSearchResultsDto? PageResults { get; set; }
 
-    private readonly IGeneralSearchPageResults<TSearchResultsDto> _handler;
+    private readonly IGeneralSearchPageResultsHandler<TSearchResultsDto> _handler;
     
-    protected BaseGeneralPageViewModel(IGeneralSearchPageResults<TSearchResultsDto> handler)
+    protected BaseGeneralPageViewModel(IGeneralSearchPageResultsHandler<TSearchResultsDto> handler)
     {
         _handler = handler;
     }
