@@ -30,7 +30,6 @@ builder.Services.AddHttpClient(TmdbClientConstants.ClientName,
 // Helpers
 builder.Services.AddSingleton<KeyVaultHelper>();
 
-
 // TmdbClients
 builder.Services.AddScoped<TmdbClient<MovieDto>>();
 builder.Services.AddScoped<TmdbClient<SearchPageResultsDto>>();
@@ -63,6 +62,14 @@ builder.Services.AddTransient<IMediaDetailsPageLayoutViewModel, MediaDetailsPage
 builder.Services.AddTransient<IGeneralPageLayoutViewModel<SortFilter>, GeneralPageLayoutViewModel<SortFilter>>();
 builder.Services.AddTransient<IGeneralPageLayoutViewModel<SearchFilter>, GeneralPageLayoutViewModel<SearchFilter>>();
 
+// MudBlazor
 builder.Services.AddMudServices();
+
+// Authentication
+builder.Services.AddMsalAuthentication(options =>
+{
+    builder.Configuration.Bind("AzureAdB2C", options.ProviderOptions.Authentication);
+    options.ProviderOptions.LoginMode = "redirect";
+});
 
 await builder.Build().RunAsync();

@@ -4,21 +4,22 @@
 @using BigScreen.Frontend.Components.NoQueryResults
 
 <PageTitle>Search</PageTitle>
+<MudContainer MaxWidth="MaxWidth.Large" Class="my-16 pt-16">
+    <MudText Typo="Typo.h4" GutterBottom="true">Explore millions of movies, TV shows and people.</MudText>
 
-<MudText Typo="Typo.h4" GutterBottom="true">Explore millions of movies, TV shows and people.</MudText>
-
-<GeneralPageLayout @ref="ViewModel.LayoutInstance" TFilter="SearchFilter" HasSearch="true" PaginationCount="ViewModel.GetNumberOfPages()"
-                   FilterOptions="new[] { SearchFilter.All, SearchFilter.Movies, SearchFilter.TvShows, SearchFilter.People }"
-                   SearchContextChanged="ViewModel.OnSearchContextChanged" DropdownLabel="Search in">
-    @if (ViewModel.PageResults is not null)
-    {
-        foreach (var result in ViewModel.PageResults.Results!)
+    <GeneralPageLayout @ref="ViewModel.LayoutInstance" TFilter="SearchFilter" HasSearch="true" PaginationCount="ViewModel.GetNumberOfPages()"
+                       FilterOptions="new[] {SearchFilter.All, SearchFilter.Movies, SearchFilter.TvShows, SearchFilter.People}"
+                       SearchContextChanged="ViewModel.OnSearchContextChanged" DropdownLabel="Search in">
+        @if (ViewModel.PageResults is not null)
         {
-            <SearchResult Result="result" @key="result"/>
+            foreach (var result in ViewModel.PageResults.Results!)
+            {
+                <SearchResult Result="result" @key="result"/>
+            }
         }
-    }
-    @if (ViewModel.PageResults is not null && ViewModel.PageResults.TotalResults == 0)
-    {
-        <NoQueryResults/>
-    }
-</GeneralPageLayout>
+        @if (ViewModel.PageResults is not null && ViewModel.PageResults.TotalResults == 0)
+        {
+            <NoQueryResults/>
+        }
+    </GeneralPageLayout>
+</MudContainer>

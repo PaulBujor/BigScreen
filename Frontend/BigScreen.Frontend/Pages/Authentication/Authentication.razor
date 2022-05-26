@@ -1,0 +1,6 @@
+﻿@page "/authentication/{action}"
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="my-16 pt-16">
+    <RemoteAuthenticatorView Action="@Action"/>
+</MudContainer>
