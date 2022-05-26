@@ -1,23 +1,13 @@
-﻿.hover-card.mud-paper:hover {
+﻿.text-nowrap {
+    white-space: nowrap;
+}
+
+.h-inherit {
+    height: inherit;
+}
+
+.hover-card.mud-paper:hover {
     box-shadow: var(--mud-elevation-7);
-}
-
-@media (min-width: 600px)
-{
-    .mud-container > .full-width-container
-    {
-        padding-left: 0;
-        padding-right: 0;
-    }
-}
-
-.mud-container > .full-width-container
-{
-    position: relative;
-    padding-top: 0 !important;
-    margin-top: 0 !important;
-    padding-left: 0;
-    padding-right: 0;
 }
 
 @media (min-width: 600px)
@@ -30,15 +20,7 @@
 }
 
 .top-banner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
     height: 500px;
-    background-color: var(--mud-palette-primary);
-    color: white;
-}
-
-.full-width-container .details-container {
-    
+    padding-left: 24px;
+    padding-right: 24px;
 }

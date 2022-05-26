@@ -1,3 +1,52 @@
-﻿<div class="full-width-container">
-    <div class="top-banner"></div>
+﻿@using BigScreen.Frontend.Components.MediaDetailsPageLayout.Models
+<div class="mud-theme-primary py-6 py-sm-10">
+    <MudContainer MaxWidth="MaxWidth.Large" Class="d-flex flex-column flex-md-row align-center gap-3 gap-md-5">
+        <div class="align-self-center d-flex flex-column">
+            <MudImage Src="@ViewModel.MediaModel.ImageUrl" ObjectFit="ObjectFit.ScaleDown" Class="rounded-t-lg"></MudImage>
+            <MudButton DisableElevation="true" StartIcon="@ViewModel.GetTopListButtonInfo().Icon" Variant="Variant.Filled" Color="Color.Primary" Class="rounded-t-0 top-list-button" Size="Size.Large">@ViewModel.GetTopListButtonInfo().Text</MudButton>
+        </div>
+        <div class="d-flex flex-column">
+            <div class="d-flex justify-center justify-md-start flex-wrap">
+                <MudText Typo="Typo.h3" Class="text-nowrap"><b>@ViewModel.GetHeader().Title</b></MudText>
+                <MudText Typo="Typo.h3" Class="ml-2 text-nowrap">@ViewModel.GetHeader().Year</MudText>
+            </div>
+            <div class="d-flex justify-center justify-md-start flex-wrap">
+                @if (!string.IsNullOrEmpty(ViewModel.GetReleaseDate()))
+                {
+                    <MudText Typo="Typo.body1" Class="text-nowrap">@ViewModel.GetReleaseDate()</MudText>
+                }
+                @if (!string.IsNullOrEmpty(ViewModel.GetReleaseDate()) && !string.IsNullOrEmpty(ViewModel.GetGenres()))
+                {
+                    <MudDivider Vertical="true" Class="mx-2 h-inherit" />
+                }
+                @if (!string.IsNullOrEmpty(ViewModel.GetGenres()))
+                {
+                    <MudText Typo="Typo.body1" Class="text-nowrap">@ViewModel.GetGenres()</MudText>
+                }
+                @if (!string.IsNullOrEmpty(ViewModel.GetGenres()) && !string.IsNullOrEmpty(ViewModel.GetDuration()))
+                {
+                    <MudDivider Vertical="true" Class="mx-2 h-inherit"/>
+                }
+                @if (!string.IsNullOrEmpty(ViewModel.GetDuration()))
+                {
+                    <MudText Typo="Typo.body1" Class="text-nowrap">@ViewModel.GetDuration()</MudText>
+                }
+            </div>
+            @if (!string.IsNullOrEmpty(ViewModel.GetTagline()))
+            {
+                <MudText Typo="Typo.body1" Class="my-3"><i>@ViewModel.GetTagline()</i></MudText>
+            }
+            
+            <div class="d-flex gap-3">
+                
+            </div>
+            
+            
+            @if (!string.IsNullOrEmpty(ViewModel.MediaModel.Overview))
+            {
+                <MudText Typo="Typo.h5" Class="mb-2">Overview</MudText>
+                <MudText Typo="Typo.body1">@ViewModel.MediaModel.Overview</MudText>
+            }
+        </div>
+    </MudContainer>
 </div>
