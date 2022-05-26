@@ -6,6 +6,7 @@ using BigScreen.Frontend.Client.Handlers;
 using BigScreen.Frontend.Client.Handlers.Interfaces;
 using BigScreen.Frontend.Components.Card.ViewModel;
 using BigScreen.Frontend.Components.GeneralPageLayout.ViewModel;
+using BigScreen.Frontend.Components.MediaDetailsPageLayout.ViewModel;
 using BigScreen.Frontend.Components.SearchResult.ViewModel;
 using BigScreen.Frontend.Core.Enums;
 using BigScreen.Frontend.Core.Helpers;
@@ -58,6 +59,7 @@ builder.Services.AddTransient<IPeopleViewModel, PeopleViewModel>();
 builder.Services.AddTransient<ITvShowsViewModel, TvShowsViewModel>();
 builder.Services.AddTransient<ISearchResultViewModel, SearchResultViewModel>();
 builder.Services.AddTransient<ICardViewModel, CardViewModel>();
+builder.Services.AddTransient<IMediaDetailsPageLayoutViewModel, MediaDetailsPageLayoutViewModel>();
 builder.Services.AddTransient<IGeneralPageLayoutViewModel<SortFilter>, GeneralPageLayoutViewModel<SortFilter>>();
 builder.Services.AddTransient<IGeneralPageLayoutViewModel<SearchFilter>, GeneralPageLayoutViewModel<SearchFilter>>();
 
