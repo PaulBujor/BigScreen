@@ -14,6 +14,12 @@ public partial class Movie : ComponentBase
             DateOnly.Parse("05/14/2022"), new string[] { "Action", "Science Fiction", "Fantasy" },
             TimeSpan.FromMinutes(104), "A new Marvel legend arrives.",
             "Dangerously ill with a rare blood disorder, and determined to save others suffering his same fate, Dr. Michael Morbius attempts a desperate gamble. What at first appears to be a radical success soon reveals itself to be a remedy potentially worse than the disease.",
-            true, 6.3, null, null);
+            true, 6.3, null, null, "Released", 100_000_000, 200_000_000);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        
+        return base.OnInitializedAsync();
     }
 }

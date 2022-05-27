@@ -7,6 +7,7 @@ using BigScreen.Frontend.Client.Handlers.Interfaces;
 using BigScreen.Frontend.Components.Card.ViewModel;
 using BigScreen.Frontend.Components.GeneralPageLayout.ViewModel;
 using BigScreen.Frontend.Components.MediaDetailsPageLayout.ViewModel;
+using BigScreen.Frontend.Components.ScoreCard.ViewModel;
 using BigScreen.Frontend.Components.SearchResult.ViewModel;
 using BigScreen.Frontend.Core.Enums;
 using BigScreen.Frontend.Core.Helpers;
@@ -49,6 +50,9 @@ builder.Services
 builder.Services
     .AddScoped<IGeneralSearchPageResultsHandler<TvShowsSearchResultsDto>,
         GeneralSearchPageResultsHandler<TvShowsSearchResultsDto>>();
+builder.Services
+    .AddScoped<IDetailsPageHandler<BaseMediaDetailsDto>,
+        DetailsPageHandler<BaseMediaDetailsDto>>();
 
 // ViewModels
 builder.Services.AddTransient<IHomeViewModel, HomeViewModel>();
@@ -58,6 +62,7 @@ builder.Services.AddTransient<IPeopleViewModel, PeopleViewModel>();
 builder.Services.AddTransient<ITvShowsViewModel, TvShowsViewModel>();
 builder.Services.AddTransient<ISearchResultViewModel, SearchResultViewModel>();
 builder.Services.AddTransient<ICardViewModel, CardViewModel>();
+builder.Services.AddTransient<IScoreCardViewModel, ScoreCardViewModel>();
 builder.Services.AddTransient<IMediaDetailsPageLayoutViewModel, MediaDetailsPageLayoutViewModel>();
 builder.Services.AddTransient<IGeneralPageLayoutViewModel<SortFilter>, GeneralPageLayoutViewModel<SortFilter>>();
 builder.Services.AddTransient<IGeneralPageLayoutViewModel<SearchFilter>, GeneralPageLayoutViewModel<SearchFilter>>();

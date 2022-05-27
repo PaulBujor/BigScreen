@@ -15,6 +15,9 @@ public partial class MediaDetailsPageLayout : ComponentBase
         get => ViewModel.MediaModel;
         set => ViewModel.MediaModel = value!;
     }
+    
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     protected override void OnParametersSet()
     {

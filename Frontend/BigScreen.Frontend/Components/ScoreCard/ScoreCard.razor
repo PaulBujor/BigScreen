@@ -1,0 +1,7 @@
+﻿<div class="d-flex flex-column flex-sm-row flex-nowrap gap-2 align-center">
+    <div class="relative d-flex pa-1 mud-theme-dark rounded-circle">
+        <MudProgressCircular Color="@ViewModel.GetColor()" Size="Size.Large" Value="@ViewModel.GetConvertedScore()"/>
+        <MudText Typo="Typo.h6" Class="text-nowrap z-10 score-card-text d-flex justify-center align-center overflow-hidden"><b>@ViewModel.GetScoreText()</b></MudText>
+    </div>
+    <MudText Typo="Typo.body2"><b>@Text<br/>Score</b></MudText>
+</div>

@@ -21,7 +21,6 @@
 
     <ItemGroup>
         <Folder Include="Components\" />
-        <Folder Include="Pages\DetailsPages\Movie\ViewModel" />
         <Folder Include="Pages\DetailsPages\Person\ViewModel" />
         <Folder Include="Pages\DetailsPages\TvShow\ViewModel" />
         <Folder Include="Pages\Search\ViewModel\" />
