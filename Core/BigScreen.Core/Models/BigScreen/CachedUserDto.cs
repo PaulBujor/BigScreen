@@ -1,8 +1,10 @@
-﻿using BigScreen.SDK.WebAPI.Core;
+﻿using System.Runtime.Serialization;
+using BigScreen.SDK.WebAPI.Core;
 
 namespace BigScreen.Core.Models.BigScreen;
 
+[DataContract]
 public class CachedUserDto : BaseObject
 {
-    public string? Username { get; set; }
+    [DataMember(Name = "username")] public string? Username { get; set; }
 }

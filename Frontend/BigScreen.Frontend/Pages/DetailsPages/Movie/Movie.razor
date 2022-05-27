@@ -1,3 +1,8 @@
 ﻿@page "/movie/{Id:int}"
+@using BigScreen.Frontend.Components.Discussion
 
-<h3>Movie</h3>
+<MudContainer>
+    <h3>Movie</h3>
+
+    <Discussion MediaId="@GetFullId()"></Discussion>
+</MudContainer>

@@ -1,0 +1,45 @@
+﻿<MudCard Style="margin: 1.25em">
+    <MudCardHeader>
+        <MudText Typo="Typo.h6" Color="Color.Primary">@@@Comment.ByUser.Username</MudText>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudText>@Comment.Text</MudText>
+        <AuthorizeView>
+            <Authorized>
+                @if (!_showReplyComponent)
+                {
+                    <div class="d-flex flex-row-reverse">
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mt-4" Size="Size.Small" OnClick="@ToggleReply">Reply</MudButton>
+                    </div>
+                }
+                else
+                {
+                    <MudTextField @bind-Value="@_reply.Text" Placeholder="Your reply..." Variant="Variant.Outlined" Class="mb-1"></MudTextField>
+                    <div class="d-flex flex-row-reverse">
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small" OnClick="@PostReply">Reply</MudButton>
+                        <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@ToggleReply" Size="Size.Small">Cancel</MudButton>
+                    </div>
+                }
+
+            </Authorized>
+        </AuthorizeView>
+    </MudCardContent>
+    @if (_replies.Any())
+    {
+        <MudCardActions>
+            <MudDivider/>
+            <MudExpansionPanels Elevation="0" MultiExpansion="true" Class="ma-3" Style="width: 100%" DisableGutters="true">
+                <MudExpansionPanel Text="Replies">
+                    <MudList DisableGutters="true">
+                        @foreach (var comment in _replies)
+                        {
+                            <MudListItem>
+                                <Reply Comment="@comment"/>
+                            </MudListItem>
+                        }
+                    </MudList>
+                </MudExpansionPanel>
+            </MudExpansionPanels>
+        </MudCardActions>
+    }
+</MudCard>

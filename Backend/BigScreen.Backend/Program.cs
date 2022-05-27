@@ -4,6 +4,7 @@ using BigScreen.Core.Models.BigScreen;
 using BigScreen.SDK.DataAccess.Extensions;
 using BigScreen.SDK.WebAPI.Extensions;
 using Microsoft.AspNetCore.OData;
+using Microsoft.AspNetCore.OData.Batch;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 
@@ -30,8 +31,7 @@ builder.Services.AddDataAccess().Add<CommentDto, CommentDbEntry>()
     .Build();
 builder.Services.AddControllers().AddOData(opt =>
     opt.Select().Filter().OrderBy().Count().Expand()
-        .AddRouteComponents("api", GetEdmModel()));
-
+        .AddRouteComponents("api", GetEdmModel(), new DefaultODataBatchHandler()));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

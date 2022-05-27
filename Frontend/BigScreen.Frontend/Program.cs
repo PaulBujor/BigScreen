@@ -5,6 +5,7 @@ using BigScreen.Frontend.Client.Constants;
 using BigScreen.Frontend.Client.Handlers;
 using BigScreen.Frontend.Client.Handlers.Interfaces;
 using BigScreen.Frontend.Components.Card.ViewModel;
+using BigScreen.Frontend.Components.Discussion.ViewModel;
 using BigScreen.Frontend.Components.GeneralPageLayout.ViewModel;
 using BigScreen.Frontend.Components.SearchResult.ViewModel;
 using BigScreen.Frontend.Core.Enums;
@@ -59,6 +60,7 @@ builder.Services.AddTransient<ISearchResultViewModel, SearchResultViewModel>();
 builder.Services.AddTransient<ICardViewModel, CardViewModel>();
 builder.Services.AddTransient<IGeneralPageLayoutViewModel<SortFilter>, GeneralPageLayoutViewModel<SortFilter>>();
 builder.Services.AddTransient<IGeneralPageLayoutViewModel<SearchFilter>, GeneralPageLayoutViewModel<SearchFilter>>();
+builder.Services.AddSingleton<IDiscussionViewModel, DiscussionViewModel>();
 
 // MudBlazor
 builder.Services.AddMudServices();

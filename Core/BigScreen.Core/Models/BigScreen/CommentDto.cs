@@ -1,11 +1,27 @@
-﻿using BigScreen.SDK.WebAPI.Core;
+﻿using System.Runtime.Serialization;
+using BigScreen.SDK.WebAPI.Core;
 
 namespace BigScreen.Core.Models.BigScreen;
 
+[DataContract]
 public class CommentDto : BaseDto
 {
-    public string? ForMovie { get; set; }
-    public CachedUserDto? ByUser { get; set; }
-    public string? ReplyTo { get; set; }
-    public string? Text { get; set; }
+    [DataMember(Name = "forMovie")] public string? ForMovie { get; set; }
+
+    [DataMember(Name = "byUser")] public CachedUserDto? ByUser { get; set; }
+
+    [DataMember(Name = "replyTo")] public string? ReplyTo { get; set; }
+
+    [DataMember(Name = "text")] public string? Text { get; set; }
+
+    public static CommentDto GetDefaultEmptyState(string? mediaId = null, string? commentId = "-1")
+    {
+        return new CommentDto
+        {
+            Id = Guid.NewGuid().ToString(),
+            ForMovie = mediaId,
+            ReplyTo = commentId,
+            Text = ""
+        };
+    }
 }
