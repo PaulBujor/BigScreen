@@ -14,14 +14,16 @@ public class CommentDto : BaseDto
 
     [DataMember(Name = "text")] public string? Text { get; set; }
 
-    public static CommentDto GetDefaultEmptyState(string? mediaId = null, string? commentId = "-1")
+    public static CommentDto GetDefaultEmptyState(string? mediaId = null, string? commentId = "-1",
+        CachedUserDto? byUser = null)
     {
         return new CommentDto
         {
             Id = Guid.NewGuid().ToString(),
             ForMovie = mediaId,
             ReplyTo = commentId,
-            Text = ""
+            Text = "",
+            ByUser = byUser
         };
     }
 }
