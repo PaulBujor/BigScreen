@@ -18,11 +18,18 @@ public partial class MediaDetailsPageLayout : ComponentBase
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+    
+    [Parameter]
+    public EventCallback<int> UserScoreChanged
+    {
+        get => ViewModel.UserScoreChanged;
+        set => ViewModel.UserScoreChanged = value;
+    }
 
     protected override void OnParametersSet()
     {
-        var infoMissing = MediaModel is null;
-        var mandatoryParamsMissing = infoMissing;
+        var mediaModelMissing = MediaModel is null;
+        var mandatoryParamsMissing = mediaModelMissing;
 
         if (mandatoryParamsMissing)
         {

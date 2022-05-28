@@ -1,4 +1,5 @@
 ﻿using BigScreen.Frontend.Components.MediaDetailsPageLayout.Models;
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace BigScreen.Frontend.Components.MediaDetailsPageLayout.ViewModel;
@@ -6,6 +7,7 @@ namespace BigScreen.Frontend.Components.MediaDetailsPageLayout.ViewModel;
 public class MediaDetailsPageLayoutViewModel : IMediaDetailsPageLayoutViewModel
 {
     public MediaModel MediaModel { get; set; } = null!;
+    public EventCallback<int> UserScoreChanged { get; set; }
 
     public (string Icon, string Text) GetTopListButtonInfo() => MediaModel.AddedToToplist
         ? (Icons.Filled.Check, "Added to Top List")
@@ -32,4 +34,8 @@ public class MediaDetailsPageLayoutViewModel : IMediaDetailsPageLayoutViewModel
 
     public string GetDuration() => MediaModel.Duration.ToString("hh") + "h " + MediaModel.Duration.ToString("mm") + "m";
     public string GetTagline() => MediaModel.Tagline ?? string.Empty;
+    public async Task OnUserScoreChanged(int score)
+    {
+        await UserScoreChanged.InvokeAsync(score);
+    }
 }

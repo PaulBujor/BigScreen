@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace BigScreen.Frontend.Components.ScoreCard.ViewModel;
@@ -7,12 +8,22 @@ public class ScoreCardViewModel : IScoreCardViewModel
 {
     private const string NotRatedText = "-";
 
-    public double? Score { get; set; } = null!;
-    public double GetConvertedScore() => Score!.Value == 0 ? 100 : Score!.Value * 10;
+    public double Score { get; set; }
+    public double GetConvertedScore() => Score == 0 ? 100 : Score * 10;
+
+    public bool DialogVisible { get; set; }
+    public async Task RatingChanged(int score)
+    {
+        Score = score; // doubts
+        await ScoreChanged.InvokeAsync(score);
+        DialogVisible = false;
+    }
+
+    public EventCallback<int> ScoreChanged { get; set; }
 
     public Color GetColor()
     {
-        switch (Score!.Value)
+        switch (Score)
         {
             case 0:
                 return Color.Default;
@@ -27,5 +38,5 @@ public class ScoreCardViewModel : IScoreCardViewModel
         }
     }
 
-    public string GetScoreText() => Score!.Value > 0 ? Score!.Value.ToString(CultureInfo.CurrentCulture) : NotRatedText;
+    public string GetScoreText() => Score > 0 ? Score.ToString(CultureInfo.CurrentCulture) : NotRatedText;
 }

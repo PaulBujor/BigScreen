@@ -1,11 +1,46 @@
 ﻿<div class="d-flex flex-column flex-sm-row flex-nowrap gap-2 align-center">
     <div class="relative d-flex pa-1 mud-theme-dark rounded-circle">
         <MudProgressCircular Color="@ViewModel.GetColor()" Size="Size.Large" Value="@ViewModel.GetConvertedScore()"/>
-        <MudText Typo="Typo.h6" Class="text-nowrap z-10 score-card-text d-flex justify-center align-center overflow-hidden">
-            <b>@ViewModel.GetScoreText()</b>
-        </MudText>
+
+        @if (AllowScoring)
+        {
+            @if (ViewModel.Score == 0)
+            {
+                <MudIconButton Icon="@Icons.Filled.Star" Class="score-card-text" OnClick="() => ViewModel.DialogVisible = true"></MudIconButton>
+            }
+            else
+            {
+                <MudIconButton Class="color-white score-card-text d-flex justify-center align-center" OnClick="() => ViewModel.DialogVisible = true">
+                    <MudText Typo="Typo.h6" Class="text-nowrap z-10 overflow-hidden">
+                        <b>@ViewModel.GetScoreText()</b>
+                    </MudText>
+                </MudIconButton>
+            }
+        }
+        @if (!AllowScoring)
+        {
+            <MudText Typo="Typo.h6" Class="color-white text-nowrap z-10 score-card-text d-flex justify-center align-center overflow-hidden">
+                <b>@ViewModel.GetScoreText()</b>
+            </MudText>
+        }
+
     </div>
     <MudText Typo="Typo.body2">
         <b>@Text<br/>Score</b>
     </MudText>
 </div>
+
+<MudDialog @bind-IsVisible="ViewModel.DialogVisible" Options="new DialogOptions{ CloseButton = true}">
+    <TitleContent>
+        <MudText Typo="Typo.h6">Rate this movie</MudText>
+    </TitleContent>
+    <DialogContent>
+        <div class="d-flex align-center">
+            <MudIconButton OnClick="async () => await ViewModel.RatingChanged(0)" Icon="@Icons.Filled.Clear" Size="Size.Small" Class="mud-icon-size-xs" Style="margin-top: -4px"/>
+            <MudRating SelectedValue="(int) ViewModel.Score" SelectedValueChanged="async args => await ViewModel.RatingChanged(args)" MaxValue="10"></MudRating>
+        </div>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="() => ViewModel.DialogVisible = false">Close</MudButton>
+    </DialogActions>
+</MudDialog>

@@ -42,7 +42,7 @@
                 <ScoreCard Score="@ViewModel.MediaModel.TmdbScore" Text="Tmdb"/>
                 <ScoreCard Score="@ViewModel.MediaModel.BigScreenScore" Text="BigScreen"/>
                 @* todo add AuthorizeView *@
-                <ScoreCard Score="@ViewModel.MediaModel.UserScore" Text="Your"/>
+                <ScoreCard Score="@ViewModel.MediaModel.UserScore" ScoreChanged="async args => await ViewModel.OnUserScoreChanged(args)" AllowScoring="true" Text="Your"/>
             </div>
 
 
