@@ -5,6 +5,7 @@ using BigScreen.Frontend.Client.Constants;
 using BigScreen.Frontend.Client.Handlers;
 using BigScreen.Frontend.Client.Handlers.Interfaces;
 using BigScreen.Frontend.Components.Card.ViewModel;
+using BigScreen.Frontend.Components.Discussion.ViewModel;
 using BigScreen.Frontend.Components.GeneralPageLayout.ViewModel;
 using BigScreen.Frontend.Components.MediaDetailsPageLayout.ViewModel;
 using BigScreen.Frontend.Components.ScoreCard.ViewModel;
@@ -68,6 +69,7 @@ builder.Services.AddTransient<IMovieViewModel, MovieViewModel>();
 builder.Services.AddTransient<IMediaDetailsPageLayoutViewModel, MediaDetailsPageLayoutViewModel>();
 builder.Services.AddTransient<IGeneralPageLayoutViewModel<SortFilter>, GeneralPageLayoutViewModel<SortFilter>>();
 builder.Services.AddTransient<IGeneralPageLayoutViewModel<SearchFilter>, GeneralPageLayoutViewModel<SearchFilter>>();
+builder.Services.AddSingleton<IDiscussionViewModel, DiscussionViewModel>();
 
 // MudBlazor
 builder.Services.AddMudServices();

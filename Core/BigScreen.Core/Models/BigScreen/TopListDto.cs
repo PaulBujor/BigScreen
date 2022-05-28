@@ -1,10 +1,14 @@
-﻿using BigScreen.SDK.WebAPI.Core;
+﻿using System.Runtime.Serialization;
+using BigScreen.SDK.WebAPI.Core;
 
 namespace BigScreen.Core.Models.BigScreen;
 
+[DataContract]
 public class TopListDto : BaseDto
 {
-    public CachedUserDto? Owner { get; set; }
-    public bool? IsPrivate { get; set; }
-    public ICollection<CachedMovieDto>? Movies { get; set; }
+    [DataMember(Name = "owner")] public CachedUserDto? Owner { get; set; }
+
+    [DataMember(Name = "isPrivate")] public bool? IsPrivate { get; set; }
+
+    [DataMember(Name = "movies")] public ICollection<CachedMovieDto>? Movies { get; set; }
 }
