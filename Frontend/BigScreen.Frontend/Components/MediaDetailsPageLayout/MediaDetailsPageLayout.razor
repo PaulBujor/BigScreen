@@ -1,18 +1,14 @@
-﻿@using BigScreen.Frontend.Components.MediaDetailsPageLayout.Models
-@using System.Globalization
-<div class="mud-theme-primary py-6 py-sm-10">
+﻿<div class="mud-theme-primary py-6 py-sm-10">
     <MudContainer MaxWidth="MaxWidth.Large" Class="d-flex flex-column flex-md-row align-center gap-3 gap-md-5">
         <div class="align-self-center d-flex flex-column">
             <MudImage Src="@ViewModel.MediaModel.ImageUrl" ObjectFit="ObjectFit.ScaleDown" Class="rounded-t-lg"></MudImage>
             <MudButton DisableElevation="true" StartIcon="@ViewModel.GetTopListButtonInfo().Icon" Variant="Variant.Filled" Color="Color.Primary" Class="rounded-t-0 top-list-button" Size="Size.Large">@ViewModel.GetTopListButtonInfo().Text</MudButton>
         </div>
         <div class="d-flex flex-column">
-            <div class="d-flex justify-center justify-md-start flex-wrap">
-                <MudText Typo="Typo.h3" Class="text-center">
-                    <b>@ViewModel.GetHeader().Title</b>
-                </MudText>
-                <MudText Typo="Typo.h3" Class="ml-2 text-nowrap">@ViewModel.GetHeader().Year</MudText>
-            </div>
+            <MudText Typo="Typo.h4" Class="text-center text-md-left">
+                <b>@ViewModel.GetHeader().Title</b>
+                @ViewModel.GetHeader().Year
+            </MudText>
             <div class="d-flex justify-center justify-md-start flex-wrap">
                 @if (!string.IsNullOrEmpty(ViewModel.GetReleaseDate()))
                 {
@@ -75,15 +71,6 @@
                             <b>Status</b>
                         </MudText>
                         <MudText Typo="Typo.body1">@ViewModel.MediaModel.Status</MudText>
-                    </div>
-                }
-                @if (!string.IsNullOrEmpty(ViewModel.MediaModel.Type))
-                {
-                    <div>
-                        <MudText Typo="Typo.body1">
-                            <b>Type</b>
-                        </MudText>
-                        <MudText Typo="Typo.body1">@ViewModel.MediaModel.Type</MudText>
                     </div>
                 }
                 @if (ViewModel.MediaModel.Budget is not null && ViewModel.MediaModel.Budget != 0)

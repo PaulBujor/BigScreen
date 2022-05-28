@@ -6,6 +6,12 @@
     text-align: center;
 }
 
+@media (min-width: 960px) {
+    .text-md-left {
+        text-align: left;
+    }
+}
+
 .h-inherit {
     height: inherit;
 }
@@ -14,8 +20,7 @@
     box-shadow: var(--mud-elevation-7);
 }
 
-@media (min-width: 600px)
-{
+@media (min-width: 600px) {
     .top-banner {
         padding-left: 24px;
         padding-right: 24px;

@@ -10,25 +10,25 @@ public partial class MediaDetailsPageLayout : ComponentBase
     public IMediaDetailsPageLayoutViewModel ViewModel { get; set; } = null!;
 
     [Parameter]
-    public MediaModel? Info
+    public MediaModel? MediaModel
     {
         get => ViewModel.MediaModel;
         set => ViewModel.MediaModel = value!;
     }
-    
+
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     protected override void OnParametersSet()
     {
-        var infoMissing = Info is null;
+        var infoMissing = MediaModel is null;
         var mandatoryParamsMissing = infoMissing;
 
         if (mandatoryParamsMissing)
         {
             // throw new ArgumentException("Mandatory parameters not provided");
         }
-        
+
         base.OnParametersSet();
     }
 }

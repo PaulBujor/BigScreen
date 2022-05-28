@@ -1,3 +1,48 @@
 ﻿@page "/movie/{Id:int}"
+@using BigScreen.Frontend.Core.Helpers
+@using BigScreen.Frontend.Core.Enums
 
-<MediaDetailsPageLayout Info="GetMedia()"/>
+<MediaDetailsPageLayout MediaModel="ViewModel.GetMediaModel()">
+
+    @if (ViewModel.MovieDetails?.Credits is not null)
+    {
+        <MediaDetailsContentContainer Name="Cast & Crew" IsScrollable="true">
+            @if (ViewModel.MovieDetails.Credits.Cast != null)
+            {
+                foreach (var cast in ViewModel.MovieDetails.Credits.Cast)
+                {
+                    <Card Id="@cast.Id" Header="@cast.Name" Image="@cast.ImageUrl" Caption="@cast.Character" LowEmphasisTitle="@true" RoutableTo="@RoutableTo.Person"/>
+                }
+            }
+            @if (ViewModel.MovieDetails.Credits.Crew != null)
+            {
+                foreach (var crew in ViewModel.MovieDetails.Credits.Crew)
+                {
+                    <Card Id="@crew.Id" Header="@crew.Name" Image="@crew.ImageUrl" Caption="@crew.Job" LowEmphasisTitle="@true" RoutableTo="@RoutableTo.Person"/>
+                }
+            }
+        </MediaDetailsContentContainer>
+        <MudDivider Class="my-6"/>
+    }
+
+    @if (ViewModel.MovieDetails?.Similar?.Results is not null)
+    {
+        <MediaDetailsContentContainer Name="Similar" IsScrollable="true">
+            @foreach (var media in ViewModel.MovieDetails.Similar.Results!)
+            {
+                <Card Id="media.Id" Header="@media.Name" Image="@media.ImageUrl" Caption="@media.ReleaseDate?.GetTextForCardCaption()" LowEmphasisTitle="true" RoutableTo="RoutableTo.Movie"/>
+            }
+        </MediaDetailsContentContainer>
+        <MudDivider Class="my-6"/>
+    }
+    @if (ViewModel.MovieDetails?.Recommendations?.Results is not null)
+    {
+        <MediaDetailsContentContainer Name="Recommendations" IsScrollable="true">
+            @foreach (var media in ViewModel.MovieDetails.Recommendations.Results!)
+            {
+                <Card Id="media.Id" Header="@media.Name" Image="@media.ImageUrl" Caption="@media.ReleaseDate?.GetTextForCardCaption()" LowEmphasisTitle="true" RoutableTo="RoutableTo.Movie"/>
+            }
+        </MediaDetailsContentContainer>
+    }
+
+</MediaDetailsPageLayout>

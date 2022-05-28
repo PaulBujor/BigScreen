@@ -32,6 +32,9 @@ public partial class Card : ComponentBase
         set => ViewModel.RoutableTo = value;
     }
 
+    [Parameter]
+    public bool LowEmphasisTitle { get; set; }
+
     protected override void OnParametersSet()
     {
         var idMissing = Id is null;

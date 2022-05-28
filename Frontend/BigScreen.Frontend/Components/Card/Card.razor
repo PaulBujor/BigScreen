@@ -1,4 +1,4 @@
-﻿<MudPaper Elevation="2" MaxWidth="154px" MaxHeight="400px" Class="d-flex flex-auto flex-column hover-card">
+﻿<MudPaper Elevation="2" MaxWidth="154px" MaxHeight="400px" Class="d-flex flex-auto flex-column hover-card z-10">
     <MudLink Href="@ViewModel.GetUrl()" Underline="Underline.None">
         @if (string.IsNullOrEmpty(Image))
         {
@@ -10,7 +10,16 @@
         }
     </MudLink>
     <div class="py-2 px-3 d-flex flex-column overflow-hidden">
-        <MudLink Href="@ViewModel.GetUrl()" Typo="Typo.h6" Style="line-height: 25px; word-break: break-word" Color="Color.Dark" Underline="Underline.None">@Header</MudLink>
+        @if (LowEmphasisTitle)
+        {
+            <MudLink Href="@ViewModel.GetUrl()" Typo="Typo.body1" Class="card-title" Color="Color.Dark" Underline="Underline.None" title="@Header">
+                <b>@Header</b>
+            </MudLink>
+        }
+        else
+        {
+            <MudLink Href="@ViewModel.GetUrl()" Typo="Typo.h6" Class="card-title" Color="Color.Dark" Underline="Underline.None" title="@Header">@Header</MudLink>
+        }
         <MudText Typo="Typo.caption" Class="mt-1 overflow-hidden" Style="white-space: break-spaces;">@Caption</MudText>
     </div>
 </MudPaper>

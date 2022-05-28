@@ -27,6 +27,7 @@ public partial class ScoreCard : ComponentBase
         {
             throw new ArgumentException("Mandatory parameters missing for ScoreCard");
         }
+
         base.OnParametersSet();
     }
 }

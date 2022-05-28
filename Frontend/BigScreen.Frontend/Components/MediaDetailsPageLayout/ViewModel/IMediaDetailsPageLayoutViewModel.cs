@@ -12,5 +12,4 @@ public interface IMediaDetailsPageLayoutViewModel
     string GetGenres();
     string GetDuration();
     string GetTagline();
-
 }

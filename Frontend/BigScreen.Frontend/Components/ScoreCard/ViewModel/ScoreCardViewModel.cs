@@ -28,5 +28,4 @@ public class ScoreCardViewModel : IScoreCardViewModel
     }
 
     public string GetScoreText() => Score!.Value > 0 ? Score!.Value.ToString(CultureInfo.CurrentCulture) : NotRatedText;
-
 }

@@ -39,13 +39,19 @@ public class BaseMediaDetailsDto : TmdbDto
 
     [JsonProperty(PropertyName = "revenue")]
     public double? Revenue { get; set; }
-    
+
+    [JsonProperty(PropertyName = "genres")]
+    public IEnumerable<GenreDto?>? Genres { get; set; }
+
     [JsonProperty(PropertyName = "similar")]
-    public IEnumerable<BaseSearchResultsDto<BaseMediaSearchResultDto>?>? Similar { get; set; }
+    public BaseSearchResultsDto<BaseMediaSearchResultDto>? Similar { get; set; }
 
     [JsonProperty(PropertyName = "recommendations")]
-    public IEnumerable<BaseSearchResultsDto<BaseMediaSearchResultDto>?>? Recommendations { get; set; }
-    
+    public BaseSearchResultsDto<BaseMediaSearchResultDto>? Recommendations { get; set; }
+
+    [JsonProperty(PropertyName = "credits")]
+    public BaseMediaCredits? Credits { get; set; }
+
     [JsonProperty(PropertyName = "title")]
     private string? Title
     {
