@@ -1,0 +1,47 @@
+﻿.text-nowrap {
+    white-space: nowrap;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.color-white {
+    color: white;
+}
+
+.word-break {
+    word-break: break-word;
+}
+
+.mud-icon-size-xs svg {
+    font-size: 1rem;
+}
+
+@media (min-width: 960px) {
+    .text-md-left {
+        text-align: left;
+    }
+}
+
+.h-inherit {
+    height: inherit;
+}
+
+.hover-card.mud-paper:hover {
+    box-shadow: var(--mud-elevation-7);
+}
+
+@media (min-width: 600px) {
+    .top-banner {
+        padding-left: 24px;
+        padding-right: 24px;
+        height: 200px;
+    }
+}
+
+.top-banner {
+    height: 500px;
+    padding-left: 24px;
+    padding-right: 24px;
+}

@@ -122,10 +122,7 @@
         }
     }
 
-    private async Task RedirectToOwnAccount()
-    {
-        Navigation.NavigateTo($"account/{(await AuthenticationStateTask).GetUserId()}");
-    }
+    private async Task RedirectToOwnAccount() => Navigation.NavigateTo($"account/{(await AuthenticationStateTask).GetUserId()}");
 
     private async Task BeginLogout()
     {

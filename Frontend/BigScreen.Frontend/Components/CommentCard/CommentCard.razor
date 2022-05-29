@@ -1,4 +1,4 @@
-﻿<MudCard Style="margin: 1.25em">
+﻿<MudCard Class="flex-1 mt-2">
     <MudCardHeader>
         <MudLink Href="@GetAccountUrl()" Underline="Underline.None" Class="d-flex flex-row gap-2">
             <MudAvatar Color="Color.Primary">@Comment.ByUser.Username[0]</MudAvatar>
@@ -6,7 +6,7 @@
         </MudLink>
     </MudCardHeader>
     <MudCardContent>
-        <MudText>@Comment.Text</MudText>
+        <MudText Class="word-break">@Comment.Text</MudText>
         <AuthorizeView>
             <Authorized>
                 @if (!_showReplyComponent)

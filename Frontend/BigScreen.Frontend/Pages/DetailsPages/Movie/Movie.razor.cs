@@ -1,13 +1,23 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using BigScreen.Frontend.Pages.DetailsPages.Movie.ViewModel;
+using Microsoft.AspNetCore.Components;
 
 namespace BigScreen.Frontend.Pages.DetailsPages.Movie;
 
 public partial class Movie : ComponentBase
 {
-    [Parameter] public int Id { get; set; }
-
-    private string GetFullId()
+    [Parameter]
+    public int Id
     {
-        return $"movie-{Id}";
+        get => ViewModel.Id;
+        set => ViewModel.Id = value;
+    }
+
+    [Inject]
+    public IMovieViewModel ViewModel { get; set; } = null!;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await ViewModel.GetMovieDetails();
+        ViewModel.MediaModel = ViewModel.GetMediaModel();
     }
 }

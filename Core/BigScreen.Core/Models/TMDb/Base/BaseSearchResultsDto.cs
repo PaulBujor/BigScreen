@@ -1,7 +1,7 @@
 ﻿using BigScreen.Frontend.Core;
 using Newtonsoft.Json;
 
-namespace BigScreen.Core.Models.TMDb;
+namespace BigScreen.Core.Models.TMDb.Base;
 
 public class BaseSearchResultsDto<TResultType> : TmdbDto where TResultType : class
 {

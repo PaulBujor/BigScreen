@@ -1,4 +1,5 @@
-﻿using BigScreen.Frontend.Core.Enums;
+﻿using BigScreen.Core.Models.TMDb.Base;
+using BigScreen.Frontend.Core.Enums;
 using BigScreen.Frontend.Core.Helpers;
 using Newtonsoft.Json;
 

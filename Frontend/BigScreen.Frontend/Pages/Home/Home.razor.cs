@@ -5,5 +5,6 @@ namespace BigScreen.Frontend.Pages.Home;
 
 public partial class Home : ComponentBase
 {
-    [Inject] public IHomeViewModel ViewModel { get; set; } = null!;
+    [Inject]
+    public IHomeViewModel ViewModel { get; set; } = null!;
 }
