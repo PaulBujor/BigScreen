@@ -20,12 +20,12 @@ public abstract class BaseBigScreenClient<TDto> where TDto : BaseDto
                 $"{BigScreenClientConstants.GetBaseAddress()}/{typeof(TDto).GetCustomAttribute<EdmCollectionAttribute>()?.CollectionName}");
     }
 
-    public async Task<List<TDto>?> GetAllAsync(string? querry = null)
+    public async Task<List<TDto>?> GetAllAsync(string? query = null)
     {
-        var requestUri = _httpClient.BaseAddress!.ToString();
-        if (!string.IsNullOrWhiteSpace(querry)) requestUri += querry;
+        /*var requestUri = "/";
+        if (!string.IsNullOrWhiteSpace(query)) requestUri += query;*/
 
-        var responseMessage = await _httpClient.GetAsync(requestUri);
+        var responseMessage = await _httpClient.GetAsync(query);
         responseMessage.EnsureSuccessStatusCode();
         var result = await responseMessage.Content.ReadAsStringAsync();
 
@@ -38,7 +38,7 @@ public abstract class BaseBigScreenClient<TDto> where TDto : BaseDto
 
     public async Task<TDto?> GetByIdAsync(string id)
     {
-        var responseMessage = await _httpClient.GetAsync(_httpClient.BaseAddress + id);
+        var responseMessage = await _httpClient.GetAsync("/"+ id);
         var result = await responseMessage.Content.ReadAsStringAsync();
 
         var obj = JsonConvert.DeserializeObject<TDto>(result);
@@ -48,7 +48,7 @@ public abstract class BaseBigScreenClient<TDto> where TDto : BaseDto
 
     public async Task<TDto?> PostAsync(TDto dto)
     {
-        var response = await _httpClient.PostAsJsonAsync(_httpClient.BaseAddress, dto);
+        var response = await _httpClient.PostAsJsonAsync("/", dto);
         response.EnsureSuccessStatusCode();
 
         var result = await response.Content.ReadAsStringAsync();
@@ -64,7 +64,7 @@ public abstract class BaseBigScreenClient<TDto> where TDto : BaseDto
             NullValueHandling = NullValueHandling.Ignore
         });
         var requestContent = new StringContent(serializedDto, Encoding.UTF8, "application/json");
-        var responseMessage = await _httpClient.PatchAsync(_httpClient.BaseAddress, requestContent);
+        var responseMessage = await _httpClient.PatchAsync("/", requestContent);
         responseMessage.EnsureSuccessStatusCode();
 
         var result = await responseMessage.Content.ReadAsStringAsync();
@@ -75,7 +75,7 @@ public abstract class BaseBigScreenClient<TDto> where TDto : BaseDto
 
     public async Task<HttpResponseMessage> DeleteAsync(string id)
     {
-        var response = await _httpClient.DeleteAsync(_httpClient.BaseAddress + id);
+        var response = await _httpClient.DeleteAsync( "/" +id);
         response.EnsureSuccessStatusCode();
         return response;
     }

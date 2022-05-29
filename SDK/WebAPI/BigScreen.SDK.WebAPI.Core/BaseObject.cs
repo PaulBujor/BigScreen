@@ -7,6 +7,5 @@ namespace BigScreen.SDK.WebAPI.Core;
 public abstract class BaseObject
 {
     [DataMember(Name = "id")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public string? Id { get; set; }
 }
