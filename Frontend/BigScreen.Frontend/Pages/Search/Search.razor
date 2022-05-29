@@ -8,7 +8,7 @@
     <MudText Typo="Typo.h4" GutterBottom="true">Explore millions of movies, TV shows and people.</MudText>
 
     <GeneralPageLayout @ref="ViewModel.LayoutInstance" TFilter="SearchFilter" HasSearch="true" PaginationCount="ViewModel.GetNumberOfPages()"
-                       FilterOptions="new[] {SearchFilter.All, SearchFilter.Movies, SearchFilter.TvShows, SearchFilter.People}"
+                       FilterOptions="new[] { SearchFilter.All, SearchFilter.Movies, SearchFilter.TvShows, SearchFilter.People }"
                        SearchContextChanged="ViewModel.OnSearchContextChanged" DropdownLabel="Search in">
         @if (ViewModel.PageResults is not null)
         {

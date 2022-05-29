@@ -6,6 +6,7 @@ namespace BigScreen.Backend.Models;
 [DbContainer(PartitionKey = "owner/id")]
 public class TopListDbEntry : BaseDbEntry
 {
+    public string? Title { get; set; }
     public CachedUserDbo? Owner { get; set; }
     public bool? IsPrivate { get; set; }
     public ICollection<CachedMovieDbo>? Movies { get; set; }

@@ -1,8 +1,8 @@
-﻿<MudText Typo="Typo.h4">Discussion</MudText>
+﻿<LeaveComment MediaId="@MediaId"/>
 
-<LeaveComment MediaId="@MediaId"/>
-
-@foreach (var comment in GetComments("-1"))
-{
-    <CommentCard Comment="@comment"/>
-}
+<div class="mt-4">
+    @foreach (var comment in GetComments("-1"))
+    {
+        <CommentCard Comment="@comment"/>
+    }
+</div>

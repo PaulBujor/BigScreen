@@ -4,12 +4,18 @@ using BigScreen.Frontend.Client;
 using BigScreen.Frontend.Client.Constants;
 using BigScreen.Frontend.Client.Handlers;
 using BigScreen.Frontend.Client.Handlers.Interfaces;
+using BigScreen.Frontend.Client.Security;
 using BigScreen.Frontend.Components.Card.ViewModel;
 using BigScreen.Frontend.Components.Discussion.ViewModel;
 using BigScreen.Frontend.Components.GeneralPageLayout.ViewModel;
+using BigScreen.Frontend.Components.MediaDetailsPageLayout.ViewModel;
+using BigScreen.Frontend.Components.ScoreCard.ViewModel;
 using BigScreen.Frontend.Components.SearchResult.ViewModel;
 using BigScreen.Frontend.Core.Enums;
 using BigScreen.Frontend.Core.Helpers;
+using BigScreen.Frontend.Pages.Account.ViewModel;
+using BigScreen.Frontend.Pages.DetailsPages.Movie.ViewModel;
+using BigScreen.Frontend.Pages.DetailsPages.TvShow.ViewModel;
 using BigScreen.Frontend.Pages.GeneralPages.Movies.ViewModel;
 using BigScreen.Frontend.Pages.GeneralPages.People.ViewModel;
 using BigScreen.Frontend.Pages.GeneralPages.TvShows.ViewModel;
@@ -34,10 +40,17 @@ builder.Services.AddSingleton<KeyVaultHelper>();
 
 // TmdbClients
 builder.Services.AddScoped<TmdbClient<MovieDto>>();
+builder.Services.AddScoped<TmdbClient<TvShowDto>>();
 builder.Services.AddScoped<TmdbClient<SearchPageResultsDto>>();
 builder.Services.AddScoped<TmdbClient<MoviesSearchResultsDto>>();
 builder.Services.AddScoped<TmdbClient<TvShowsSearchResultsDto>>();
 builder.Services.AddScoped<TmdbClient<PeopleSearchResultsDto>>();
+
+// BigScreen Clients
+//TODO switch to scoped once using backend
+builder.Services.AddSingleton<IDiscussionHandler, DiscussionHandler>();
+builder.Services.AddSingleton<IUserHandler, UserHandler>();
+builder.Services.AddSingleton<ITopListHandler, TopListHandler>();
 
 // Handlers
 builder.Services.AddScoped<IMovieHandler, MovieHandler>();
@@ -51,6 +64,13 @@ builder.Services
 builder.Services
     .AddScoped<IGeneralSearchPageResultsHandler<TvShowsSearchResultsDto>,
         GeneralSearchPageResultsHandler<TvShowsSearchResultsDto>>();
+builder.Services
+    .AddScoped<IDetailsPageHandler<MovieDto>,
+        DetailsPageHandler<MovieDto>>();
+builder.Services
+    .AddScoped<IDetailsPageHandler<TvShowDto>,
+        DetailsPageHandler<TvShowDto>>();
+
 
 // ViewModels
 builder.Services.AddTransient<IHomeViewModel, HomeViewModel>();
@@ -60,18 +80,26 @@ builder.Services.AddTransient<IPeopleViewModel, PeopleViewModel>();
 builder.Services.AddTransient<ITvShowsViewModel, TvShowsViewModel>();
 builder.Services.AddTransient<ISearchResultViewModel, SearchResultViewModel>();
 builder.Services.AddTransient<ICardViewModel, CardViewModel>();
+builder.Services.AddTransient<IScoreCardViewModel, ScoreCardViewModel>();
+builder.Services.AddTransient<IMovieViewModel, MovieViewModel>();
+builder.Services.AddTransient<ITvShowViewModel, TvShowViewModel>();
+builder.Services.AddTransient<IMediaDetailsPageLayoutViewModel, MediaDetailsPageLayoutViewModel>();
 builder.Services.AddTransient<IGeneralPageLayoutViewModel<SortFilter>, GeneralPageLayoutViewModel<SortFilter>>();
 builder.Services.AddTransient<IGeneralPageLayoutViewModel<SearchFilter>, GeneralPageLayoutViewModel<SearchFilter>>();
+builder.Services.AddTransient<IAccountViewModel, AccountViewModel>();
 builder.Services.AddSingleton<IDiscussionViewModel, DiscussionViewModel>();
 
 // MudBlazor
 builder.Services.AddMudServices();
 
 // Authentication
+builder.Services.AddSingleton<UserState>();
 builder.Services.AddMsalAuthentication(options =>
 {
     builder.Configuration.Bind("AzureAdB2C", options.ProviderOptions.Authentication);
     options.ProviderOptions.LoginMode = "redirect";
+    options.ProviderOptions.Cache.StoreAuthStateInCookie = true;
+    options.ProviderOptions.Cache.CacheLocation = "localStorage";
 });
 
 await builder.Build().RunAsync();

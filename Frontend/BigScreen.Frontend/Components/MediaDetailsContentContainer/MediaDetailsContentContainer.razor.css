@@ -1,0 +1,19 @@
+﻿::deep .content-container {
+    position: relative;
+}
+
+.content-wrapper {
+    margin-left: -8px;
+}
+
+.content-container::after {
+    content: "";
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    bottom: 15px;
+    pointer-events: none;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0), white 85%);
+    width: 10%;
+}

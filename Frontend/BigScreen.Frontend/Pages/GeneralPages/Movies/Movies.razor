@@ -7,7 +7,7 @@
     <MudText Typo="Typo.h3" GutterBottom="true">Movies</MudText>
     @if (ViewModel.PageResults is not null)
     {
-        <GeneralPageLayout TFilter="SortFilter" PaginationCount="ViewModel.PageResults.TotalPages" FilterOptions="new[] {SortFilter.Popularity, SortFilter.Rating}" SearchContextChanged="ViewModel.OnSearchContextChanged">
+        <GeneralPageLayout TFilter="SortFilter" PaginationCount="ViewModel.PageResults.TotalPages" FilterOptions="new[] { SortFilter.Popularity, SortFilter.Rating }" SearchContextChanged="ViewModel.OnSearchContextChanged">
             <div class="d-flex flex-wrap justify-space-between gap-5">
                 @if (ViewModel.PageResults.Results is not null && ViewModel.PageResults.Results.Any())
                 {

@@ -1,0 +1,76 @@
+﻿@page "/account/{Id}"
+@using BigScreen.Frontend.Client.Security
+<PageTitle>Account</PageTitle>
+
+<div class="mud-theme-primary py-6 py-sm-10">
+    <MudContainer MaxWidth="MaxWidth.Large" Class="d-flex flex-column flex-md-row align-center justify-space-between gap-3">
+        <div class="d-flex flex-column flex-md-row align-center gap-3 gap-md-5">
+            <MudAvatar Style="height:70px; width:70px; font-size:2rem;" Color="Color.Tertiary">@_username![0]</MudAvatar>
+            <MudText Typo="Typo.h4">@@@_username</MudText>
+        </div>
+        <div>
+            <AuthorizeView>
+                <Authorized>
+                    @if (context.GetUserId() != ViewModel.User?.Id)
+                    {
+                        @if (_isFollowing)
+                        {
+                            <MudButton Variant="Variant.Outlined" Color="Color.Inherit" StartIcon="@Icons.Material.Filled.Check" OnClick="@ViewModel.UnfollowUser">Following</MudButton>
+                        }
+                        else
+                        {
+                            <MudButton Variant="Variant.Outlined" Color="Color.Inherit" StartIcon="@Icons.Material.Filled.Add" OnClick="@ViewModel.FollowUser">Follow</MudButton>
+                        }
+                    }
+                </Authorized>
+            </AuthorizeView>
+        </div>
+    </MudContainer>
+</div>
+
+<MudContainer>
+    <MudTabs Centered="true" ActivePanelIndex="@_tabIndex">
+        <MudTabPanel Text="Top Lists">
+            <MudGrid Class="mt-3">
+                <AuthorizeView>
+                    <Authorized>
+                        @if (context.GetUserId() == ViewModel.User?.Id)
+                        {
+                            <MudItem xs="12" sm="6" md="3" Class="d-flex">
+                                <MudPaper Class="flex-1 d-flex justify-center align-center pa-4 cursor-pointer" @onclick="@CreateItem">
+                                    <MudIcon Icon="@Icons.Material.Filled.Add" Color="Color.Primary"></MudIcon>
+                                    <MudText Typo="Typo.h6" Color="Color.Primary">Create</MudText>
+                                </MudPaper>
+                            </MudItem>
+                        }
+                    </Authorized>
+                </AuthorizeView>
+                @foreach (var top in _topLists)
+                {
+                    <MudItem xs="12" sm="6" md="3" Class="d-flex">
+                        @*todo link*@
+                        <MudLink Class="flex-1 d-flex" Underline="Underline.None" href="/">
+                            <MudPaper Class="flex-1 d-flex justify-center align-center pa-4">
+                                <MudText Typo="Typo.h6" Align="Align.Center">@top.Title</MudText>
+                            </MudPaper>
+                        </MudLink>
+                    </MudItem>
+                }
+            </MudGrid>
+        </MudTabPanel>
+        <MudTabPanel Text="Following">
+            <MudGrid Class="mt-3">
+                @foreach (var user in _following)
+                {
+                    <MudItem xs="12" sm="6" md="3" Class="d-flex">
+                        <MudLink Class="flex-1 d-flex" Underline="Underline.None" Href="@GetPathToAccount(user.Id)">
+                            <MudPaper Class="flex-1 d-flex justify-center align-center pa-4">
+                                <MudText Typo="Typo.h6" Align="Align.Center">@user.Username</MudText>
+                            </MudPaper>
+                        </MudLink>
+                    </MudItem>
+                }
+            </MudGrid>
+        </MudTabPanel>
+    </MudTabs>
+</MudContainer>

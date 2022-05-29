@@ -1,0 +1,8 @@
+﻿::deep button.top-list-button {
+    background-color: var(--mud-palette-white);
+    color: var(--mud-palette-primary);
+}
+
+::deep button.top-list-button:hover {
+    background-color: var(--mud-palette-background-grey);
+}

@@ -19,7 +19,7 @@
     <MudItem xs="12">
         @if (ChildContent is not null)
         {
-            <CascadingValue Value="ViewModel.GetCurrentFilter()">
+            <CascadingValue Value="ViewModel.CurrentFilter">
                 @ChildContent
             </CascadingValue>
         }
@@ -29,6 +29,7 @@
         {
             <div class="d-flex justify-center">
                 <MudPagination Count="@ViewModel.GetPaginationCount(PaginationCount!.Value)"
+                               Selected="ViewModel.CurrentPage"
                                SelectedChanged="async args => await ViewModel.OnPageChanged(args)"/>
             </div>
         }

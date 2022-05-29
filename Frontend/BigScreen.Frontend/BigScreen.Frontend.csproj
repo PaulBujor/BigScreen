@@ -21,9 +21,7 @@
 
     <ItemGroup>
         <Folder Include="Components\"/>
-        <Folder Include="Pages\DetailsPages\Movie\ViewModel"/>
         <Folder Include="Pages\DetailsPages\Person\ViewModel"/>
-        <Folder Include="Pages\DetailsPages\TvShow\ViewModel"/>
         <Folder Include="Pages\Search\ViewModel\"/>
     </ItemGroup>
 
@@ -36,6 +34,12 @@
 
     <ItemGroup>
         <TrimmerRootAssembly Include="Microsoft.Authentication.WebAssembly.Msal"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <_ContentIncludedByDefault Remove="wwwroot\sample-data\weather.json"/>
+        <_ContentIncludedByDefault Remove="wwwroot\styles\bootstrap.min.css"/>
+        <_ContentIncludedByDefault Remove="wwwroot\styles\bootstrap.min.css.map"/>
     </ItemGroup>
 
 </Project>
