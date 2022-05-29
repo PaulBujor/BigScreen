@@ -17,10 +17,10 @@ public partial class ScoreCard : ComponentBase
 
     [Parameter]
     public string? Text { get; set; }
-    
+
     [Parameter]
     public bool AllowScoring { get; set; }
-    
+
     [Parameter]
     public EventCallback<int> ScoreChanged
     {

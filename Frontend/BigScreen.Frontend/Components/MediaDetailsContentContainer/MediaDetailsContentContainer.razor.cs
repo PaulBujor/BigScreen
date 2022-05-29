@@ -24,7 +24,7 @@ public partial class MediaDetailsContentContainer : ComponentBase
         }
         else
         {
-            wrapper += "flex-wrap";
+            wrapper += "flex-column flex-wrap";
         }
 
         return (container, wrapper);

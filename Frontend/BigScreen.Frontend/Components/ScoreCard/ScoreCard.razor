@@ -30,14 +30,14 @@
     </MudText>
 </div>
 
-<MudDialog @bind-IsVisible="ViewModel.DialogVisible" Options="new DialogOptions{ CloseButton = true}">
+<MudDialog @bind-IsVisible="ViewModel.DialogVisible" Options="new DialogOptions { CloseButton = true }">
     <TitleContent>
         <MudText Typo="Typo.h6">Rate this movie</MudText>
     </TitleContent>
     <DialogContent>
         <div class="d-flex align-center">
             <MudIconButton OnClick="async () => await ViewModel.RatingChanged(0)" Icon="@Icons.Filled.Clear" Size="Size.Small" Class="mud-icon-size-xs" Style="margin-top: -4px"/>
-            <MudRating SelectedValue="(int) ViewModel.Score" SelectedValueChanged="async args => await ViewModel.RatingChanged(args)" MaxValue="10"></MudRating>
+            <MudRating SelectedValue="(int)ViewModel.Score" SelectedValueChanged="async args => await ViewModel.RatingChanged(args)" MaxValue="10"></MudRating>
         </div>
     </DialogContent>
     <DialogActions>

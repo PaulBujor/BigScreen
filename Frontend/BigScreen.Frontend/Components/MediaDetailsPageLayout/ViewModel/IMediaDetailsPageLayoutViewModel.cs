@@ -7,8 +7,6 @@ public interface IMediaDetailsPageLayoutViewModel
 {
     MediaModel MediaModel { get; set; }
     EventCallback<int> UserScoreChanged { get; set; }
-    (string Icon, string Text) GetTopListButtonInfo();
-
     (string Title, string Year) GetHeader();
     string GetReleaseDate();
     string GetGenres();

@@ -18,13 +18,16 @@ public partial class MediaDetailsPageLayout : ComponentBase
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-    
+
     [Parameter]
     public EventCallback<int> UserScoreChanged
     {
         get => ViewModel.UserScoreChanged;
         set => ViewModel.UserScoreChanged = value;
     }
+
+    [Parameter]
+    public EventCallback AddToTopListClicked { get; set; }
 
     protected override void OnParametersSet()
     {

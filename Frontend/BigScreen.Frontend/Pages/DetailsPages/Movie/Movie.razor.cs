@@ -15,10 +15,9 @@ public partial class Movie : ComponentBase
     [Inject]
     public IMovieViewModel ViewModel { get; set; } = null!;
 
-    protected override async Task OnParametersSetAsync() => await ViewModel.GetMovieDetails();
-
-    private string GetFullId()
+    protected override async Task OnParametersSetAsync()
     {
-        return $"movie-{Id}";
+        await ViewModel.GetMovieDetails();
+        ViewModel.MediaModel = ViewModel.GetMediaModel();
     }
 }

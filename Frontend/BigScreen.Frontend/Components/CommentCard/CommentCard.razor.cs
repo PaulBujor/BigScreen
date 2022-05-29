@@ -14,13 +14,17 @@ public partial class CommentCard : ComponentBase
 
     private bool _showReplyComponent = false;
 
-    [CascadingParameter] private Task<AuthenticationState> AuthenticationStateTask { get; set; } = null!;
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthenticationStateTask { get; set; } = null!;
 
-    [Inject] public IDiscussionViewModel ViewModel { get; set; } = null!;
+    [Inject]
+    public IDiscussionViewModel ViewModel { get; set; } = null!;
 
-    [Parameter] public string MediaId { get; set; } = null!;
+    [Parameter]
+    public string MediaId { get; set; } = null!;
 
-    [Parameter] public CommentDto Comment { get; set; } = null!;
+    [Parameter]
+    public CommentDto Comment { get; set; } = null!;
 
     protected override async Task OnInitializedAsync()
     {
@@ -39,10 +43,7 @@ public partial class CommentCard : ComponentBase
         _replies = ViewModel.GetComments(Comment.Id);
     }
 
-    private IEnumerable<CommentDto> GetReplies()
-    {
-        return _replies;
-    }
+    private IEnumerable<CommentDto> GetReplies() => _replies;
 
     private async Task ToggleReply()
     {

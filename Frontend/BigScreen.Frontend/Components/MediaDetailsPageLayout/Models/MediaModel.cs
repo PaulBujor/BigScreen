@@ -5,7 +5,7 @@ namespace BigScreen.Frontend.Components.MediaDetailsPageLayout.Models;
 public class MediaModel
 {
     public MediaModel(string? imageUrl, string title, DateOnly? releaseDate, string[]? genres, TimeSpan duration,
-        string? tagline, string? overview, bool addedToToplist, double? tmdbScore, string? status, double? budget,
+        string? tagline, string? overview, double? tmdbScore, string? status, double? budget,
         double? revenue)
     {
         ImageUrl = imageUrl;
@@ -15,7 +15,6 @@ public class MediaModel
         Duration = duration;
         Tagline = tagline;
         Overview = overview;
-        AddedToToplist = addedToToplist;
         TmdbScore = tmdbScore;
         Status = status;
         Budget = budget;
@@ -23,7 +22,7 @@ public class MediaModel
     }
 
     public MediaModel(string? imageUrl, string title, DateOnly? releaseDate, string[]? genres, TimeSpan duration,
-        string? tagline, string? overview, bool addedToToplist, double? tmdbScore, double? bigScreenScore,
+        string? tagline, string? overview, double? tmdbScore, double? bigScreenScore,
         double? userScore, string? status, double? budget, double? revenue)
     {
         ImageUrl = imageUrl;
@@ -33,7 +32,6 @@ public class MediaModel
         Duration = duration;
         Tagline = tagline;
         Overview = overview;
-        AddedToToplist = addedToToplist;
         TmdbScore = tmdbScore;
         BigScreenScore = bigScreenScore;
         UserScore = userScore;
@@ -60,8 +58,6 @@ public class MediaModel
 
     public string? Overview { get; set; }
 
-    public bool AddedToToplist { get; set; }
-
     public double? TmdbScore { get; set; }
 
     public double? BigScreenScore { get; set; }
@@ -79,7 +75,19 @@ public class MediaModel
         {
             return new MediaModel(dto.ImageUrl, dto.Name, dto.ReleaseDate, dto.Genres.Select(g => g?.Name).ToArray()!,
                 dto.Duration,
-                dto.Tagline, dto.Overview, false, dto.TmdbScore, dto.Status, dto.Budget, dto.Revenue);
+                dto.Tagline, dto.Overview, dto.TmdbScore, dto.Status, dto.Budget, dto.Revenue);
+        }
+
+        return null;
+    }
+
+    public static MediaModel? FromTvShowDto(TvShowDto? dto)
+    {
+        if (dto is not null && dto.Name != null && dto.Genres != null)
+        {
+            return new MediaModel(dto.ImageUrl, dto.Name, dto.ReleaseDate, dto.Genres.Select(g => g?.Name).ToArray()!,
+                dto.Duration,
+                dto.Tagline, dto.Overview, dto.TmdbScore, dto.Status, dto.Budget, dto.Revenue);
         }
 
         return null;

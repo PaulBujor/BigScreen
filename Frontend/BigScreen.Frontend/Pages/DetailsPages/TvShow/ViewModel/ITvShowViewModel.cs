@@ -1,15 +1,15 @@
 ﻿using BigScreen.Core.Models.TMDb;
 using BigScreen.Frontend.Components.MediaDetailsPageLayout.Models;
 
-namespace BigScreen.Frontend.Pages.DetailsPages.Movie.ViewModel;
+namespace BigScreen.Frontend.Pages.DetailsPages.TvShow.ViewModel;
 
-public interface IMovieViewModel
+public interface ITvShowViewModel
 {
     int Id { get; set; }
-    MovieDto? MovieDetails { get; }
+    TvShowDto? TvShowDetails { get; }
     MediaModel? MediaModel { get; set; }
     Task OnUserScoreChanged(int score);
-    Task GetMovieDetails();
+    Task GetTvShowDetails();
     MediaModel GetMediaModel();
     void OnAddedToTopList();
     string GetFullId();

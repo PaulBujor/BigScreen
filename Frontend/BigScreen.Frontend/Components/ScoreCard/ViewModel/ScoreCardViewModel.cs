@@ -12,6 +12,7 @@ public class ScoreCardViewModel : IScoreCardViewModel
     public double GetConvertedScore() => Score == 0 ? 100 : Score * 10;
 
     public bool DialogVisible { get; set; }
+
     public async Task RatingChanged(int score)
     {
         Score = score; // doubts

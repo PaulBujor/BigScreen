@@ -3,7 +3,7 @@ using BigScreen.Frontend.Core.Enums;
 using BigScreen.Frontend.Core.Helpers;
 using Newtonsoft.Json;
 
-namespace BigScreen.Core.Models.TMDb;
+namespace BigScreen.Core.Models.TMDb.Base;
 
 public class BaseMediaDetailsDto : TmdbDto
 {
