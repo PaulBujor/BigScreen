@@ -11,5 +11,6 @@ public interface IGeneralPageLayoutViewModel<TFilter>
     int GetPaginationCount(int numberOfPages);
     Task OnFilterChanged(TFilter filter);
     Task OnPageChanged(int page);
-    TFilter GetCurrentFilter();
+    TFilter CurrentFilter { get; }
+    int CurrentPage { get; }
 }

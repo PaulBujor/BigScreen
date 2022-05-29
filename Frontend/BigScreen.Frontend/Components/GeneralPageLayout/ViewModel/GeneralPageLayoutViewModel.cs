@@ -7,9 +7,10 @@ namespace BigScreen.Frontend.Components.GeneralPageLayout.ViewModel;
 public class GeneralPageLayoutViewModel<TFilter> : IGeneralPageLayoutViewModel<TFilter>
 {
     private readonly IJSRuntime _jsRuntime;
-    private TFilter _currentFilter = default!;
-    private int _currentPage = 1;
     private string _searchQuery = string.Empty;
+
+    public TFilter CurrentFilter { get; private set; } = default!;
+    public int CurrentPage { get; private set; } = 1;
 
     public GeneralPageLayoutViewModel(IJSRuntime jsRuntime)
     {
@@ -38,35 +39,33 @@ public class GeneralPageLayoutViewModel<TFilter> : IGeneralPageLayoutViewModel<T
 
     public async Task OnFilterChanged(TFilter filter)
     {
-        _currentFilter = filter;
+        CurrentFilter = filter;
         ResetCurrentPage();
         await InvokeSearchContextChanged();
     }
 
     public async Task OnPageChanged(int page)
     {
-        _currentPage = page;
+        CurrentPage = page;
         await InvokeSearchContextChanged();
         await _jsRuntime.InvokeVoidAsync("scrollToTop");
     }
-
-    public TFilter GetCurrentFilter() => _currentFilter;
-
+    
     private void ResetCurrentPage()
     {
-        _currentPage = 1;
+        CurrentPage = 1;
     }
 
     private async Task InvokeSearchContextChanged()
     {
         if (HasSearch)
         {
-            await SearchContextChanged.InvokeAsync(new SearchContext<TFilter>(_currentPage, _currentFilter,
+            await SearchContextChanged.InvokeAsync(new SearchContext<TFilter>(CurrentPage, CurrentFilter,
                 _searchQuery));
         }
         else
         {
-            await SearchContextChanged.InvokeAsync(new SearchContext<TFilter>(_currentPage, _currentFilter));
+            await SearchContextChanged.InvokeAsync(new SearchContext<TFilter>(CurrentPage, CurrentFilter));
         }
     }
 }
