@@ -19,7 +19,6 @@ public class CommentDto : BaseDto
     {
         return new CommentDto
         {
-            Id = Guid.NewGuid().ToString(),
             ForMovie = mediaId,
             ReplyTo = commentId,
             Text = "",

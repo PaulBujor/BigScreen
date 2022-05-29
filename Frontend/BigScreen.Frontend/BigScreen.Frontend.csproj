@@ -7,35 +7,41 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.4"/>
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.4" PrivateAssets="all"/>
-        <PackageReference Include="Microsoft.Authentication.WebAssembly.Msal" Version="6.0.5"/>
-        <PackageReference Include="MudBlazor" Version="6.0.9"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.4" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.4" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.Authentication.WebAssembly.Msal" Version="6.0.5" />
+        <PackageReference Include="MudBlazor" Version="6.0.9" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\SDK\Client\BigScreen.SDK.Client\BigScreen.SDK.Client.csproj"/>
-        <ProjectReference Include="..\BigScreen.Frontend.Client\BigScreen.Frontend.Client.csproj"/>
-        <ProjectReference Include="..\BigScreen.Frontend.Core\BigScreen.Frontend.Core.csproj"/>
+        <ProjectReference Include="..\..\SDK\Client\BigScreen.SDK.Client\BigScreen.SDK.Client.csproj" />
+        <ProjectReference Include="..\BigScreen.Frontend.Client\BigScreen.Frontend.Client.csproj" />
+        <ProjectReference Include="..\BigScreen.Frontend.Core\BigScreen.Frontend.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Components\"/>
-        <Folder Include="Pages\DetailsPages\Movie\ViewModel"/>
-        <Folder Include="Pages\DetailsPages\Person\ViewModel"/>
-        <Folder Include="Pages\DetailsPages\TvShow\ViewModel"/>
-        <Folder Include="Pages\Search\ViewModel\"/>
+        <Folder Include="Components\" />
+        <Folder Include="Pages\DetailsPages\Movie\ViewModel" />
+        <Folder Include="Pages\DetailsPages\Person\ViewModel" />
+        <Folder Include="Pages\DetailsPages\TvShow\ViewModel" />
+        <Folder Include="Pages\Search\ViewModel\" />
     </ItemGroup>
 
     <ItemGroup>
-        <AdditionalFiles Include="Pages\GeneralPages\Movies\Movies.razor"/>
-        <AdditionalFiles Include="Pages\GeneralPages\People\People.razor"/>
-        <AdditionalFiles Include="Pages\GeneralPages\TvShows\TvShows.razor"/>
-        <AdditionalFiles Include="Pages\Home\Home.razor"/>
+        <AdditionalFiles Include="Pages\GeneralPages\Movies\Movies.razor" />
+        <AdditionalFiles Include="Pages\GeneralPages\People\People.razor" />
+        <AdditionalFiles Include="Pages\GeneralPages\TvShows\TvShows.razor" />
+        <AdditionalFiles Include="Pages\Home\Home.razor" />
     </ItemGroup>
 
     <ItemGroup>
-        <TrimmerRootAssembly Include="Microsoft.Authentication.WebAssembly.Msal"/>
+        <TrimmerRootAssembly Include="Microsoft.Authentication.WebAssembly.Msal" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <_ContentIncludedByDefault Remove="wwwroot\sample-data\weather.json" />
+        <_ContentIncludedByDefault Remove="wwwroot\styles\bootstrap.min.css" />
+        <_ContentIncludedByDefault Remove="wwwroot\styles\bootstrap.min.css.map" />
     </ItemGroup>
 
 </Project>

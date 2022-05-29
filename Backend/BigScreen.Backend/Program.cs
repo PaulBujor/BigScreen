@@ -30,7 +30,7 @@ builder.Services.AddDataAccess().Add<CommentDto, CommentDbEntry>()
     .Add<UserDto, UserDbEntry>()
     .Build();
 builder.Services.AddControllers().AddOData(opt =>
-    opt.Select().Filter().OrderBy().Count().Expand()
+    opt.Select().Filter().Count().Expand()
         .AddRouteComponents("api", GetEdmModel(), new DefaultODataBatchHandler()));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
