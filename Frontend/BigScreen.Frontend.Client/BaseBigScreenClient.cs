@@ -48,7 +48,7 @@ public abstract class BaseBigScreenClient<TDto> where TDto : BaseDto
 
     public async Task<TDto?> PostAsync(TDto dto)
     {
-        var response = await _httpClient.PostAsJsonAsync("https://localhost:7171/api/Users/", dto);
+        var response = await _httpClient.PostAsJsonAsync(_httpClient.BaseAddress, dto);
         response.EnsureSuccessStatusCode();
 
         var result = await response.Content.ReadAsStringAsync();
@@ -64,7 +64,7 @@ public abstract class BaseBigScreenClient<TDto> where TDto : BaseDto
             NullValueHandling = NullValueHandling.Ignore
         });
         var requestContent = new StringContent(serializedDto, Encoding.UTF8, "application/json");
-        var responseMessage = await _httpClient.PatchAsync("https://localhost:7171/api/Users", requestContent);
+        var responseMessage = await _httpClient.PatchAsync(_httpClient.BaseAddress, requestContent);
         responseMessage.EnsureSuccessStatusCode();
 
         var result = await responseMessage.Content.ReadAsStringAsync();
@@ -75,7 +75,7 @@ public abstract class BaseBigScreenClient<TDto> where TDto : BaseDto
 
     public async Task<HttpResponseMessage> DeleteAsync(string id)
     {
-        var response = await _httpClient.DeleteAsync("https://localhost:7171/api/Users/" + id);
+        var response = await _httpClient.DeleteAsync(_httpClient.BaseAddress + id);
         response.EnsureSuccessStatusCode();
         return response;
     }
