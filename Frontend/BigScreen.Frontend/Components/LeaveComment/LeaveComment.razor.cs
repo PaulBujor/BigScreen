@@ -27,7 +27,10 @@ public partial class LeaveComment : ComponentBase
 
     private async Task PostCommentAsync()
     {
-        if (string.IsNullOrEmpty(_comment?.Text)) return;
+        if (string.IsNullOrEmpty(_comment?.Text))
+        {
+            return;
+        }
 
         await ViewModel.PostCommentAsync(_comment);
 

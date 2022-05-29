@@ -5,10 +5,8 @@ namespace BigScreen.Frontend.Components.Reply;
 
 public partial class Reply : ComponentBase
 {
-    [Parameter] public CommentDto Comment { get; set; } = null!;
+    [Parameter]
+    public CommentDto Comment { get; set; } = null!;
 
-    private string GetAccountUrl()
-    {
-        return $"account/{Comment.ByUser?.Id}";
-    }
+    private string GetAccountUrl() => $"account/{Comment.ByUser?.Id}";
 }

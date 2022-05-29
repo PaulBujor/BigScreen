@@ -54,14 +54,14 @@ public partial class CommentCard : ComponentBase
 
     private async Task PostReply()
     {
-        if (string.IsNullOrEmpty(_reply.Text)) return;
+        if (string.IsNullOrEmpty(_reply.Text))
+        {
+            return;
+        }
 
         await ViewModel.PostCommentAsync(_reply);
         await ToggleReply();
     }
 
-    private string GetAccountUrl()
-    {
-        return $"account/{Comment.ByUser?.Id}";
-    }
+    private string GetAccountUrl() => $"account/{Comment.ByUser?.Id}";
 }
