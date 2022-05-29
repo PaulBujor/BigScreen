@@ -26,6 +26,8 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 // Http Clients
 builder.Services.AddHttpClient(TmdbClientConstants.ClientName,
     client => client.BaseAddress = new Uri(TmdbClientConstants.BaseAddress));
+builder.Services.AddHttpClient(BigScreenClientConstants.ClientName,
+    client => client.BaseAddress = new Uri(BigScreenClientConstants.GetBaseAddress()));
 
 // Helpers
 builder.Services.AddSingleton<KeyVaultHelper>();

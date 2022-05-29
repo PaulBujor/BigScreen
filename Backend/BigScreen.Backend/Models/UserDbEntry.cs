@@ -3,7 +3,7 @@ using BigScreen.SDK.DataAccess.Core.Attributes;
 
 namespace BigScreen.Backend.Models;
 
-[DbContainer(PartitionKey = nameof(Id))]
+[DbContainer(PartitionKey = "id")]
 public class UserDbEntry : BaseDbEntry
 {
     public string? FirstName { get; set; }
