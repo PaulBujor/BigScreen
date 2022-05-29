@@ -8,11 +8,11 @@ using Newtonsoft.Json;
 
 namespace BigScreen.Frontend.Client;
 
-public abstract class BaseBigScreenClient<TDto> where TDto : BaseDto
+public abstract class BaseODataClient<TDto> where TDto : BaseDto
 {
     private readonly HttpClient _httpClient;
 
-    protected BaseBigScreenClient(IHttpClientFactory clientFactory)
+    protected BaseODataClient(IHttpClientFactory clientFactory)
     {
         _httpClient = clientFactory.CreateClient(BigScreenClientConstants.ClientName);
         _httpClient.BaseAddress =
@@ -38,7 +38,7 @@ public abstract class BaseBigScreenClient<TDto> where TDto : BaseDto
 
     public async Task<TDto?> GetByIdAsync(string id)
     {
-        var responseMessage = await _httpClient.GetAsync("/"+ id);
+        var responseMessage = await _httpClient.GetAsync("/" + id);
         var result = await responseMessage.Content.ReadAsStringAsync();
 
         var obj = JsonConvert.DeserializeObject<TDto>(result);
@@ -75,7 +75,7 @@ public abstract class BaseBigScreenClient<TDto> where TDto : BaseDto
 
     public async Task<HttpResponseMessage> DeleteAsync(string id)
     {
-        var response = await _httpClient.DeleteAsync( "/" +id);
+        var response = await _httpClient.DeleteAsync("/" + id);
         response.EnsureSuccessStatusCode();
         return response;
     }
