@@ -1,6 +1,6 @@
 ﻿using BigScreen.Core.Models.BigScreen;
+using BigScreen.Frontend.Client.Security;
 using BigScreen.Frontend.Components.Discussion.ViewModel;
-using BigScreen.Frontend.Security;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 
@@ -8,7 +8,7 @@ namespace BigScreen.Frontend.Components.CommentCard;
 
 public partial class CommentCard : ComponentBase
 {
-    private List<CommentDto> _replies = new();
+    private IEnumerable<CommentDto> _replies = new List<CommentDto>();
 
     private CommentDto _reply = null!;
 
@@ -29,7 +29,7 @@ public partial class CommentCard : ComponentBase
     protected override async Task OnInitializedAsync()
     {
         _reply = _reply =
-            CommentDto.GetDefaultEmptyState(MediaId, Comment.Id, (await AuthenticationStateTask).GetUserData());
+            CommentDto.GetDefaultEmptyState(MediaId, Comment.Id, (await AuthenticationStateTask).GetCachedUserData());
         CacheReplies();
         ViewModel.AddListener(() =>
         {
@@ -49,12 +49,19 @@ public partial class CommentCard : ComponentBase
     {
         _showReplyComponent = !_showReplyComponent;
         _reply = _reply =
-            CommentDto.GetDefaultEmptyState(MediaId, Comment.Id, (await AuthenticationStateTask).GetUserData());
+            CommentDto.GetDefaultEmptyState(MediaId, Comment.Id, (await AuthenticationStateTask).GetCachedUserData());
     }
 
     private async Task PostReply()
     {
+        if (string.IsNullOrEmpty(_reply.Text)) return;
+
         await ViewModel.PostCommentAsync(_reply);
         await ToggleReply();
+    }
+
+    private string GetAccountUrl()
+    {
+        return $"account/{Comment.ByUser?.Id}";
     }
 }

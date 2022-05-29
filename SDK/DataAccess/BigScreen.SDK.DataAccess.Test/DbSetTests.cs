@@ -48,8 +48,59 @@ public class DbSetTests : IDisposable
 
         Assert.Equal(person.FirstName, result.FirstName);
         Assert.Equal(person.LastName, result.LastName);
-        Assert.Equal(person.Id, result.Id);
+        Assert.NotNull(result.Id);
         Assert.NotNull(result.ETag);
+        Assert.True(Guid.TryParse(result.Id, out _));
+    }
+
+    [Fact]
+    public async Task Should_Create_With_Custom_Guid()
+    {
+        var desiredId = Guid.NewGuid().ToString();
+        var person = new TestPersonDbEntry
+        {
+            Id = desiredId,
+            FirstName = "Johnny",
+            LastName = "You know who"
+        };
+
+        var result = await _dbSet.CreateAsync(person);
+
+        Assert.Equal(person.FirstName, result.FirstName);
+        Assert.Equal(person.LastName, result.LastName);
+        Assert.Equal(desiredId, result.Id);
+        Assert.NotNull(result.ETag);
+    }
+
+    [Fact]
+    public async Task Should_Not_Create_With_Invalid_Custom_Guid()
+    {
+        var desiredId = "notaguid";
+        var person = new TestPersonDbEntry
+        {
+            Id = desiredId,
+            FirstName = "Johnny",
+            LastName = "You know who"
+        };
+
+        var act = async () => await _dbSet.CreateAsync(person);
+        await Assert.ThrowsAsync<InvalidGuidException>(act);
+    }
+
+    [Fact]
+    public async Task Should_Not_Create_With_Duplicate_Custom_Guid()
+    {
+        var desiredId = Guid.NewGuid().ToString();
+        var person = new TestPersonDbEntry
+        {
+            Id = desiredId,
+            FirstName = "Johnny",
+            LastName = "You know who"
+        };
+
+        var act = async () => await _dbSet.CreateAsync(person);
+        await act.Invoke();
+        await Assert.ThrowsAsync<ItemAlreadyExistsException>(act);
     }
 
     [Fact]

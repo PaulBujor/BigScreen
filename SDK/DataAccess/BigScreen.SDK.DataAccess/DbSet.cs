@@ -43,7 +43,26 @@ internal class DbSet<TDb> : IDbSet<TDb> where TDb : BaseDbEntry
 
     public async Task<TDb> CreateAsync(TDb tdb)
     {
-        tdb.Id = Guid.NewGuid().ToString();
+        if (tdb == null) throw new NullReferenceException();
+
+        if (tdb.Id != null)
+        {
+            if (!Guid.TryParse(tdb.Id, out _)) throw new InvalidGuidException(tdb.Id);
+
+            try
+            {
+                if (await GetAsync(tdb.Id) != null) throw new ItemAlreadyExistsException(tdb.Id);
+            }
+            catch (ItemNotFoundException)
+            {
+                //ignored
+            }
+        }
+        else
+        {
+            tdb.Id = Guid.NewGuid().ToString();
+        }
+
         return await _container.CreateItemAsync(tdb);
     }
 
