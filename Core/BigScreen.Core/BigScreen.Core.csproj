@@ -7,12 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="Microsoft.OData.ModelBuilder" Version="1.0.8"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Frontend\BigScreen.Frontend.Core\BigScreen.Frontend.Core.csproj" />
-        <ProjectReference Include="..\..\SDK\WebAPI\BigScreen.SDK.WebAPI.Core\BigScreen.SDK.WebAPI.Core.csproj" />
+        <ProjectReference Include="..\..\Frontend\BigScreen.Frontend.Core\BigScreen.Frontend.Core.csproj"/>
+        <ProjectReference Include="..\..\SDK\WebAPI\BigScreen.SDK.WebAPI.Core\BigScreen.SDK.WebAPI.Core.csproj"/>
     </ItemGroup>
 
 </Project>

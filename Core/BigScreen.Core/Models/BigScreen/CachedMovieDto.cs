@@ -7,9 +7,9 @@ namespace BigScreen.Core.Models.BigScreen;
 [DataContract]
 public class CachedMovieDto : BaseObject
 {
-    [DataMember(Name = "title")] public string? Name { get; set; }
+    [DataMember] public string? Name { get; set; }
 
-    [DataMember(Name = "posterImageUrl")] public string? ImageUrl { get; set; }
+    [DataMember] public string? ImageUrl { get; set; }
 
     public RoutableTo GetRoutableTo()
     {

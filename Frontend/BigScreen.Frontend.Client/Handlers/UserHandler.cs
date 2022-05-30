@@ -2,103 +2,59 @@
 using BigScreen.Frontend.Client.Handlers.Interfaces;
 using BigScreen.Frontend.Client.Security;
 using BigScreen.Frontend.Core.Exceptions;
+using BigScreen.SDK.Client.Abstractions;
 
 namespace BigScreen.Frontend.Client.Handlers;
 
 public class UserHandler : IUserHandler
 {
-    private readonly IList<UserDto> _dummyUsers = new List<UserDto>
-    {
-        new()
-        {
-            Id = "1",
-            Username = "Username1",
-            SavedTopLists = new HashSet<CachedTopListDto>
-            {
-                new()
-                {
-                    Id = "1",
-                    Title = "My cached Toplist 1"
-                },
-                new()
-                {
-                    Id = "2",
-                    Title = "My cached Toplist 2"
-                },
-                new()
-                {
-                    Id = "3",
-                    Title = "My cached Toplist 3"
-                },
-                new()
-                {
-                    Id = "4",
-                    Title = "My cached Toplist 4"
-                }
-            }
-        },
-        new()
-        {
-            Id = "2",
-            Username = "Username2"
-        },
-        new()
-        {
-            Id = "3",
-            Username = "Username3"
-        }
-    };
-
+    private readonly IODataClient<UserDto> _client;
     private readonly UserState _userState;
 
-    public UserHandler(UserState userState)
+    public UserHandler(UserState userState, IODataClient<UserDto> client)
     {
         _userState = userState;
+        _client = client;
     }
 
     public async Task<UserDto> GetUser(string id)
     {
         try
         {
-            var found = _dummyUsers.FirstOrDefault(u => u.Id == id);
-            if (found == null) throw new UserDoesNotExistException();
-
-            return await Task.FromResult(found);
+            var found = await _client.GetByIdAsync(id);
+            return found!;
         }
-        catch (KeyNotFoundException)
+        catch (Exception e)
         {
+            Console.WriteLine(e);
             throw new UserDoesNotExistException();
         }
     }
 
     public async Task<UserDto> AddUser(UserDto toAdd)
     {
-        if (toAdd == null) throw new NullReferenceException();
-
-        _dummyUsers.Add(toAdd);
-        return await Task.FromResult(toAdd);
+        return (await _client.PostAsync(toAdd))!;
     }
 
     public async Task<UserDto?> PatchUserAsync(UserDto userStateUser)
     {
-        var index = _dummyUsers.IndexOf(userStateUser);
-        _dummyUsers[index] = userStateUser;
-        return await Task.FromResult(_dummyUsers[index]);
+        return await _client.PatchAsync(userStateUser);
     }
 
     public async Task FollowUser(CachedUserDto userToFollow)
     {
-        var existingUser = _dummyUsers.FirstOrDefault(u => u.Id == _userState.User?.Id);
-        existingUser?.Following?.Add(userToFollow);
-        _userState.User = existingUser;
-        await Task.CompletedTask;
+        var existingUser = _userState.User;
+        if (existingUser?.Following == null)
+            existingUser!.Following = new List<CachedUserDto>();
+
+        existingUser.Following.Add(userToFollow);
+        _userState.User = await PatchUserAsync(existingUser);
     }
 
     public async Task UnfollowUser(CachedUserDto userToFollow)
     {
-        var existingUser = _dummyUsers.FirstOrDefault(u => u.Id == _userState.User?.Id);
+        var existingUser = _userState.User;
         existingUser?.Following?.Remove(userToFollow);
-        _userState.User = existingUser;
-        await Task.CompletedTask;
+        _userState.User = await PatchUserAsync(existingUser!);
     }
 }

@@ -26,11 +26,13 @@ builder.Services.AddCosmosDb(cosmosEndPoint, accessKey, databaseName)
     .AddDbSet<RatingDbEntry>()
     .AddDbSet<TopListDbEntry>()
     .AddDbSet<UserDbEntry>();
+
 builder.Services.AddDataAccess().Add<CommentDto, CommentDbEntry>()
     .Add<RatingDto, RatingDbEntry>()
     .Add<TopListDto, TopListDbEntry>()
     .Add<UserDto, UserDbEntry>()
     .Build();
+
 builder.Services.AddControllers().AddOData(opt =>
     opt.Select().Filter().Count().Expand()
         .AddRouteComponents("api", GetEdmModel(), new DefaultODataBatchHandler()));
@@ -39,13 +41,28 @@ builder.Services.AddControllers().AddOData(opt =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(opts =>
+    opts.AddPolicy("Development", policyBuilder => policyBuilder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+
+builder.Services.AddCors(opts =>
+    opts.AddPolicy("Production",
+        policyBuilder => policyBuilder.WithOrigins("https://bigscreen.azurewebsites.net/").AllowAnyHeader()
+            .AllowAnyMethod()));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
-// if (app.Environment.IsDevelopment())
-app.UseSwagger();
-app.UseSwaggerUI();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    app.UseCors("Development");
+}
+else
+{
+    app.UseCors("Production");
+}
 
 app.UseHttpsRedirection();
 

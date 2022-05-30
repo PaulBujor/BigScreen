@@ -1,3 +1,4 @@
+using BigScreen.Core.Models.BigScreen;
 using BigScreen.Core.Models.TMDb;
 using BigScreen.Frontend;
 using BigScreen.Frontend.Client;
@@ -23,6 +24,7 @@ using BigScreen.Frontend.Pages.GeneralPages.TvShows.ViewModel;
 using BigScreen.Frontend.Pages.Home.ViewModel;
 using BigScreen.Frontend.Pages.Search.ViewModel;
 using BigScreen.Frontend.Pages.TopList.ViewModel;
+using BigScreen.SDK.Client.Abstractions;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
@@ -48,10 +50,13 @@ builder.Services.AddScoped<TmdbClient<MoviesSearchResultsDto>>();
 builder.Services.AddScoped<TmdbClient<TvShowsSearchResultsDto>>();
 builder.Services.AddScoped<TmdbClient<PeopleSearchResultsDto>>();
 
-// BigScreen Clients
+// BigScreen HTTP Clients
+builder.Services.AddScoped<IODataClient<UserDto>, BaseODataClient<UserDto>>();
+
+// BigScreen Client Handlers
 //TODO switch to scoped once using backend
+builder.Services.AddScoped<IUserHandler, UserHandler>();
 builder.Services.AddSingleton<IDiscussionHandler, DiscussionHandler>();
-builder.Services.AddSingleton<IUserHandler, UserHandler>();
 builder.Services.AddSingleton<ITopListHandler, TopListHandler>();
 
 // Handlers
