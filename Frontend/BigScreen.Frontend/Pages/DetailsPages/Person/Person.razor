@@ -1,3 +1,117 @@
 ﻿@page "/person/{Id:int}"
+@using BigScreen.Frontend.Core.Helpers
 
-<h3>Person</h3>
+@if (!_isLoaded)
+{
+    <DetailsPageSkeleton/>
+}
+else
+{
+    <DetailsPageLayout>
+        <BannerContent>
+            <MudContainer MaxWidth="MaxWidth.Large" Class="d-flex flex-column flex-md-row align-center gap-3 gap-md-5">
+                <div class="align-self-center d-flex flex-column">
+                    @if (!string.IsNullOrEmpty(ViewModel.PersonDetails?.ImageUrl))
+                    {
+                        <MudImage Src="@ViewModel.PersonDetails.ImageUrl" ObjectFit="ObjectFit.ScaleDown" Class="rounded-lg"></MudImage>
+                    }
+                    else
+                    {
+                        <NoImageAvailable Height="450px" Width="300px"/>
+                    }
+                </div>
+                <div class="d-flex flex-column">
+                    <MudText Typo="Typo.h4" Class="text-center text-md-left">
+                        <b>@ViewModel.PersonDetails?.Name</b>
+                    </MudText>
+
+                    <MudText Typo="Typo.h5" Class="my-2">Biography</MudText>
+                    @if (!string.IsNullOrEmpty(ViewModel.PersonDetails?.Biography))
+                    {
+                        <MudText Typo="Typo.body2" Style="white-space: pre-line">@ViewModel.PersonDetails.Biography</MudText>
+                    }
+                    else
+                    {
+                        <MudText Typo="Typo.body2">We don't have a biography for @ViewModel.PersonDetails?.Name</MudText>
+                    }
+                </div>
+            </MudContainer>
+        </BannerContent>
+        <SideContent>
+            <div class="d-flex flex-column gap-4">
+                @if (!string.IsNullOrEmpty(ViewModel.PersonDetails?.KnownFor))
+                {
+                    <div>
+                        <MudText Typo="Typo.body1">
+                            <b>Known for</b>
+                        </MudText>
+                        <MudText Typo="Typo.body1">@ViewModel.PersonDetails.KnownFor</MudText>
+                    </div>
+                }
+                <div>
+                    <MudText Typo="Typo.body1">
+                        <b>Birthday</b>
+                    </MudText>
+                    @if (ViewModel.PersonDetails?.Birthday is not null)
+                    {
+                        <MudText Typo="Typo.body1">@ViewModel.GetDateOnlyText(ViewModel.PersonDetails.Birthday)</MudText>
+                    }
+                    else
+                    {
+                        <MudText Typo="Typo.body1">-</MudText>
+                    }
+                </div>
+                @if (ViewModel.PersonDetails?.Deathday is not null)
+                {
+                    <div>
+                        <MudText Typo="Typo.body1">
+                            <b>Deathday</b>
+                        </MudText>
+                        <MudText Typo="Typo.body1">@ViewModel.GetDateOnlyText(ViewModel.PersonDetails.Deathday)</MudText>
+                    </div>
+                }
+                <div>
+                    <MudText Typo="Typo.body1">
+                        <b>Place of Birth</b>
+                    </MudText>
+                    @if (!string.IsNullOrEmpty(ViewModel.PersonDetails?.PlaceOfBirth))
+                    {
+                        <MudText Typo="Typo.body1">@ViewModel.PersonDetails.PlaceOfBirth</MudText>
+                    }
+                    else
+                    {
+                        <MudText Typo="Typo.body1">-</MudText>
+                    }
+                </div>
+            </div>
+        </SideContent>
+        <MainContent>
+            @if (ViewModel.PersonDetails?.Credits?.Cast is not null && (ViewModel.PersonDetails?.Credits?.Cast.Any() ?? false))
+            {
+                <DetailsContentContainer Name="Acting" IsScrollable="true">
+                    @foreach (var item in ViewModel.PersonDetails?.Credits?.Cast!.OrderByDescending(d => d.ReleaseDate)!)
+                    {
+                        <Card Id="item.Id" RoutableTo="RoutableToHelper.GetRoutableToByType(item.Type)" LowEmphasisTitle="true" Image="@item.ImageUrl" Header="@ViewModel.GetMediaCardHeader(item)" Caption="@item.Character"/>
+                    }
+                </DetailsContentContainer>
+                <MudDivider Class="my-6"/>
+            }
+            @if (ViewModel.PersonDetails?.Credits?.Crew is not null && (ViewModel.PersonDetails?.Credits?.Crew.Any() ?? false))
+            {
+                @foreach (var type in ViewModel.CrewByDepartment!)
+                {
+                    <DetailsContentContainer Name="@type.Department" IsScrollable="true">
+                        @foreach (var item in type.List?.OrderByDescending(d => d.ReleaseDate)!)
+                        {
+                            <Card Id="item.Id" RoutableTo="RoutableToHelper.GetRoutableToByType(item.Type)" LowEmphasisTitle="true" Image="@item.ImageUrl" Header="@ViewModel.GetMediaCardHeader(item)" Caption="@item.Job"/>
+                        }
+                    </DetailsContentContainer>
+                    @if (type.Id != ViewModel.CrewByDepartment.Last().Id)
+                    {
+                        <MudDivider Class="my-6"/>
+                    }
+                }
+            }
+        </MainContent>
+    </DetailsPageLayout>
+}

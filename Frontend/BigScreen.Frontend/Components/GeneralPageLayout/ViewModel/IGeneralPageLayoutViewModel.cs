@@ -8,9 +8,9 @@ public interface IGeneralPageLayoutViewModel<TFilter>
     EventCallback<SearchContext<TFilter>> SearchContextChanged { get; set; }
     bool HasSearch { get; set; }
     string SearchQuery { get; set; }
+    TFilter CurrentFilter { get; }
+    int CurrentPage { get; }
     int GetPaginationCount(int numberOfPages);
     Task OnFilterChanged(TFilter filter);
     Task OnPageChanged(int page);
-    TFilter CurrentFilter { get; }
-    int CurrentPage { get; }
 }

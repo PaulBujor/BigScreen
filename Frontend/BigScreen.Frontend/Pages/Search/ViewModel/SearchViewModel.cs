@@ -30,6 +30,6 @@ public class SearchViewModel : ISearchViewModel
 
     private async Task CallSearch(string query, SearchFilter searchFilter = SearchFilter.All, int page = 1)
     {
-        PageResults = await _searchHandler.GetSearchPageResults(searchFilter, query, page);
+        PageResults = await _searchHandler.GetSearchPageResultsAsync(searchFilter, query, page);
     }
 }

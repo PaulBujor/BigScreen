@@ -8,19 +8,21 @@ namespace BigScreen.Core.Models.BigScreen;
 [EdmCollection("TopLists")]
 public class TopListDto : BaseDto
 {
-    [DataMember(Name = "title")] public string? Title { get; set; }
-    [DataMember(Name = "owner")] public CachedUserDto? Owner { get; set; }
+    [DataMember(Name = "title")]
+    public string? Title { get; set; }
 
-    [DataMember(Name = "isPrivate")] public bool? IsPrivate { get; set; }
+    [DataMember(Name = "owner")]
+    public CachedUserDto? Owner { get; set; }
 
-    [DataMember(Name = "movies")] public ICollection<CachedMovieDto>? Movies { get; set; }
+    [DataMember(Name = "isPrivate")]
+    public bool? IsPrivate { get; set; }
 
-    public CachedTopListDto GetCachedVersion()
+    [DataMember(Name = "movies")]
+    public ICollection<CachedMovieDto>? Movies { get; set; }
+
+    public CachedTopListDto GetCachedVersion() => new CachedTopListDto
     {
-        return new CachedTopListDto
-        {
-            Id = Id,
-            Title = Title
-        };
-    }
+        Id = Id,
+        Title = Title
+    };
 }

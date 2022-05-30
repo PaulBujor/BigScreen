@@ -12,7 +12,7 @@ public class DetailsPageHandler<TDetailsDto> : IDetailsPageHandler<TDetailsDto> 
         _tmdbClient = tmdbClient;
     }
 
-    public async Task<TDetailsDto?> GetMediaDetails(int id)
+    public async Task<TDetailsDto?> GetMediaDetailsAsync(int id)
     {
         var queries = new Dictionary<string, string>();
         queries.Add("append_to_response", "credits,similar,recommendations");

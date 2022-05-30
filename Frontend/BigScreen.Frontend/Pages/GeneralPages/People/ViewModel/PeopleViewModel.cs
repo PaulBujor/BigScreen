@@ -6,8 +6,6 @@ namespace BigScreen.Frontend.Pages.GeneralPages.People.ViewModel;
 
 public class PeopleViewModel : BaseGeneralPageViewModel<PeopleSearchResultsDto>, IPeopleViewModel
 {
-    private IPeopleViewModel _peopleViewModelImplementation;
-
     public PeopleViewModel(IGeneralSearchPageResultsHandler<PeopleSearchResultsDto> handler) : base(handler)
     {
     }

@@ -4,5 +4,5 @@ namespace BigScreen.Frontend.Client.Handlers.Interfaces;
 
 public interface IDetailsPageHandler<TDetailsDto> where TDetailsDto : TmdbDto
 {
-    Task<TDetailsDto?> GetMediaDetails(int id);
+    Task<TDetailsDto?> GetMediaDetailsAsync(int id);
 }

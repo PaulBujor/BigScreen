@@ -16,6 +16,7 @@ using BigScreen.Frontend.Core.Enums;
 using BigScreen.Frontend.Core.Helpers;
 using BigScreen.Frontend.Pages.Account.ViewModel;
 using BigScreen.Frontend.Pages.DetailsPages.Movie.ViewModel;
+using BigScreen.Frontend.Pages.DetailsPages.Person.ViewModel;
 using BigScreen.Frontend.Pages.DetailsPages.TvShow.ViewModel;
 using BigScreen.Frontend.Pages.GeneralPages.Movies.ViewModel;
 using BigScreen.Frontend.Pages.GeneralPages.People.ViewModel;
@@ -43,6 +44,7 @@ builder.Services.AddSingleton<KeyVaultHelper>();
 // TmdbClients
 builder.Services.AddScoped<TmdbClient<MovieDto>>();
 builder.Services.AddScoped<TmdbClient<TvShowDto>>();
+builder.Services.AddScoped<TmdbClient<PersonDto>>();
 builder.Services.AddScoped<TmdbClient<SearchPageResultsDto>>();
 builder.Services.AddScoped<TmdbClient<MoviesSearchResultsDto>>();
 builder.Services.AddScoped<TmdbClient<TvShowsSearchResultsDto>>();
@@ -55,8 +57,8 @@ builder.Services.AddSingleton<IUserHandler, UserHandler>();
 builder.Services.AddSingleton<ITopListHandler, TopListHandler>();
 
 // Handlers
-builder.Services.AddScoped<IMovieHandler, MovieHandler>();
 builder.Services.AddScoped<ISearchPageResultsHandler, SearchPageResultsHandler>();
+builder.Services.AddScoped<IPersonHandler, PersonHandler>();
 builder.Services
     .AddScoped<IGeneralSearchPageResultsHandler<MoviesSearchResultsDto>,
         GeneralSearchPageResultsHandler<MoviesSearchResultsDto>>();
@@ -85,6 +87,7 @@ builder.Services.AddTransient<ICardViewModel, CardViewModel>();
 builder.Services.AddTransient<IScoreCardViewModel, ScoreCardViewModel>();
 builder.Services.AddTransient<IMovieViewModel, MovieViewModel>();
 builder.Services.AddTransient<ITvShowViewModel, TvShowViewModel>();
+builder.Services.AddTransient<IPersonViewModel, PersonViewModel>();
 builder.Services.AddTransient<IMediaDetailsPageLayoutViewModel, MediaDetailsPageLayoutViewModel>();
 builder.Services.AddTransient<IGeneralPageLayoutViewModel<SortFilter>, GeneralPageLayoutViewModel<SortFilter>>();
 builder.Services.AddTransient<IGeneralPageLayoutViewModel<SearchFilter>, GeneralPageLayoutViewModel<SearchFilter>>();

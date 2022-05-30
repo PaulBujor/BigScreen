@@ -5,6 +5,8 @@ namespace BigScreen.Frontend.Pages.DetailsPages.TvShow;
 
 public partial class TvShow : ComponentBase
 {
+    private bool _isLoaded;
+
     [Parameter]
     public int Id
     {
@@ -17,7 +19,9 @@ public partial class TvShow : ComponentBase
 
     protected override async Task OnParametersSetAsync()
     {
+        _isLoaded = false;
         await ViewModel.GetTvShowDetails();
         ViewModel.MediaModel = ViewModel.GetMediaModel();
+        _isLoaded = true;
     }
 }
