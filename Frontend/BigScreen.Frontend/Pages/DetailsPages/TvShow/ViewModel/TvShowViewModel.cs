@@ -1,16 +1,21 @@
-﻿using BigScreen.Core.Models.TMDb;
+﻿using BigScreen.Core.Models.BigScreen;
+using BigScreen.Core.Models.TMDb;
 using BigScreen.Frontend.Client.Handlers.Interfaces;
 using BigScreen.Frontend.Components.MediaDetailsPageLayout.Models;
+using BigScreen.Frontend.Components.SelectTopList;
+using MudBlazor;
 
 namespace BigScreen.Frontend.Pages.DetailsPages.TvShow.ViewModel;
 
 public class TvShowViewModel : ITvShowViewModel
 {
+    private readonly IDialogService _dialogService;
     private readonly IDetailsPageHandler<TvShowDto> _mediaHandler;
 
-    public TvShowViewModel(IDetailsPageHandler<TvShowDto> mediaHandler)
+    public TvShowViewModel(IDetailsPageHandler<TvShowDto> mediaHandler, IDialogService dialogService)
     {
         _mediaHandler = mediaHandler;
+        _dialogService = dialogService;
     }
 
     public int Id { get; set; }
@@ -34,8 +39,18 @@ public class TvShowViewModel : ITvShowViewModel
 
     public void OnAddedToTopList()
     {
-        Console.WriteLine("Added to top list clicked - tv show page");
+        var parameters = new DialogParameters();
+        parameters.Add(nameof(MovieDto), new CachedMovieDto
+        {
+            Id = GetFullId(),
+            ImageUrl = TvShowDetails?.ImageUrlSmall,
+            Name = MediaModel.Title
+        });
+        _dialogService.Show<SelectTopList>("Select a Top List", parameters);
     }
 
-    public string GetFullId() => $"tvshow-{Id}";
+    public string GetFullId()
+    {
+        return $"tvshow-{Id}";
+    }
 }

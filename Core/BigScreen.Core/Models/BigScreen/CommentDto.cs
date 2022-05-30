@@ -1,9 +1,11 @@
 ﻿using System.Runtime.Serialization;
 using BigScreen.SDK.WebAPI.Core;
+using BigScreen.SDK.WebAPI.Core.Attributes;
 
 namespace BigScreen.Core.Models.BigScreen;
 
 [DataContract]
+[EdmCollection("Comments")]
 public class CommentDto : BaseDto
 {
     [DataMember(Name = "forMovie")] public string? ForMovie { get; set; }

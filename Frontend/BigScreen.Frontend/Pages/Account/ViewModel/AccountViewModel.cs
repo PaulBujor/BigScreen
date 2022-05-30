@@ -20,6 +20,7 @@ public class AccountViewModel : IAccountViewModel
     }
 
     public Action? OnFollowStateChange { get; set; }
+    public Action? OnUserStateChange { get; set; }
 
     public UserDto? User { get; private set; }
 
@@ -28,35 +29,33 @@ public class AccountViewModel : IAccountViewModel
         if (userId == _userState.User?.Id)
         {
             User = _userState.User;
+            _userState.OnUserStateChange += UserStateHasChanged;
             return;
         }
 
-        if (User == null || (User != null && User.Id != userId))
-        {
-            User = await _userHandler.GetUser(userId);
-        }
+        _userState.OnUserStateChange -= UserStateHasChanged;
+
+
+        if (User == null || (User != null && User.Id != userId)) User = await _userHandler.GetUser(userId);
 
         FollowStateHasChanged();
     }
 
-    public bool IsFollowing() => _isFollowing;
+    public bool IsFollowing()
+    {
+        return _isFollowing;
+    }
 
     public async Task FollowUser()
     {
-        if (User == null)
-        {
-            return;
-        }
+        if (User == null) return;
 
         await _userHandler.FollowUser(User.GetCachedVersion());
     }
 
     public async Task UnfollowUser()
     {
-        if (User == null)
-        {
-            return;
-        }
+        if (User == null) return;
 
         await _userHandler.UnfollowUser(User.GetCachedVersion());
     }
@@ -67,17 +66,17 @@ public class AccountViewModel : IAccountViewModel
         OnFollowStateChange?.Invoke();
     }
 
-    private void UpdateFollowState()
+    private void UserStateHasChanged()
     {
-        _isFollowing = _userState.User?.Following?.FirstOrDefault(u => u.Id == User?.Id) != null;
-    }
-
-    private async Task CreateTopListsAsync(string topListName)
-    {
-        await _topListHandler.CreateTopListAsync(topListName);
         if (User?.Id == _userState.User?.Id)
         {
             User = _userState.User;
+            OnUserStateChange?.Invoke();
         }
+    }
+
+    private void UpdateFollowState()
+    {
+        _isFollowing = _userState.User?.Following?.FirstOrDefault(u => u.Id == User?.Id) != null;
     }
 }

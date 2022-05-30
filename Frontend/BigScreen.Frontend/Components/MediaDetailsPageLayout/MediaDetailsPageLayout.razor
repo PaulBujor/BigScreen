@@ -1,4 +1,4 @@
-﻿<DetailsPageLayout>
+<DetailsPageLayout>
     <BannerContent>
         <MudContainer MaxWidth="MaxWidth.Large" Class="d-flex flex-column flex-md-row align-center gap-3 gap-md-5">
             <div class="align-self-center d-flex flex-column">
@@ -10,7 +10,11 @@
                 {
                     <NoImageAvailable Height="450px" Width="300px"/>
                 }
-                <MudButton OnClick="AddToTopListClicked" StartIcon="@Icons.Filled.Add" DisableElevation="true" Variant="Variant.Filled" Color="Color.Primary" Class="rounded-t-0 top-list-button" Size="Size.Large">Add to Top List</MudButton>
+                <AuthorizeView>
+                <Authorized>
+                    <MudButton OnClick="AddToTopListClicked" StartIcon="@Icons.Filled.Add" DisableElevation="true" Variant="Variant.Filled" Color="Color.Primary" Class="rounded-t-0 top-list-button" Size="Size.Large">Add to Top List</MudButton>
+                </Authorized>
+            </AuthorizeView>
             </div>
             <div class="d-flex flex-column">
                 <MudText Typo="Typo.h4" Class="text-center text-md-left">
