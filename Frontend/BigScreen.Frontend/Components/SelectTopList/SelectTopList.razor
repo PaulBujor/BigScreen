@@ -1,0 +1,28 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudPaper Width="300px">
+            <MudList Clickable="true" Color="Color.Primary" @bind-SelectedItem="@_selectedItem" @bind-SelectedValue="@_selectedValue">
+                <MudListSubheader>
+                    Add to Top List:
+                    <MudChip Color="Color.Primary" Class="overflow-hidden">
+                        @(_selectedItem?.Text ?? "None selected")
+                    </MudChip>
+                </MudListSubheader>
+                <MudListItem OnClick="@CreateNewTopList" Value="-1" Text="None selected">
+                    <div class="d-flex align-center">
+                        <MudIcon Icon="@Icons.Material.Filled.Add" Color="Color.Secondary"/>
+                        <MudText Color="Color.Secondary">Create new Top List</MudText>
+                    </div>
+                </MudListItem>
+                @for (var i = 0; i < _topLists.Count(); i++)
+                {
+                    <MudListItem Text="@_topLists[i].Title" Value="i"/>
+                }
+            </MudList>
+        </MudPaper>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="@Close">Cancel</MudButton>
+        <MudButton OnClick="@Save" Variant="Variant.Filled" Color="Color.Primary">Add</MudButton>
+    </DialogActions>
+</MudDialog>

@@ -1,6 +1,6 @@
 ﻿@page "/account/{Id}"
 @using BigScreen.Frontend.Client.Security
-<PageTitle>Account</PageTitle>
+<PageTitle>Account - @@@_username</PageTitle>
 
 <div class="mud-theme-primary py-6 py-sm-10">
     <MudContainer MaxWidth="MaxWidth.Large" Class="d-flex flex-column flex-md-row align-center justify-space-between gap-3">
@@ -45,13 +45,12 @@
                         }
                     </Authorized>
                 </AuthorizeView>
-                @foreach (var top in _topLists)
+                @foreach (var toplist in _topLists)
                 {
                     <MudItem xs="12" sm="6" md="3" Class="d-flex">
-                        @*todo link*@
-                        <MudLink Class="flex-1 d-flex" Underline="Underline.None" href="/">
+                        <MudLink Class="flex-1 d-flex" Underline="Underline.None" Href="@GetPathToTopList(toplist.Id)">
                             <MudPaper Class="flex-1 d-flex justify-center align-center pa-4">
-                                <MudText Typo="Typo.h6" Align="Align.Center">@top.Title</MudText>
+                                <MudText Typo="Typo.h6" Align="Align.Center" Class="word-break">@toplist.Title</MudText>
                             </MudPaper>
                         </MudLink>
                     </MudItem>
@@ -65,7 +64,7 @@
                     <MudItem xs="12" sm="6" md="3" Class="d-flex">
                         <MudLink Class="flex-1 d-flex" Underline="Underline.None" Href="@GetPathToAccount(user.Id)">
                             <MudPaper Class="flex-1 d-flex justify-center align-center pa-4">
-                                <MudText Typo="Typo.h6" Align="Align.Center">@user.Username</MudText>
+                                <MudText Typo="Typo.h6" Align="Align.Center" Class="word-break">@user.Username</MudText>
                             </MudPaper>
                         </MudLink>
                     </MudItem>

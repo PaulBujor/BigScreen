@@ -11,6 +11,7 @@ using BigScreen.Frontend.Components.GeneralPageLayout.ViewModel;
 using BigScreen.Frontend.Components.MediaDetailsPageLayout.ViewModel;
 using BigScreen.Frontend.Components.ScoreCard.ViewModel;
 using BigScreen.Frontend.Components.SearchResult.ViewModel;
+using BigScreen.Frontend.Components.SelectTopList.ViewModel;
 using BigScreen.Frontend.Core.Enums;
 using BigScreen.Frontend.Core.Helpers;
 using BigScreen.Frontend.Pages.Account.ViewModel;
@@ -21,6 +22,7 @@ using BigScreen.Frontend.Pages.GeneralPages.People.ViewModel;
 using BigScreen.Frontend.Pages.GeneralPages.TvShows.ViewModel;
 using BigScreen.Frontend.Pages.Home.ViewModel;
 using BigScreen.Frontend.Pages.Search.ViewModel;
+using BigScreen.Frontend.Pages.TopList.ViewModel;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
@@ -85,6 +87,8 @@ builder.Services.AddTransient<IMediaDetailsPageLayoutViewModel, MediaDetailsPage
 builder.Services.AddTransient<IGeneralPageLayoutViewModel<SortFilter>, GeneralPageLayoutViewModel<SortFilter>>();
 builder.Services.AddTransient<IGeneralPageLayoutViewModel<SearchFilter>, GeneralPageLayoutViewModel<SearchFilter>>();
 builder.Services.AddTransient<IAccountViewModel, AccountViewModel>();
+builder.Services.AddTransient<ITopListViewModel, TopListViewModel>();
+builder.Services.AddTransient<ISelectTopListViewModel, SelectTopListViewModel>();
 builder.Services.AddSingleton<IDiscussionViewModel, DiscussionViewModel>();
 
 // MudBlazor

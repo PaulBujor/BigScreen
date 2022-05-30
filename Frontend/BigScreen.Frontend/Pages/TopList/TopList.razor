@@ -1,0 +1,50 @@
+﻿@page "/toplist/{Id}"
+@using BigScreen.Frontend.Client.Security
+<PageTitle>Top list - @_topList?.Title</PageTitle>
+
+<div class="mud-theme-primary py-6 py-sm-10">
+    <MudContainer MaxWidth="MaxWidth.Large" Class="d-flex flex-column flex-md-row align-center justify-space-between gap-3">
+        <div class="d-flex flex-column gap-3">
+            <MudText Typo="Typo.h4">@_topList?.Title</MudText>
+            <MudLink Underline="Underline.None" Href="@GetPathToOwner()" Class="d-flex align-center">
+                <MudText Typo="Typo.h6" Style="color: white">by</MudText>
+                <MudAvatar Color="Color.Tertiary" Class="ma-2">U</MudAvatar>
+                <MudText Typo="Typo.h6" Color="Color.Tertiary">@@@_topList?.Owner?.Username</MudText>
+            </MudLink>
+        </div>
+        <div class="d-flex flex-column gap-3">
+            <AuthorizeView>
+                <Authorized>
+                    @if (context.GetUserId() == _topList?.Owner?.Id)
+                    {
+                        <MudButton Variant="Variant.Filled" Color="Color.Error" StartIcon="@Icons.Material.Filled.Delete" OnClick="@ViewModel.DeleteTopList">Delete</MudButton>
+                    }
+                </Authorized>
+            </AuthorizeView>
+        </div>
+    </MudContainer>
+</div>
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="my-4">
+    <MudGrid Class="justify-center">
+        @if (_topList?.Movies != null)
+        {
+            @foreach (var result in _topList.Movies)
+            {
+                <MudItem xs="12" sm="6" md="3" lg="2" Class="d-flex align-center justify-center">
+                    <div class="relative">
+                        <Card @key="result" Id="@result.GetTmdbId()" Image="@result.ImageUrl" RoutableTo="@result.GetRoutableTo()" Header="@result.Name"/>
+                        <AuthorizeView>
+                            <Authorized>
+                                @if (context.GetUserId() == _topList?.Owner?.Id)
+                                {
+                                    <MudIconButton Variant="Variant.Filled" Icon="@Icons.Material.Filled.Delete" OnClick="async () => await RemoveMovie(result.Id!)" Color="Color.Error" Class="z-10" Style="position: absolute; top: 5px; right: 5px"></MudIconButton>
+                                }
+                            </Authorized>
+                        </AuthorizeView>
+                    </div>
+                </MudItem>
+            }
+        }
+    </MudGrid>
+</MudContainer>
