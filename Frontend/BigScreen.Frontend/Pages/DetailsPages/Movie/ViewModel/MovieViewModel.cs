@@ -24,7 +24,7 @@ public class MovieViewModel : IMovieViewModel
         return Task.CompletedTask;
     }
 
-    public async Task GetMovieDetails() => MovieDetails = await _mediaHandler.GetMediaDetails(Id);
+    public async Task GetMovieDetails() => MovieDetails = await _mediaHandler.GetMediaDetailsAsync(Id);
 
     public MediaModel GetMediaModel()
     {

@@ -2,7 +2,7 @@
 
 namespace BigScreen.Frontend.Client.Handlers.Interfaces;
 
-public interface IMovieHandler
+public interface IPersonHandler
 {
-    Task<MovieDto?> GetMovieById(string id);
+    Task<PersonDto?> GetPerson(int id);
 }

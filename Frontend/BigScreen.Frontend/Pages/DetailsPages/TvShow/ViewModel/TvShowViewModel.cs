@@ -24,7 +24,7 @@ public class TvShowViewModel : ITvShowViewModel
         return Task.CompletedTask;
     }
 
-    public async Task GetTvShowDetails() => TvShowDetails = await _mediaHandler.GetMediaDetails(Id);
+    public async Task GetTvShowDetails() => TvShowDetails = await _mediaHandler.GetMediaDetailsAsync(Id);
 
     public MediaModel GetMediaModel()
     {

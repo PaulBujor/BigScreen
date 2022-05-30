@@ -50,7 +50,7 @@ public class BaseMediaDetailsDto : TmdbDto
     public BaseSearchResultsDto<BaseMediaSearchResultDto>? Recommendations { get; set; }
 
     [JsonProperty(PropertyName = "credits")]
-    public BaseMediaCredits? Credits { get; set; }
+    public MediaCreditsDto? Credits { get; set; }
 
     [JsonProperty(PropertyName = "title")]
     private string? Title
