@@ -9,13 +9,13 @@ public class GeneralPageLayoutViewModel<TFilter> : IGeneralPageLayoutViewModel<T
     private readonly IJSRuntime _jsRuntime;
     private string _searchQuery = string.Empty;
 
-    public TFilter CurrentFilter { get; private set; } = default!;
-    public int CurrentPage { get; private set; } = 1;
-
     public GeneralPageLayoutViewModel(IJSRuntime jsRuntime)
     {
         _jsRuntime = jsRuntime;
     }
+
+    public TFilter CurrentFilter { get; private set; } = default!;
+    public int CurrentPage { get; private set; } = 1;
 
     public bool HasSearch { get; set; }
 
@@ -50,7 +50,7 @@ public class GeneralPageLayoutViewModel<TFilter> : IGeneralPageLayoutViewModel<T
         await InvokeSearchContextChanged();
         await _jsRuntime.InvokeVoidAsync("scrollToTop");
     }
-    
+
     private void ResetCurrentPage()
     {
         CurrentPage = 1;

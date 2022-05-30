@@ -1,5 +1,4 @@
-﻿using BigScreen.Core.Models.TMDb.Base;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace BigScreen.Core.Models.TMDb;
 

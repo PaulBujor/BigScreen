@@ -2,7 +2,7 @@
 
 namespace BigScreen.Frontend.Components.MediaDetailsContentContainer;
 
-public partial class MediaDetailsContentContainer : ComponentBase
+public partial class DetailsContentContainer : ComponentBase
 {
     [Parameter]
     public string? Name { get; set; }

@@ -6,7 +6,7 @@
     <MediaDetailsPageLayout MediaModel="ViewModel.MediaModel" AddToTopListClicked="ViewModel.OnAddedToTopList" UserScoreChanged="async args => await ViewModel.OnUserScoreChanged(args)">
         @if (ViewModel.MovieDetails?.Credits is not null)
         {
-            <MediaDetailsContentContainer Name="Cast & Crew" IsScrollable="true">
+            <DetailsContentContainer Name="Cast & Crew" IsScrollable="true">
                 @if (ViewModel.MovieDetails.Credits.Cast != null)
                 {
                     foreach (var cast in ViewModel.MovieDetails.Credits.Cast)
@@ -22,31 +22,31 @@
                         <Card Id="@crew.Id" Header="@crew.Name" Image="@crew.ImageUrl" Caption="@crew.Job" LowEmphasisTitle="@true" RoutableTo="@RoutableTo.Person"/>
                     }
                 }
-            </MediaDetailsContentContainer>
+            </DetailsContentContainer>
             <MudDivider Class="my-6"/>
         }
         @if (ViewModel.MovieDetails?.Similar?.Results is not null && (ViewModel.MovieDetails?.Similar?.Results.Any() ?? false))
         {
-            <MediaDetailsContentContainer Name="Similar" IsScrollable="true">
+            <DetailsContentContainer Name="Similar" IsScrollable="true">
                 @foreach (var media in ViewModel.MovieDetails.Similar.Results!)
                 {
                     <Card Id="media.Id" Header="@media.Name" Image="@media.ImageUrl" Caption="@media.ReleaseDate?.GetTextForCardCaption()" LowEmphasisTitle="true" RoutableTo="RoutableTo.Movie"/>
                 }
-            </MediaDetailsContentContainer>
+            </DetailsContentContainer>
             <MudDivider Class="my-6"/>
         }
         @if (ViewModel.MovieDetails?.Recommendations?.Results is not null && (ViewModel.MovieDetails?.Recommendations?.Results.Any() ?? false))
         {
-            <MediaDetailsContentContainer Name="Recommendations" IsScrollable="true">
+            <DetailsContentContainer Name="Recommendations" IsScrollable="true">
                 @foreach (var media in ViewModel.MovieDetails.Recommendations.Results!)
                 {
                     <Card Id="media.Id" Header="@media.Name" Image="@media.ImageUrl" Caption="@media.ReleaseDate?.GetTextForCardCaption()" LowEmphasisTitle="true" RoutableTo="RoutableTo.Movie"/>
                 }
-            </MediaDetailsContentContainer>
+            </DetailsContentContainer>
             <MudDivider Class="my-6"/>
         }
-        <MediaDetailsContentContainer Name="Discussion">
+        <DetailsContentContainer Name="Discussion">
             <Discussion MediaId="@ViewModel.GetFullId()"></Discussion>
-        </MediaDetailsContentContainer>
+        </DetailsContentContainer>
     </MediaDetailsPageLayout>
 }

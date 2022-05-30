@@ -49,8 +49,5 @@ public class TvShowViewModel : ITvShowViewModel
         _dialogService.Show<SelectTopList>("Select a Top List", parameters);
     }
 
-    public string GetFullId()
-    {
-        return $"tvshow-{Id}";
-    }
+    public string GetFullId() => $"tvshow-{Id}";
 }

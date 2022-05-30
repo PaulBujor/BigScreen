@@ -7,10 +7,10 @@ namespace BigScreen.Frontend.Pages.DetailsPages.Person.ViewModel;
 public interface IPersonViewModel
 {
     int Id { get; set; }
-    Task GetPersonDetails();
     PersonDto? PersonDetails { get; }
+    IEnumerable<CrewByDepartment>? CrewByDepartment { get; }
+    Task GetPersonDetails();
     string GetDateOnlyText(DateOnly? date);
     string GetMediaCardHeader<TCreditsType>(TCreditsType obj) where TCreditsType : BasePersonCreditsMedia;
     void GetCrewByDepartment();
-    IEnumerable<CrewByDepartment>? CrewByDepartment { get;} 
 }

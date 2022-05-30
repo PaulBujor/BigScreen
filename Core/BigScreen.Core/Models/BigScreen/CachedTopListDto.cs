@@ -6,5 +6,6 @@ namespace BigScreen.Core.Models.BigScreen;
 [DataContract]
 public class CachedTopListDto : BaseObject
 {
-    [DataMember(Name = "title")] public string? Title { get; set; }
+    [DataMember(Name = "title")]
+    public string? Title { get; set; }
 }

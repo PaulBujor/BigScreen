@@ -1,7 +1,6 @@
 ﻿using BigScreen.Core.Models.TMDb;
 using BigScreen.Core.Models.TMDb.Base;
 using BigScreen.Frontend.Client.Handlers.Interfaces;
-using BigScreen.Frontend.Components.Card;
 using BigScreen.Frontend.Pages.DetailsPages.Person.Models;
 
 namespace BigScreen.Frontend.Pages.DetailsPages.Person.ViewModel;
@@ -9,6 +8,12 @@ namespace BigScreen.Frontend.Pages.DetailsPages.Person.ViewModel;
 public class PersonViewModel : IPersonViewModel
 {
     private readonly IPersonHandler _personHandler;
+
+
+    public PersonViewModel(IPersonHandler personHandler)
+    {
+        _personHandler = personHandler;
+    }
 
     public int Id { get; set; }
     public PersonDto? PersonDetails { get; private set; }
@@ -32,7 +37,7 @@ public class PersonViewModel : IPersonViewModel
     public void GetCrewByDepartment()
     {
         CrewByDepartment = PersonDetails?.Credits?.Crew?.GroupBy(v => v.Department)
-            .Select(gr => new CrewByDepartment()
+            .Select(gr => new CrewByDepartment
             {
                 Department = gr.Key,
                 List = gr
@@ -40,12 +45,6 @@ public class PersonViewModel : IPersonViewModel
     }
 
     public IEnumerable<CrewByDepartment>? CrewByDepartment { get; private set; }
-
-
-    public PersonViewModel(IPersonHandler personHandler)
-    {
-        _personHandler = personHandler;
-    }
 
     public async Task GetPersonDetails() => PersonDetails = await _personHandler.GetPerson(Id);
 }

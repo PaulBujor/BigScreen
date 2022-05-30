@@ -8,13 +8,13 @@ public class BasePersonCreditsMedia
 {
     [JsonProperty(PropertyName = "id")]
     public int Id { get; set; }
-    
+
     [JsonProperty(PropertyName = "name")]
     public string? Name { get; set; }
-    
+
     [JsonProperty(PropertyName = "media_type")]
     public string? Type { get; set; }
-    
+
     [JsonProperty(PropertyName = "overview")]
     public string? Overview { get; set; }
 

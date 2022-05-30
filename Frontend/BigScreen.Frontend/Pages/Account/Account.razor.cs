@@ -19,15 +19,20 @@ public partial class Account : ComponentBase
 
     private string? _username = "Account";
 
-    [Inject] private IAccountViewModel ViewModel { get; set; } = null!;
+    [Inject]
+    private IAccountViewModel ViewModel { get; set; } = null!;
 
-    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = null!;
 
-    [Inject] private IDialogService DialogService { get; set; } = null!;
+    [Inject]
+    private IDialogService DialogService { get; set; } = null!;
 
-    [CascadingParameter] private Task<AuthenticationState> AuthenticationStateTask { get; set; } = null!;
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthenticationStateTask { get; set; } = null!;
 
-    [Parameter] public string Id { get; set; } = null!;
+    [Parameter]
+    public string Id { get; set; } = null!;
 
     protected override async Task OnParametersSetAsync()
     {
@@ -82,8 +87,5 @@ public partial class Account : ComponentBase
         return $"/account/{userId}";
     }
 
-    private string GetPathToTopList(string topListId)
-    {
-        return $"/toplist/{topListId}";
-    }
+    private string GetPathToTopList(string topListId) => $"/toplist/{topListId}";
 }

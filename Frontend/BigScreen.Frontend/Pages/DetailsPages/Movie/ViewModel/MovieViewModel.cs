@@ -49,8 +49,5 @@ public class MovieViewModel : IMovieViewModel
         _dialogService.Show<SelectTopList>("Select a Top List", parameters);
     }
 
-    public string GetFullId()
-    {
-        return $"movie-{Id}";
-    }
+    public string GetFullId() => $"movie-{Id}";
 }

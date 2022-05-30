@@ -7,7 +7,7 @@ public class PersonCreditsCrewDto : BasePersonCreditsMedia
 {
     [JsonProperty(PropertyName = "job")]
     public string? Job { get; set; }
-    
+
     [JsonProperty(PropertyName = "department")]
     public string? Department { get; set; }
 }

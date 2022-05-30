@@ -8,20 +8,21 @@ namespace BigScreen.Core.Models.BigScreen;
 [EdmCollection("Users")]
 public class UserDto : BaseDto
 {
-    [DataMember(Name = "username")] public string? Username { get; set; }
+    [DataMember(Name = "username")]
+    public string? Username { get; set; }
 
-    [DataMember(Name = "isDeleted")] public bool? IsDeleted { get; set; }
+    [DataMember(Name = "isDeleted")]
+    public bool? IsDeleted { get; set; }
 
-    [DataMember(Name = "savedTopLists")] public ICollection<CachedTopListDto>? SavedTopLists { get; set; }
+    [DataMember(Name = "savedTopLists")]
+    public ICollection<CachedTopListDto>? SavedTopLists { get; set; }
 
-    [DataMember(Name = "following")] public ICollection<CachedUserDto>? Following { get; set; }
+    [DataMember(Name = "following")]
+    public ICollection<CachedUserDto>? Following { get; set; }
 
-    public CachedUserDto GetCachedVersion()
+    public CachedUserDto GetCachedVersion() => new CachedUserDto
     {
-        return new CachedUserDto
-        {
-            Id = Id,
-            Username = Username
-        };
-    }
+        Id = Id,
+        Username = Username
+    };
 }

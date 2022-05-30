@@ -82,24 +82,24 @@
     <MainContent>
         @if (ViewModel.PersonDetails?.Credits?.Cast is not null && (ViewModel.PersonDetails?.Credits?.Cast.Any() ?? false))
         {
-            <MediaDetailsContentContainer Name="Acting" IsScrollable="true">
+            <DetailsContentContainer Name="Acting" IsScrollable="true">
                 @foreach (var item in ViewModel.PersonDetails?.Credits?.Cast!.OrderByDescending(d => d.ReleaseDate)!)
                 {
                     <Card Id="item.Id" RoutableTo="RoutableToHelper.GetRoutableToByType(item.Type)" LowEmphasisTitle="true" Image="@item.ImageUrl" Header="@ViewModel.GetMediaCardHeader(item)" Caption="@item.Character"/>
                 }
-            </MediaDetailsContentContainer>
+            </DetailsContentContainer>
             <MudDivider Class="my-6"/>
         }
         @if (ViewModel.PersonDetails?.Credits?.Crew is not null && (ViewModel.PersonDetails?.Credits?.Crew.Any() ?? false))
         {
             @foreach (var type in ViewModel.CrewByDepartment!)
             {
-                <MediaDetailsContentContainer Name="@type.Department" IsScrollable="true">
+                <DetailsContentContainer Name="@type.Department" IsScrollable="true">
                     @foreach (var item in type.List?.OrderByDescending(d => d.ReleaseDate)!)
                     {
                         <Card Id="item.Id" RoutableTo="RoutableToHelper.GetRoutableToByType(item.Type)" LowEmphasisTitle="true" Image="@item.ImageUrl" Header="@ViewModel.GetMediaCardHeader(item)" Caption="@item.Job"/>
                     }
-                </MediaDetailsContentContainer>
+                </DetailsContentContainer>
                 @if (type.Id != ViewModel.CrewByDepartment.Last().Id)
                 {
                     <MudDivider Class="my-6"/>
