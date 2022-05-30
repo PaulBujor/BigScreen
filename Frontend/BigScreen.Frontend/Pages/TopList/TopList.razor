@@ -8,7 +8,7 @@
             <MudText Typo="Typo.h4">@_topList?.Title</MudText>
             <MudLink Underline="Underline.None" Href="@GetPathToOwner()" Class="d-flex align-center">
                 <MudText Typo="Typo.h6" Style="color: white">by</MudText>
-                <MudAvatar Color="Color.Tertiary" Class="ma-2">U</MudAvatar>
+                <MudAvatar Color="Color.Tertiary" Class="ma-2">@_topList?.Owner?.Username?[0]</MudAvatar>
                 <MudText Typo="Typo.h6" Color="Color.Tertiary">@@@_topList?.Owner?.Username</MudText>
             </MudLink>
         </div>

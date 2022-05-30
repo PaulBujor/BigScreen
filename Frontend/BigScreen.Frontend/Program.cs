@@ -54,12 +54,13 @@ builder.Services.AddScoped<TmdbClient<PeopleSearchResultsDto>>();
 
 // BigScreen HTTP Clients
 builder.Services.AddScoped<IODataClient<UserDto>, BaseODataClient<UserDto>>();
+builder.Services.AddScoped<IODataClient<TopListDto>, BaseODataClient<TopListDto>>();
 
 // BigScreen Client Handlers
 //TODO switch to scoped once using backend
 builder.Services.AddScoped<IUserHandler, UserHandler>();
+builder.Services.AddScoped<ITopListHandler, TopListHandler>();
 builder.Services.AddSingleton<IDiscussionHandler, DiscussionHandler>();
-builder.Services.AddSingleton<ITopListHandler, TopListHandler>();
 
 // Handlers
 builder.Services.AddScoped<ISearchPageResultsHandler, SearchPageResultsHandler>();

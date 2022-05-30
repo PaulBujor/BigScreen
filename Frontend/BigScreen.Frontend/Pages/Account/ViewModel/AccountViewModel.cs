@@ -6,15 +6,13 @@ namespace BigScreen.Frontend.Pages.Account.ViewModel;
 
 public class AccountViewModel : IAccountViewModel
 {
-    private readonly ITopListHandler _topListHandler;
     private readonly IUserHandler _userHandler;
     private readonly UserState _userState;
     private bool _isFollowing;
 
-    public AccountViewModel(IUserHandler userHandler, UserState userState, ITopListHandler topListHandler)
+    public AccountViewModel(IUserHandler userHandler, UserState userState)
     {
         _userHandler = userHandler;
-        _topListHandler = topListHandler;
         _userState = userState;
         _userState.OnUserStateChange += FollowStateHasChanged;
     }
@@ -36,32 +34,26 @@ public class AccountViewModel : IAccountViewModel
         _userState.OnUserStateChange -= UserStateHasChanged;
 
 
-        if (User == null || (User != null && User.Id != userId))
-        {
-            User = await _userHandler.GetUser(userId);
-        }
+        if (User == null || (User != null && User.Id != userId)) User = await _userHandler.GetUser(userId);
 
         FollowStateHasChanged();
     }
 
-    public bool IsFollowing() => _isFollowing;
+    public bool IsFollowing()
+    {
+        return _isFollowing;
+    }
 
     public async Task FollowUser()
     {
-        if (User == null)
-        {
-            return;
-        }
+        if (User == null) return;
 
         await _userHandler.FollowUser(User.GetCachedVersion());
     }
 
     public async Task UnfollowUser()
     {
-        if (User == null)
-        {
-            return;
-        }
+        if (User == null) return;
 
         await _userHandler.UnfollowUser(User.GetCachedVersion());
     }

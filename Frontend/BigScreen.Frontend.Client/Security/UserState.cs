@@ -1,5 +1,4 @@
 ﻿using BigScreen.Core.Models.BigScreen;
-using Newtonsoft.Json;
 
 namespace BigScreen.Frontend.Client.Security;
 
@@ -21,7 +20,6 @@ public class UserState
 
     private void UserStateHasChanged()
     {
-        Console.WriteLine($"User state changed {_user?.Id} {DateTime.Now}\n{JsonConvert.SerializeObject(_user)}");
         OnUserStateChange?.Invoke();
     }
 }

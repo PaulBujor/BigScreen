@@ -8,14 +8,11 @@ public partial class TopList : ComponentBase
 {
     private TopListDto? _topList;
 
-    [Parameter]
-    public string Id { get; set; } = null!;
+    [Parameter] public string Id { get; set; } = null!;
 
-    [Inject]
-    private ITopListViewModel ViewModel { get; set; } = null!;
+    [Inject] private ITopListViewModel ViewModel { get; set; } = null!;
 
-    [Inject]
-    private NavigationManager NavigationManager { get; set; } = null!;
+    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
 
     protected override async Task OnInitializedAsync()
     {
@@ -31,10 +28,14 @@ public partial class TopList : ComponentBase
         _topList = ViewModel.GetTopList();
     }
 
-    private string GetPathToOwner() => $"account/{_topList?.Owner?.Id}";
+    private string GetPathToOwner()
+    {
+        return $"account/{_topList?.Owner?.Id}";
+    }
 
     private async Task RemoveMovie(string movieId)
     {
-        await ViewModel.RemoveMovieAsync(movieId);
+        _topList = await ViewModel.RemoveMovieAsync(movieId);
+        StateHasChanged();
     }
 }

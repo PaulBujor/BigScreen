@@ -46,7 +46,7 @@ builder.Services.AddCors(opts =>
 
 builder.Services.AddCors(opts =>
     opts.AddPolicy("Production",
-        policyBuilder => policyBuilder.WithOrigins("https://bigscreen.azurewebsites.net/").AllowAnyHeader()
+        policyBuilder => policyBuilder.WithOrigins("https://bigscreen.azurewebsites.net").AllowAnyHeader()
             .AllowAnyMethod()));
 
 var app = builder.Build();
