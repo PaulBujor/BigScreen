@@ -1,5 +1,4 @@
-﻿using System.Net.Http.Json;
-using System.Net.Mime;
+﻿using System.Net.Mime;
 using System.Reflection;
 using System.Text;
 using BigScreen.Frontend.Client.Constants;
@@ -83,7 +82,7 @@ public class BaseODataClient<TDto> : IODataClient<TDto> where TDto : BaseDto
     }
 }
 
-public class DtoResponseWrapper<TDto> where TDto : BaseDto
+internal class DtoResponseWrapper<TDto> where TDto : BaseDto
 {
     [JsonIgnore]
     [JsonProperty("@odata.context")]
