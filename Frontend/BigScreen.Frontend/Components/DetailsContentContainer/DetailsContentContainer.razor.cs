@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace BigScreen.Frontend.Components.MediaDetailsContentContainer;
+namespace BigScreen.Frontend.Components.DetailsContentContainer;
 
-public partial class MediaDetailsContentContainer : ComponentBase
+public partial class DetailsContentContainer : ComponentBase
 {
     [Parameter]
     public string? Name { get; set; }

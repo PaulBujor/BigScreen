@@ -12,13 +12,18 @@ public partial class SelectTopList : ComponentBase
     private object _selectedValue;
 
     private IList<CachedTopListDto> _topLists;
-    [Inject] private ISelectTopListViewModel ViewModel { get; set; } = null!;
 
-    [Inject] private IDialogService DialogService { get; set; } = null!;
+    [Inject]
+    private ISelectTopListViewModel ViewModel { get; set; } = null!;
 
-    [CascadingParameter] private MudDialogInstance MudDialog { get; set; } = null!;
+    [Inject]
+    private IDialogService DialogService { get; set; } = null!;
 
-    [Parameter] public CachedMovieDto MovieDto { get; set; } = null!;
+    [CascadingParameter]
+    private MudDialogInstance MudDialog { get; set; } = null!;
+
+    [Parameter]
+    public CachedMovieDto MovieDto { get; set; } = null!;
 
     protected override void OnInitialized()
     {
@@ -28,7 +33,7 @@ public partial class SelectTopList : ComponentBase
 
     private void UpdateTopLists()
     {
-        _topLists = (IList<CachedTopListDto>) ViewModel.GetTopLists();
+        _topLists = (IList<CachedTopListDto>)ViewModel.GetTopLists();
         StateHasChanged();
     }
 
@@ -39,7 +44,7 @@ public partial class SelectTopList : ComponentBase
 
     private async Task Save()
     {
-        await ViewModel.AddToTopListAsync(_topLists[(int) _selectedValue].Id!, MovieDto);
+        await ViewModel.AddToTopListAsync(_topLists[(int)_selectedValue].Id!, MovieDto);
         Close();
     }
 

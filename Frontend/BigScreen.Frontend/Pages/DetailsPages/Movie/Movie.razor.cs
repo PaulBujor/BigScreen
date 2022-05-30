@@ -5,6 +5,8 @@ namespace BigScreen.Frontend.Pages.DetailsPages.Movie;
 
 public partial class Movie : ComponentBase
 {
+    private bool _isLoaded;
+
     [Parameter]
     public int Id
     {
@@ -17,7 +19,9 @@ public partial class Movie : ComponentBase
 
     protected override async Task OnParametersSetAsync()
     {
+        _isLoaded = false;
         await ViewModel.GetMovieDetails();
         ViewModel.MediaModel = ViewModel.GetMediaModel();
+        _isLoaded = true;
     }
 }

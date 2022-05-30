@@ -29,10 +29,7 @@ public class TvShowViewModel : ITvShowViewModel
         return Task.CompletedTask;
     }
 
-    public async Task GetTvShowDetails()
-    {
-        TvShowDetails = await _mediaHandler.GetMediaDetails(Id);
-    }
+    public async Task GetTvShowDetails() => TvShowDetails = await _mediaHandler.GetMediaDetailsAsync(Id);
 
     public MediaModel GetMediaModel()
     {
@@ -52,8 +49,5 @@ public class TvShowViewModel : ITvShowViewModel
         _dialogService.Show<SelectTopList>("Select a Top List", parameters);
     }
 
-    public string GetFullId()
-    {
-        return $"tvshow-{Id}";
-    }
+    public string GetFullId() => $"tvshow-{Id}";
 }

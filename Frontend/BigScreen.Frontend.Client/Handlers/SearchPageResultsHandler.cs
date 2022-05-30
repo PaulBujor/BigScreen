@@ -13,7 +13,7 @@ public class SearchPageResultsHandler : ISearchPageResultsHandler
         _client = client;
     }
 
-    public async Task<SearchPageResultsDto?> GetSearchPageResults(SearchFilter type, string query, int page)
+    public async Task<SearchPageResultsDto?> GetSearchPageResultsAsync(SearchFilter type, string query, int page)
     {
         var queries = new Dictionary<string, string>();
         queries.Add("query", query);

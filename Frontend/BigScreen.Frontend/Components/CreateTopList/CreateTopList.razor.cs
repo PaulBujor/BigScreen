@@ -8,9 +8,11 @@ public partial class CreateTopList : ComponentBase
 {
     private string _topListName = "";
 
-    [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
+    [CascadingParameter]
+    private MudDialogInstance MudDialog { get; set; }
 
-    [Inject] private ITopListHandler TopListHandler { get; set; } = null!;
+    [Inject]
+    private ITopListHandler TopListHandler { get; set; } = null!;
 
     private async Task CreateNewTopList()
     {
