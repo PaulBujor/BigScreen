@@ -81,48 +81,15 @@
             UserState.User = await UserHandler.AddUser(new UserDto
             {
                 Id = authenticationState.GetUserId(),
-                Username = authenticationState.GetUsername(),
-                SavedTopLists = new List<CachedTopListDto>
-                {
-                    new()
-                    {
-                        Id = "1",
-                        Title = "My cached Toplist 1"
-                    },
-                    new()
-                    {
-                        Id = "2",
-                        Title = "My cached Toplist 2"
-                    },
-                    new()
-                    {
-                        Id = "3",
-                        Title = "My cached Toplist 3"
-                    },
-                    new()
-                    {
-                        Id = "4",
-                        Title = "My cached Toplist 4"
-                    }
-                },
-                Following = new List<CachedUserDto>
-                {
-                    new()
-                    {
-                        Id = "1",
-                        Username = "Jose"
-                    },
-                    new()
-                    {
-                        Id = "3",
-                        Username = "Jesus"
-                    }
-                }
+                Username = authenticationState.GetUsername()
             });
         }
     }
 
-    private async Task RedirectToOwnAccount() => Navigation.NavigateTo($"account/{(await AuthenticationStateTask).GetUserId()}");
+    private async Task RedirectToOwnAccount()
+    {
+        Navigation.NavigateTo($"account/{(await AuthenticationStateTask).GetUserId()}");
+    }
 
     private async Task BeginLogout()
     {
