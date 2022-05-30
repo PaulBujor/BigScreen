@@ -1,9 +1,11 @@
 ﻿using System.Runtime.Serialization;
 using BigScreen.SDK.WebAPI.Core;
+using BigScreen.SDK.WebAPI.Core.Attributes;
 
 namespace BigScreen.Core.Models.BigScreen;
 
 [DataContract]
+[EdmCollection("Users")]
 public class UserDto : BaseDto
 {
     [DataMember(Name = "username")] public string? Username { get; set; }

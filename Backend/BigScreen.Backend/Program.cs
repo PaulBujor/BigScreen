@@ -2,6 +2,8 @@ using BigScreen.Backend.Models;
 using BigScreen.Backend.Security;
 using BigScreen.Core.Models.BigScreen;
 using BigScreen.SDK.DataAccess.Extensions;
+using BigScreen.SDK.Utilities;
+using BigScreen.SDK.WebAPI.Core.Attributes;
 using BigScreen.SDK.WebAPI.Extensions;
 using Microsoft.AspNetCore.OData;
 using Microsoft.AspNetCore.OData.Batch;
@@ -56,9 +58,9 @@ app.Run();
 static IEdmModel GetEdmModel()
 {
     var builder = new ODataConventionModelBuilder();
-    builder.EntitySet<CommentDto>("Comments");
-    builder.EntitySet<RatingDto>("Ratings");
-    builder.EntitySet<UserDto>("Users");
-    builder.EntitySet<TopListDto>("TopLists");
+    builder.EntitySet<CommentDto>(typeof(CommentDto).GetAttribute<EdmCollectionAttribute>().CollectionName);
+    builder.EntitySet<RatingDto>(typeof(RatingDto).GetAttribute<EdmCollectionAttribute>().CollectionName);
+    builder.EntitySet<UserDto>(typeof(UserDto).GetAttribute<EdmCollectionAttribute>().CollectionName);
+    builder.EntitySet<TopListDto>(typeof(TopListDto).GetAttribute<EdmCollectionAttribute>().CollectionName);
     return builder.GetEdmModel();
 }
