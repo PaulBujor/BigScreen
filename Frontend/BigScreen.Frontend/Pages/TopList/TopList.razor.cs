@@ -33,8 +33,8 @@ public partial class TopList : ComponentBase
 
     private string GetPathToOwner() => $"account/{_topList?.Owner?.Id}";
 
-    private async Task RemoveMovie(string movieId)
+    private async Task RemoveMedia(string mediaId)
     {
-        await ViewModel.RemoveMovieAsync(movieId);
+        await ViewModel.RemoveMediaAsync(mediaId);
     }
 }

@@ -95,7 +95,7 @@ public class TopListHandler : ITopListHandler
         return await Task.FromResult(topList);
     }
 
-    public async Task<TopListDto> AddMovieToTopListAsync(string topListId, CachedMediaDto mediaDto)
+    public async Task<TopListDto> AddMediaToTopListAsync(string topListId, CachedMediaDto mediaDto)
     {
         var topList = _dummyTopLists.FirstOrDefault(t => t.Id == topListId);
         if (topList == null) throw new InvalidOperationException();
@@ -109,14 +109,14 @@ public class TopListHandler : ITopListHandler
         return await Task.FromResult(topList);
     }
 
-    public async Task<TopListDto> RemoveMovieFromTopListAsync(string topListId, string movieId)
+    public async Task<TopListDto> RemoveMediaFromTopListAsync(string topListId, string mediaId)
     {
         var topList = _dummyTopLists.FirstOrDefault(t => t.Id == topListId);
         if (topList == null) throw new InvalidOperationException();
 
         var idDto = new CachedMediaDto
         {
-            Id = movieId
+            Id = mediaId
         };
 
         topList.MediaItems?.Remove(idDto);

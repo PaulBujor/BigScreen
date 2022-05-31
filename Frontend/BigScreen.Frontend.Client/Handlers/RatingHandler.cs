@@ -16,21 +16,21 @@ public class RatingHandler : IRatingHandler
         _client = client;
     }
 
-    public async Task<double> GetBigScreenRating(string movieId)
+    public async Task<double> GetBigScreenRating(string mediaId)
     {
-        var ratingList = await _client.GetAllAsync($"?$apply=filter(ForMedia eq '{movieId}')/groupby((ForMedia), aggregate(score with average as score))");
+        var ratingList = await _client.GetAllAsync($"?$apply=filter(ForMedia eq '{mediaId}')/groupby((ForMedia), aggregate(score with average as score))");
         var rating = ratingList?.FirstOrDefault()?.Score ?? 0;
         return rating;
     }
 
-    public async Task<RatingDto?> GetUserRating(string movieId)
+    public async Task<RatingDto?> GetUserRating(string mediaId)
     {
-        var ratingList = await _client.GetAllAsync($"?$filter=ForMedia eq '{movieId}' and ByUser eq '{_userState.User?.Id}'");
+        var ratingList = await _client.GetAllAsync($"?$filter=ForMedia eq '{mediaId}' and ByUser eq '{_userState.User?.Id}'");
         var userRating = ratingList?.FirstOrDefault();
         return userRating;
     }
 
-    public async Task<RatingDto?> AddRating(string movieId, int rating)
+    public async Task<RatingDto?> AddRating(string mediaId, int rating)
     {
         if (rating == 0)
         {
@@ -39,7 +39,7 @@ public class RatingHandler : IRatingHandler
         
         var ratingDto = new RatingDto()
         {
-            ForMedia = movieId,
+            ForMedia = mediaId,
             Score = rating,
             ByUser = _userState.User?.Id
         };

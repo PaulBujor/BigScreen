@@ -44,8 +44,19 @@ public partial class SelectTopList : ComponentBase
 
     private async Task Save()
     {
-        await ViewModel.AddToTopListAsync(_topLists[(int)_selectedValue].Id!, Media);
-        Close();
+        try
+        {
+            var id = _topLists[(int)_selectedValue].Id;
+            if (!string.IsNullOrEmpty(id))
+            {
+                await ViewModel.AddToTopListAsync(id, Media);
+                Close();
+            }
+        }
+        catch (Exception e)
+        {
+            // ignored
+        }
     }
 
     private void Close()

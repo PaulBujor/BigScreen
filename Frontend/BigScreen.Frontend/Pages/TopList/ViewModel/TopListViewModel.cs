@@ -32,9 +32,9 @@ public class TopListViewModel : ITopListViewModel
 
     public TopListDto GetTopList() => _topList!;
 
-    public async Task RemoveMovieAsync(string id)
+    public async Task RemoveMediaAsync(string id)
     {
-        await _handler.RemoveMovieFromTopListAsync(_topList!.Id!, id);
+        await _handler.RemoveMediaFromTopListAsync(_topList!.Id!, id);
     }
 
     public async Task DeleteTopList()

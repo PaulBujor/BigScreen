@@ -24,7 +24,7 @@ public class SelectTopListViewModel : ISelectTopListViewModel
 
     public async Task AddToTopListAsync(string topListId, CachedMediaDto mediaDto)
     {
-        await _handler.AddMovieToTopListAsync(topListId, mediaDto);
+        await _handler.AddMediaToTopListAsync(topListId, mediaDto);
     }
 
     private void OnUserStateChange()
