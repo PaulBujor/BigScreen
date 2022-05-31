@@ -5,8 +5,10 @@ using BigScreen.SDK.DataAccess.Extensions;
 using BigScreen.SDK.Utilities;
 using BigScreen.SDK.WebAPI.Core.Attributes;
 using BigScreen.SDK.WebAPI.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.OData;
 using Microsoft.AspNetCore.OData.Batch;
+using Microsoft.Identity.Web;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 
@@ -20,7 +22,9 @@ var accessKey = keyVaultClient.GetAccessKey();
 
 const string databaseName = "BigScreen";
 
-// Add services to the container.
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAdB2C"));
+
 builder.Services.AddCosmosDb(cosmosEndPoint, accessKey, databaseName)
     .AddDbSet<CommentDbEntry>()
     .AddDbSet<RatingDbEntry>()
@@ -65,6 +69,8 @@ else
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

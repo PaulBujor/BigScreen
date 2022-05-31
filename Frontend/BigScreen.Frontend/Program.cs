@@ -37,8 +37,10 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 // Http Clients
 builder.Services.AddHttpClient(TmdbClientConstants.ClientName,
     client => client.BaseAddress = new Uri(TmdbClientConstants.BaseAddress));
+builder.Services.AddScoped<BigScreenMessageHandler>();
 builder.Services.AddHttpClient(BigScreenClientConstants.ClientName,
-    client => client.BaseAddress = new Uri(BigScreenClientConstants.GetBaseAddress()));
+        client => client.BaseAddress = new Uri(BigScreenClientConstants.GetBaseAddress()))
+    .AddHttpMessageHandler<BigScreenMessageHandler>();
 
 // Helpers
 builder.Services.AddSingleton<KeyVaultHelper>();
