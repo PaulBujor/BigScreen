@@ -24,11 +24,19 @@ public class BaseODataClient<TDto> : IODataClient<TDto> where TDto : BaseDto
         var responseMessage = await _httpClient.GetAsync($"{_endpoint}{query}");
         responseMessage.EnsureSuccessStatusCode();
         var result = await responseMessage.Content.ReadAsStringAsync();
-
-        var obj = JsonConvert.DeserializeObject<DtoResponseWrapper<TDto>>(result);
-        var list = obj?.Values;
-
-        return list;
+        
+        dynamic? obj;
+        try
+        {
+            obj = JsonConvert.DeserializeObject<DtoResponseWrapper<TDto>>(result);
+            obj = obj?.Values;
+        }
+        catch (Exception e)
+        {
+            obj = JsonConvert.DeserializeObject<List<TDto>>(result);
+        }
+        
+        return obj;
     }
 
 

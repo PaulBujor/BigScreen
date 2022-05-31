@@ -8,9 +8,9 @@ namespace BigScreen.Core.Models.BigScreen;
 [EdmCollection("Ratings")]
 public class RatingDto : BaseDto
 {
-    [DataMember] public string? ForMovie { get; set; }
+    [DataMember] public string? ForMedia { get; set; }
 
     [DataMember] public string? ByUser { get; set; }
 
-    [DataMember] public int? Score { get; set; }
+    [DataMember] public double? Score { get; set; }
 }

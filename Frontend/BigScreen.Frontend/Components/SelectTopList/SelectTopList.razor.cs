@@ -23,7 +23,7 @@ public partial class SelectTopList : ComponentBase
     private MudDialogInstance MudDialog { get; set; } = null!;
 
     [Parameter]
-    public CachedMovieDto MovieDto { get; set; } = null!;
+    public CachedMediaDto Media { get; set; } = null!;
 
     protected override void OnInitialized()
     {
@@ -44,7 +44,7 @@ public partial class SelectTopList : ComponentBase
 
     private async Task Save()
     {
-        await ViewModel.AddToTopListAsync(_topLists[(int)_selectedValue].Id!, MovieDto);
+        await ViewModel.AddToTopListAsync(_topLists[(int)_selectedValue].Id!, Media);
         Close();
     }
 

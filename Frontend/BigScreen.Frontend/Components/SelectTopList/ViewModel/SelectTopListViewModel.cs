@@ -22,9 +22,9 @@ public class SelectTopListViewModel : ISelectTopListViewModel
     public IEnumerable<CachedTopListDto> GetTopLists() =>
         _userState.User?.SavedTopLists ?? throw new UserDoesNotExistException();
 
-    public async Task AddToTopListAsync(string topListId, CachedMovieDto movieDto)
+    public async Task AddToTopListAsync(string topListId, CachedMediaDto mediaDto)
     {
-        await _handler.AddMovieToTopListAsync(topListId, movieDto);
+        await _handler.AddMovieToTopListAsync(topListId, mediaDto);
     }
 
     private void OnUserStateChange()

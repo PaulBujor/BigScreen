@@ -10,20 +10,20 @@ else
     if (ViewModel.MediaModel is not null)
     {
         <MediaDetailsPageLayout MediaModel="ViewModel.MediaModel" AddToTopListClicked="ViewModel.OnAddedToTopList" UserScoreChanged="async args => await ViewModel.OnUserScoreChanged(args)">
-            @if (ViewModel.MovieDetails?.Credits is not null)
+            @if (ViewModel.MediaDetails?.Credits is not null)
             {
                 <DetailsContentContainer Name="Cast & Crew" IsScrollable="true">
-                    @if (ViewModel.MovieDetails.Credits.Cast != null)
+                    @if (ViewModel.MediaDetails.Credits.Cast != null)
                     {
-                        foreach (var cast in ViewModel.MovieDetails.Credits.Cast)
+                        foreach (var cast in ViewModel.MediaDetails.Credits.Cast)
                         {
                             <Card Id="@cast.Id" Header="@cast.Name" Image="@cast.ImageUrl" Caption="@cast.Character" LowEmphasisTitle="@true" RoutableTo="@RoutableTo.Person"/>
                         }
                     }
-                    @if (ViewModel.MovieDetails.Credits.Crew != null)
+                    @if (ViewModel.MediaDetails.Credits.Crew != null)
                     {
                         <MudDivider Class="mx-5 h-inherit" Vertical="true"/>
-                        foreach (var crew in ViewModel.MovieDetails.Credits.Crew)
+                        foreach (var crew in ViewModel.MediaDetails.Credits.Crew)
                         {
                             <Card Id="@crew.Id" Header="@crew.Name" Image="@crew.ImageUrl" Caption="@crew.Job" LowEmphasisTitle="@true" RoutableTo="@RoutableTo.Person"/>
                         }
@@ -31,20 +31,20 @@ else
                 </DetailsContentContainer>
                 <MudDivider Class="my-6"/>
             }
-            @if (ViewModel.MovieDetails?.Similar?.Results is not null && (ViewModel.MovieDetails?.Similar?.Results.Any() ?? false))
+            @if (ViewModel.MediaDetails?.Similar?.Results is not null && (ViewModel.MediaDetails?.Similar?.Results.Any() ?? false))
             {
                 <DetailsContentContainer Name="Similar" IsScrollable="true">
-                    @foreach (var media in ViewModel.MovieDetails.Similar.Results!)
+                    @foreach (var media in ViewModel.MediaDetails.Similar.Results!)
                     {
                         <Card Id="media.Id" Header="@media.Name" Image="@media.ImageUrl" Caption="@media.ReleaseDate?.GetTextForCardCaption()" LowEmphasisTitle="true" RoutableTo="RoutableTo.Movie"/>
                     }
                 </DetailsContentContainer>
                 <MudDivider Class="my-6"/>
             }
-            @if (ViewModel.MovieDetails?.Recommendations?.Results is not null && (ViewModel.MovieDetails?.Recommendations?.Results.Any() ?? false))
+            @if (ViewModel.MediaDetails?.Recommendations?.Results is not null && (ViewModel.MediaDetails?.Recommendations?.Results.Any() ?? false))
             {
                 <DetailsContentContainer Name="Recommendations" IsScrollable="true">
-                    @foreach (var media in ViewModel.MovieDetails.Recommendations.Results!)
+                    @foreach (var media in ViewModel.MediaDetails.Recommendations.Results!)
                     {
                         <Card Id="media.Id" Header="@media.Name" Image="@media.ImageUrl" Caption="@media.ReleaseDate?.GetTextForCardCaption()" LowEmphasisTitle="true" RoutableTo="RoutableTo.Movie"/>
                     }

@@ -7,7 +7,7 @@ public class TopListProfile : BaseProfile<TopListDto, TopListDbEntry>
 {
     public TopListProfile()
     {
-        CreateMap<CachedMovieDto, CachedMovieDbo>().ReverseMap();
+        CreateMap<CachedMediaDto, CachedMediaDbo>().ReverseMap();
         CreateMap<CachedUserDto, CachedUserDbo>().ReverseMap();
     }
 }

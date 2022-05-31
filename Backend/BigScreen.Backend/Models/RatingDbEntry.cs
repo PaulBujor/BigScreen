@@ -3,10 +3,10 @@ using BigScreen.SDK.DataAccess.Core.Attributes;
 
 namespace BigScreen.Backend.Models;
 
-[DbContainer(PartitionKey = nameof(ForMovie))]
+[DbContainer(PartitionKey = nameof(ForMedia))]
 public class RatingDbEntry : BaseDbEntry
 {
-    public string? ForMovie { get; set; }
+    public string? ForMedia { get; set; }
     public string? ByUser { get; set; }
-    public int? Score { get; set; }
+    public double? Score { get; set; }
 }

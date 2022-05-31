@@ -1,4 +1,6 @@
-﻿using BigScreen.Core.Models.TMDb;
+﻿using BigScreen.Core.Models.BigScreen;
+using BigScreen.Core.Models.TMDb;
+using BigScreen.Core.Models.TMDb.Base;
 
 namespace BigScreen.Frontend.Components.MediaDetailsPageLayout.Models;
 
@@ -23,7 +25,7 @@ public class MediaModel
 
     public MediaModel(string? imageUrl, string title, DateOnly? releaseDate, string[]? genres, TimeSpan duration,
         string? tagline, string? overview, double? tmdbScore, double? bigScreenScore,
-        double? userScore, string? status, double? budget, double? revenue)
+        RatingDto? userScore, string? status, double? budget, double? revenue)
     {
         ImageUrl = imageUrl;
         Title = title;
@@ -62,14 +64,13 @@ public class MediaModel
 
     public double? BigScreenScore { get; set; }
 
-    public double? UserScore { get; set; }
-
+    public RatingDto? UserScore { get; set; }
     public string? Status { get; set; }
 
     public double? Budget { get; set; }
     public double? Revenue { get; set; }
 
-    public static MediaModel? FromMovieDto(MovieDto? dto)
+    public static MediaModel? FromMediaDto<TDto>(TDto? dto) where TDto : BaseMediaDetailsDto
     {
         if (dto is not null && dto.Name != null && dto.Genres != null)
         {
@@ -77,19 +78,6 @@ public class MediaModel
                 dto.Duration,
                 dto.Tagline, dto.Overview, dto.TmdbScore, dto.Status, dto.Budget, dto.Revenue);
         }
-
-        return null;
-    }
-
-    public static MediaModel? FromTvShowDto(TvShowDto? dto)
-    {
-        if (dto is not null && dto.Name != null && dto.Genres != null)
-        {
-            return new MediaModel(dto.ImageUrl, dto.Name, dto.ReleaseDate, dto.Genres.Select(g => g?.Name).ToArray()!,
-                dto.Duration,
-                dto.Tagline, dto.Overview, dto.TmdbScore, dto.Status, dto.Budget, dto.Revenue);
-        }
-
         return null;
     }
 }

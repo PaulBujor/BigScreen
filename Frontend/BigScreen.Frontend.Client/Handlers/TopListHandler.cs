@@ -19,7 +19,7 @@ public class TopListHandler : ITopListHandler
             Id = "1",
             Owner = CachedUserDto1,
             Title = "My Toplist 1 -- has movies",
-            Movies = new List<CachedMovieDto>
+            MediaItems = new List<CachedMediaDto>
             {
                 new()
                 {
@@ -84,7 +84,7 @@ public class TopListHandler : ITopListHandler
             Id = Guid.NewGuid().ToString(), //todo remove and let server do it
             Title = topListName,
             Owner = _userState.User.GetCachedVersion(),
-            Movies = new List<CachedMovieDto>()
+            MediaItems = new List<CachedMediaDto>()
         };
 
         _dummyTopLists.Add(topList);
@@ -95,15 +95,15 @@ public class TopListHandler : ITopListHandler
         return await Task.FromResult(topList);
     }
 
-    public async Task<TopListDto> AddMovieToTopListAsync(string topListId, CachedMovieDto movieDto)
+    public async Task<TopListDto> AddMovieToTopListAsync(string topListId, CachedMediaDto mediaDto)
     {
         var topList = _dummyTopLists.FirstOrDefault(t => t.Id == topListId);
         if (topList == null) throw new InvalidOperationException();
 
-        if (topList.Movies == null) topList.Movies = new List<CachedMovieDto>();
+        if (topList.MediaItems == null) topList.MediaItems = new List<CachedMediaDto>();
 
-        if (!topList.Movies.Contains(movieDto))
-            topList.Movies.Add(movieDto);
+        if (!topList.MediaItems.Contains(mediaDto))
+            topList.MediaItems.Add(mediaDto);
         //todo better
 
         return await Task.FromResult(topList);
@@ -114,12 +114,12 @@ public class TopListHandler : ITopListHandler
         var topList = _dummyTopLists.FirstOrDefault(t => t.Id == topListId);
         if (topList == null) throw new InvalidOperationException();
 
-        var idDto = new CachedMovieDto
+        var idDto = new CachedMediaDto
         {
             Id = movieId
         };
 
-        topList.Movies?.Remove(idDto);
+        topList.MediaItems?.Remove(idDto);
         //todo better
 
         return await Task.FromResult(topList);

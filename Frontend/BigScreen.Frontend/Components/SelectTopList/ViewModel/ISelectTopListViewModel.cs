@@ -6,5 +6,5 @@ public interface ISelectTopListViewModel
 {
     Action? OnUserStateHasChanged { get; set; }
     IEnumerable<CachedTopListDto> GetTopLists();
-    Task AddToTopListAsync(string topListId, CachedMovieDto movieDto);
+    Task AddToTopListAsync(string topListId, CachedMediaDto mediaDto);
 }

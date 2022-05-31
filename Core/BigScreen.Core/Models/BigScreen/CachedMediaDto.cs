@@ -5,7 +5,7 @@ using BigScreen.SDK.WebAPI.Core;
 namespace BigScreen.Core.Models.BigScreen;
 
 [DataContract]
-public class CachedMovieDto : BaseObject
+public class CachedMediaDto : BaseObject
 {
     [DataMember] public string? Name { get; set; }
 
