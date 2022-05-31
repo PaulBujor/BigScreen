@@ -58,8 +58,9 @@
         _drawerOpen = !_drawerOpen;
     }
 
-    protected override async Task OnParametersSetAsync()
+    public override async Task SetParametersAsync(ParameterView parameters)
     {
+        await base.SetParametersAsync(parameters);
         AuthenticationStateProvider.AuthenticationStateChanged += async stateTask => await SetInternalAuthenticationStateAsync(stateTask);
         await SetInternalAuthenticationStateAsync(AuthenticationStateTask);
     }
