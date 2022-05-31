@@ -6,7 +6,7 @@ public interface ITopListHandler
 {
     Task<TopListDto?> GetTopListAsync(string topListId);
     Task<TopListDto> CreateTopListAsync(string topListName);
-    Task<TopListDto> AddMovieToTopListAsync(string topListId, CachedMovieDto movieDto);
-    Task<TopListDto> RemoveMovieFromTopListAsync(string topListId, string movieId);
+    Task<TopListDto> AddMediaToTopListAsync(string topListId, CachedMediaDto mediaDto);
+    Task<TopListDto> RemoveMediaFromTopListAsync(string topListId, string mediaId);
     Task DeleteTopListAsync(string topListId);
 }

@@ -1,16 +1,8 @@
 ﻿using BigScreen.Core.Models.TMDb;
-using BigScreen.Frontend.Components.MediaDetailsPageLayout.Models;
+using BigScreen.Frontend.Pages.DetailsPages.ViewModel;
 
 namespace BigScreen.Frontend.Pages.DetailsPages.TvShow.ViewModel;
 
-public interface ITvShowViewModel
+public interface ITvShowViewModel : IBaseMediaDetailsPageViewModel<TvShowDto>
 {
-    int Id { get; set; }
-    TvShowDto? TvShowDetails { get; }
-    MediaModel? MediaModel { get; set; }
-    Task OnUserScoreChanged(int score);
-    Task GetTvShowDetails();
-    MediaModel GetMediaModel();
-    void OnAddedToTopList();
-    string GetFullId();
 }

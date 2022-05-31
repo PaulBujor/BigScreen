@@ -51,11 +51,11 @@
                 }
 
                 <div class="d-flex gap-4 justify-space-around justify-md-start flex-wrap my-2">
-                    <ScoreCard Score="@ViewModel.MediaModel.TmdbScore" Text="Tmdb"/>
+                    <ScoreCard Score="@ViewModel.MediaModel.TmdbScore" Text="TMDB"/>
                     <ScoreCard Score="@ViewModel.MediaModel.BigScreenScore" Text="BigScreen"/>
                     <AuthorizeView>
                         <Authorized>
-                            <ScoreCard Score="@ViewModel.MediaModel.UserScore" ScoreChanged="async args => await ViewModel.OnUserScoreChanged(args)" AllowScoring="true" Text="Your"/>
+                            <ScoreCard Score="@ViewModel.MediaModel.UserScore?.Score" ScoreChanged="async args => await ViewModel.OnUserScoreChanged(args)" AllowScoring="true" Text="Your"/>
                         </Authorized>
                     </AuthorizeView>
                 </div>

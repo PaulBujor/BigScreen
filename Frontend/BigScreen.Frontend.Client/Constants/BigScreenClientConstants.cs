@@ -3,6 +3,7 @@ namespace BigScreen.Frontend.Client.Constants;
 public static class BigScreenClientConstants
 {
     public const string ClientName = "BigScreenClient";
+    public const string AuthorizedClientName = "AuthorizedBigScreenClient";
     private const string BaseAddress = "https://bigscreen-api.azurewebsites.net/api/";
     private const string LocalAddress = "https://localhost:7171/api/";
 

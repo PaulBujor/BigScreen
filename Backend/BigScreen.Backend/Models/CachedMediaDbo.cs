@@ -2,7 +2,7 @@
 
 namespace BigScreen.Backend.Models;
 
-public class CachedMovieDbo : BaseDbObject
+public class CachedMediaDbo : BaseDbObject
 {
     public string? Name { get; set; }
     public string? ImageUrl { get; set; }

@@ -18,7 +18,7 @@ public class DiscussionHandler : IDiscussionHandler
 
     public async Task<IEnumerable<CommentDto>> GetComments(string mediaId)
     {
-        return (await _handler.GetAllAsync($"?$filter=ForMovie eq '{mediaId}'"))!;
+        return (await _handler.GetAllAsync($"?$filter=ForMedia eq '{mediaId}'"))!;
     }
 
     public async Task<CommentDto> PostCommentAsync(CommentDto comment)

@@ -7,6 +7,6 @@ public interface ITopListViewModel
     Task InitializeAsync(string toplistId);
     TopListDto GetTopList();
 
-    Task<TopListDto> RemoveMovieAsync(string id);
+    Task<TopListDto> RemoveMediaAsync(string id);
     Task DeleteTopList();
 }

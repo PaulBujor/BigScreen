@@ -31,7 +31,7 @@ public class TopListHandler : ITopListHandler
         {
             Title = topListName,
             Owner = _userState.User.GetCachedVersion(),
-            Movies = new List<CachedMovieDto>()
+            MediaItems = new List<CachedMediaDto>()
         };
 
         topList = await _client.PostAsync(topList);
@@ -45,30 +45,30 @@ public class TopListHandler : ITopListHandler
         return topList!;
     }
 
-    public async Task<TopListDto> AddMovieToTopListAsync(string topListId, CachedMovieDto movieDto)
+    public async Task<TopListDto> AddMediaToTopListAsync(string topListId, CachedMediaDto mediaDto)
     {
         var topList = await GetTopListAsync(topListId);
         if (topList == null) throw new InvalidOperationException();
 
-        topList.Movies ??= new List<CachedMovieDto>();
+        topList.MediaItems ??= new List<CachedMediaDto>();
 
-        if (!topList.Movies.Contains(movieDto))
-            topList.Movies.Add(movieDto);
+        if (!topList.MediaItems.Contains(mediaDto))
+            topList.MediaItems.Add(mediaDto);
 
         return (await _client.PatchAsync(topList))!;
     }
 
-    public async Task<TopListDto> RemoveMovieFromTopListAsync(string topListId, string movieId)
+    public async Task<TopListDto> RemoveMediaFromTopListAsync(string topListId, string mediaId)
     {
         var topList = await GetTopListAsync(topListId);
         if (topList == null) throw new InvalidOperationException();
 
-        var idDto = new CachedMovieDto
+        var idDto = new CachedMediaDto
         {
-            Id = movieId
+            Id = mediaId
         };
 
-        topList.Movies?.Remove(idDto);
+        topList.MediaItems?.Remove(idDto);
 
         return (await _client.PatchAsync(topList))!;
     }

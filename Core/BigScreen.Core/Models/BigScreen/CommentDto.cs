@@ -9,7 +9,7 @@ namespace BigScreen.Core.Models.BigScreen;
 [EdmCollection("Comments")]
 public class CommentDto : BaseDto
 {
-    [DataMember] public string? ForMovie { get; set; }
+    [DataMember] public string? ForMedia { get; set; }
 
     [AutoExpand] [DataMember] public CachedUserDto? ByUser { get; set; }
 
@@ -21,7 +21,7 @@ public class CommentDto : BaseDto
     {
         return new CommentDto
         {
-            ForMovie = mediaId,
+            ForMedia = mediaId,
             ReplyTo = commentId,
             Text = ""
         };

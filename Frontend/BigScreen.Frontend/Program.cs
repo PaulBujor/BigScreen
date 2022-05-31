@@ -39,6 +39,8 @@ builder.Services.AddHttpClient(TmdbClientConstants.ClientName,
     client => client.BaseAddress = new Uri(TmdbClientConstants.BaseAddress));
 builder.Services.AddScoped<BigScreenMessageHandler>();
 builder.Services.AddHttpClient(BigScreenClientConstants.ClientName,
+    client => client.BaseAddress = new Uri(BigScreenClientConstants.GetBaseAddress()));
+builder.Services.AddHttpClient(BigScreenClientConstants.AuthorizedClientName,
         client => client.BaseAddress = new Uri(BigScreenClientConstants.GetBaseAddress()))
     .AddHttpMessageHandler<BigScreenMessageHandler>();
 
@@ -56,15 +58,15 @@ builder.Services.AddScoped<TmdbClient<PeopleSearchResultsDto>>();
 
 // BigScreen HTTP Clients
 builder.Services.AddScoped<IODataClient<UserDto>, BaseODataClient<UserDto>>();
+builder.Services.AddScoped<IODataClient<RatingDto>, BaseODataClient<RatingDto>>();
 builder.Services.AddScoped<IODataClient<TopListDto>, BaseODataClient<TopListDto>>();
-// Singleton due to DiscussionHandler
-builder.Services.AddSingleton<IODataClient<CommentDto>, BaseODataClient<CommentDto>>();
+builder.Services.AddScoped<IODataClient<CommentDto>, BaseODataClient<CommentDto>>();
 
 // BigScreen Client Handlers
 builder.Services.AddScoped<IUserHandler, UserHandler>();
 builder.Services.AddScoped<ITopListHandler, TopListHandler>();
-// Singleton due to DiscussionViewModel
-builder.Services.AddSingleton<IDiscussionHandler, DiscussionHandler>();
+builder.Services.AddScoped<IDiscussionHandler, DiscussionHandler>();
+builder.Services.AddScoped<IRatingHandler, RatingHandler>();
 
 // Handlers
 builder.Services.AddScoped<ISearchPageResultsHandler, SearchPageResultsHandler>();
@@ -104,8 +106,7 @@ builder.Services.AddTransient<IGeneralPageLayoutViewModel<SearchFilter>, General
 builder.Services.AddTransient<IAccountViewModel, AccountViewModel>();
 builder.Services.AddTransient<ITopListViewModel, TopListViewModel>();
 builder.Services.AddTransient<ISelectTopListViewModel, SelectTopListViewModel>();
-// This must stay singleton since multiple Discussion-related components are using the same view-model within the same media page
-builder.Services.AddSingleton<IDiscussionViewModel, DiscussionViewModel>();
+builder.Services.AddTransient<IDiscussionViewModel, DiscussionViewModel>();
 
 // MudBlazor
 builder.Services.AddMudServices();

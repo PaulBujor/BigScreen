@@ -15,7 +15,7 @@ public class TopListDto : BaseDto
 
     [DataMember] public bool? IsPrivate { get; set; }
 
-    [AutoExpand] [DataMember] public ICollection<CachedMovieDto>? Movies { get; set; }
+    [AutoExpand] [DataMember] public ICollection<CachedMediaDto>? MediaItems { get; set; }
 
     public CachedTopListDto GetCachedVersion()
     {

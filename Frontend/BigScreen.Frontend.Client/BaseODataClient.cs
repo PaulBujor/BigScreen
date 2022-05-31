@@ -12,11 +12,13 @@ namespace BigScreen.Frontend.Client;
 public class BaseODataClient<TDto> : IODataClient<TDto> where TDto : BaseDto
 {
     private readonly HttpClient _httpClient;
+    private readonly HttpClient _authorizedHttpClient;
     private readonly string? _endpoint = typeof(TDto).GetCustomAttribute<EdmCollectionAttribute>()?.CollectionName;
 
     public BaseODataClient(IHttpClientFactory clientFactory)
     {
         _httpClient = clientFactory.CreateClient(BigScreenClientConstants.ClientName);
+        _authorizedHttpClient = clientFactory.CreateClient(BigScreenClientConstants.AuthorizedClientName);
     }
 
     public async Task<List<TDto>?> GetAllAsync(string? query = null)
@@ -24,11 +26,19 @@ public class BaseODataClient<TDto> : IODataClient<TDto> where TDto : BaseDto
         var responseMessage = await _httpClient.GetAsync($"{_endpoint}{query}");
         responseMessage.EnsureSuccessStatusCode();
         var result = await responseMessage.Content.ReadAsStringAsync();
-
-        var obj = JsonConvert.DeserializeObject<DtoResponseWrapper<TDto>>(result);
-        var list = obj?.Values;
-
-        return list;
+        
+        dynamic? obj;
+        try
+        {
+            obj = JsonConvert.DeserializeObject<DtoResponseWrapper<TDto>>(result);
+            obj = obj?.Values;
+        }
+        catch (Exception e)
+        {
+            obj = JsonConvert.DeserializeObject<List<TDto>>(result);
+        }
+        
+        return obj;
     }
 
 
@@ -50,7 +60,7 @@ public class BaseODataClient<TDto> : IODataClient<TDto> where TDto : BaseDto
             NullValueHandling = NullValueHandling.Ignore
         });
         var requestContent = new StringContent(serializedDto, Encoding.UTF8, MediaTypeNames.Application.Json);
-        var response = await _httpClient.PostAsync(_endpoint, requestContent);
+        var response = await _authorizedHttpClient.PostAsync(_endpoint, requestContent);
         response.EnsureSuccessStatusCode();
 
         var result = await response.Content.ReadAsStringAsync();
@@ -67,7 +77,7 @@ public class BaseODataClient<TDto> : IODataClient<TDto> where TDto : BaseDto
             NullValueHandling = NullValueHandling.Ignore
         });
         var requestContent = new StringContent(serializedDto, Encoding.UTF8, MediaTypeNames.Application.Json);
-        var responseMessage = await _httpClient.PatchAsync(_endpoint, requestContent);
+        var responseMessage = await _authorizedHttpClient.PatchAsync(_endpoint, requestContent);
         responseMessage.EnsureSuccessStatusCode();
 
         var result = await GetByIdAsync(dto.Id!);
@@ -77,7 +87,7 @@ public class BaseODataClient<TDto> : IODataClient<TDto> where TDto : BaseDto
 
     public async Task<HttpResponseMessage> DeleteAsync(string id)
     {
-        var response = await _httpClient.DeleteAsync($"{_endpoint}/{id}");
+        var response = await _authorizedHttpClient.DeleteAsync($"{_endpoint}/{id}");
         response.EnsureSuccessStatusCode();
         return response;
     }

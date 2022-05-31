@@ -58,7 +58,7 @@
         _drawerOpen = !_drawerOpen;
     }
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
         AuthenticationStateProvider.AuthenticationStateChanged += async stateTask => await SetInternalAuthenticationStateAsync(stateTask);
         await SetInternalAuthenticationStateAsync(AuthenticationStateTask);
@@ -67,7 +67,7 @@
     private async Task SetInternalAuthenticationStateAsync(Task<AuthenticationState> task)
     {
         var authenticationState = await task;
-        if (authenticationState.User.Identity == null)
+        if (authenticationState.User.Identity == null || !authenticationState.User.Identity.IsAuthenticated)
         {
             return;
         }
@@ -86,10 +86,7 @@
         }
     }
 
-    private async Task RedirectToOwnAccount()
-    {
-        Navigation.NavigateTo($"account/{(await AuthenticationStateTask).GetUserId()}");
-    }
+    private async Task RedirectToOwnAccount() => Navigation.NavigateTo($"account/{(await AuthenticationStateTask).GetUserId()}");
 
     private async Task BeginLogout()
     {

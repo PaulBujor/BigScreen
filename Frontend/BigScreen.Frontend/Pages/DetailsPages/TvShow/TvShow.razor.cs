@@ -20,8 +20,7 @@ public partial class TvShow : ComponentBase
     protected override async Task OnParametersSetAsync()
     {
         _isLoaded = false;
-        await ViewModel.GetTvShowDetails();
-        ViewModel.MediaModel = ViewModel.GetMediaModel();
+        await ViewModel.GetMediaDetails();
         _isLoaded = true;
     }
 }

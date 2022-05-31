@@ -20,8 +20,7 @@ public partial class Movie : ComponentBase
     protected override async Task OnParametersSetAsync()
     {
         _isLoaded = false;
-        await ViewModel.GetMovieDetails();
-        ViewModel.MediaModel = ViewModel.GetMediaModel();
+        await ViewModel.GetMediaDetails();
         _isLoaded = true;
     }
 }

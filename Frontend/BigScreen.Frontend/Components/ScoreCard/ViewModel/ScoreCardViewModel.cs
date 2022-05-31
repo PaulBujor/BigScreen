@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace BigScreen.Frontend.Components.ScoreCard.ViewModel;
@@ -15,7 +14,7 @@ public class ScoreCardViewModel : IScoreCardViewModel
 
     public async Task RatingChanged(int score)
     {
-        Score = score; // doubts
+        // Score = score;
         await ScoreChanged.InvokeAsync(score);
         DialogVisible = false;
     }
@@ -39,5 +38,5 @@ public class ScoreCardViewModel : IScoreCardViewModel
         }
     }
 
-    public string GetScoreText() => Score > 0 ? Score.ToString(CultureInfo.CurrentCulture) : NotRatedText;
+    public string GetScoreText() => Score > 0 ? Score.ToString("N1") : NotRatedText;
 }
