@@ -1,8 +1,12 @@
-﻿<LeaveComment MediaId="@MediaId"/>
+﻿<CascadingValue Value="@ViewModel">
+    <LeaveComment MediaId="@MediaId"/>
+</CascadingValue>
 
 <div class="mt-4">
     @foreach (var comment in GetComments("-1"))
     {
-        <CommentCard MediaId="@MediaId" Comment="@comment"/>
+        <CascadingValue Value="@ViewModel">
+            <CommentCard MediaId="@MediaId" Comment="@comment"/>
+        </CascadingValue>
     }
 </div>

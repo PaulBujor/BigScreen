@@ -27,16 +27,6 @@ resource KeyVault 'Microsoft.KeyVault/vaults@2021-10-01' = {
       }
       {
         tenantId: tenantId
-        objectId: client
-        permissions: {
-          secrets: [
-            'list'
-            'get'
-          ]
-        }
-      }
-      {
-        tenantId: tenantId
         objectId: '6981e08c-ed11-4921-a829-62b9838b9a1d'
         permissions: {
           secrets: [

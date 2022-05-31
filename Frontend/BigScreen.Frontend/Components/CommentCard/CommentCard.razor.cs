@@ -12,7 +12,7 @@ public partial class CommentCard : ComponentBase
 
     private bool _showReplyComponent = false;
 
-    [Inject]
+    [CascadingParameter]
     public IDiscussionViewModel ViewModel { get; set; } = null!;
 
     [Parameter]

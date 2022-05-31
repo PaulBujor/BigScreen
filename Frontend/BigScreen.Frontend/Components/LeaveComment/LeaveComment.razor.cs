@@ -8,7 +8,7 @@ public partial class LeaveComment : ComponentBase
 {
     private CommentDto _comment = null!;
 
-    [Inject]
+    [CascadingParameter]
     public IDiscussionViewModel ViewModel { get; set; } = null!;
 
     [Parameter]
