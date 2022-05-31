@@ -25,6 +25,10 @@ public class RatingHandler : IRatingHandler
 
     public async Task<RatingDto?> GetUserRating(string mediaId)
     {
+        if (_userState.User is null)
+        {
+            return default;
+        }
         var ratingList = await _client.GetAllAsync($"?$filter=ForMedia eq '{mediaId}' and ByUser eq '{_userState.User?.Id}'");
         var userRating = ratingList?.FirstOrDefault();
         return userRating;

@@ -18,10 +18,10 @@ public partial class CommentCard : ComponentBase
 
     [Parameter] public CommentDto Comment { get; set; } = null!;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        _reply = _reply =
-            CommentDto.GetDefaultEmptyState(MediaId, Comment.Id);
+        await ViewModel.InitializeAsync(MediaId);
+        _reply = CommentDto.GetDefaultEmptyState(MediaId, Comment.Id);
         CacheReplies();
         ViewModel.OnRootStateHasChanged += () =>
         {
