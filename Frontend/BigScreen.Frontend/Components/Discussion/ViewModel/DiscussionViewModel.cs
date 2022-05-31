@@ -10,8 +10,6 @@ public class DiscussionViewModel : IDiscussionViewModel
 
     private readonly UserState _userState;
 
-    private Action? _announceRootStateHasChanged;
-
     private ICollection<CommentDto>? _comments;
 
     private string? _mediaId;
@@ -22,6 +20,8 @@ public class DiscussionViewModel : IDiscussionViewModel
         _userState = userState;
     }
 
+    public Action? OnRootStateHasChanged { get; set; }
+
     public async Task InitializeAsync(string mediaId)
     {
         if (mediaId != _mediaId)
@@ -31,11 +31,6 @@ public class DiscussionViewModel : IDiscussionViewModel
         }
     }
 
-    public void AddListener(Action action)
-    {
-        _announceRootStateHasChanged += action;
-    }
-
     public IEnumerable<CommentDto> GetComments(string? replyTo = null)
     {
         return _comments?.Where(c => c.ReplyTo == replyTo).ToList() ?? new List<CommentDto>();
@@ -43,8 +38,9 @@ public class DiscussionViewModel : IDiscussionViewModel
 
     public async Task PostCommentAsync(CommentDto comment)
     {
-        comment.ByUser = _userState.User!.GetCachedVersion();
-        _comments?.Add(await _discussionHandler.PostCommentAsync(comment));
-        _announceRootStateHasChanged?.Invoke();
+        var addedComment = await _discussionHandler.PostCommentAsync(comment);
+        _comments ??= new List<CommentDto>();
+        _comments.Add(addedComment);
+        OnRootStateHasChanged?.Invoke();
     }
 }

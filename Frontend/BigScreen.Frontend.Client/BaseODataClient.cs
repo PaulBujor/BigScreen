@@ -56,7 +56,8 @@ public class BaseODataClient<TDto> : IODataClient<TDto> where TDto : BaseDto
         var result = await response.Content.ReadAsStringAsync();
         var obj = JsonConvert.DeserializeObject<TDto>(result);
 
-        return obj;
+        // We don't get nested objects with POST so this is a workaround for now
+        return await GetByIdAsync(obj!.Id!);
     }
 
     public async Task<TDto?> PatchAsync(TDto dto)

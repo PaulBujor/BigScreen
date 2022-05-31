@@ -17,7 +17,7 @@ public class CommentDto : BaseDto
 
     [DataMember] public string? Text { get; set; }
 
-    public static CommentDto GetDefaultEmptyState(string? mediaId = null, string? commentId = "-1")
+    public static CommentDto GetDefaultEmptyState(string mediaId, string? commentId = "-1")
     {
         return new CommentDto
         {

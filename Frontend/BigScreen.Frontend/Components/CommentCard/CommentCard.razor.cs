@@ -23,11 +23,11 @@ public partial class CommentCard : ComponentBase
         _reply = _reply =
             CommentDto.GetDefaultEmptyState(MediaId, Comment.Id);
         CacheReplies();
-        ViewModel.AddListener(() =>
+        ViewModel.OnRootStateHasChanged += () =>
         {
             CacheReplies();
             StateHasChanged();
-        });
+        };
     }
 
     private void CacheReplies()
