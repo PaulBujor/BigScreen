@@ -1,8 +1,5 @@
-﻿using BigScreen.Core.Models.BigScreen;
-using BigScreen.Core.Models.TMDb;
+﻿using BigScreen.Core.Models.TMDb;
 using BigScreen.Frontend.Client.Handlers.Interfaces;
-using BigScreen.Frontend.Components.MediaDetailsPageLayout.Models;
-using BigScreen.Frontend.Components.SelectTopList;
 using BigScreen.Frontend.Pages.DetailsPages.ViewModel;
 using MudBlazor;
 

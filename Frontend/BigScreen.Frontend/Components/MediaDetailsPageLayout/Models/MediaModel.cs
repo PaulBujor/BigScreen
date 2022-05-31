@@ -1,5 +1,4 @@
 ﻿using BigScreen.Core.Models.BigScreen;
-using BigScreen.Core.Models.TMDb;
 using BigScreen.Core.Models.TMDb.Base;
 
 namespace BigScreen.Frontend.Components.MediaDetailsPageLayout.Models;
@@ -78,6 +77,7 @@ public class MediaModel
                 dto.Duration,
                 dto.Tagline, dto.Overview, dto.TmdbScore, dto.Status, dto.Budget, dto.Revenue);
         }
+
         return null;
     }
 }

@@ -31,17 +31,17 @@
         {
             @foreach (var result in _topList.MediaItems)
             {
-                    <div class="relative">
-                        <Card @key="result" Id="@result.GetTmdbId()" Image="@result.ImageUrl" RoutableTo="@result.GetRoutableTo()" Header="@result.Name"/>
-                        <AuthorizeView>
-                            <Authorized>
-                                @if (context.GetUserId() == _topList?.Owner?.Id)
-                                {
-                                    <MudIconButton Variant="Variant.Filled" Icon="@Icons.Material.Filled.Delete" OnClick="async () => await RemoveMedia(result.Id!)" Color="Color.Error" Class="z-10" Style="position: absolute; top: 5px; right: 5px"></MudIconButton>
-                                }
-                            </Authorized>
-                        </AuthorizeView>
-                    </div>
+                <div class="relative">
+                    <Card @key="result" Id="@result.GetTmdbId()" Image="@result.ImageUrl" RoutableTo="@result.GetRoutableTo()" Header="@result.Name"/>
+                    <AuthorizeView>
+                        <Authorized>
+                            @if (context.GetUserId() == _topList?.Owner?.Id)
+                            {
+                                <MudIconButton Variant="Variant.Filled" Icon="@Icons.Material.Filled.Delete" OnClick="async () => await RemoveMedia(result.Id!)" Color="Color.Error" Class="z-10" Style="position: absolute; top: 5px; right: 5px"></MudIconButton>
+                            }
+                        </Authorized>
+                    </AuthorizeView>
+                </div>
             }
         }
     </div>

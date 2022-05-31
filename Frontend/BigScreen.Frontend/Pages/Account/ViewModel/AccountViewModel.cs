@@ -34,26 +34,32 @@ public class AccountViewModel : IAccountViewModel
         _userState.OnUserStateChange -= UserStateHasChanged;
 
 
-        if (User == null || (User != null && User.Id != userId)) User = await _userHandler.GetUser(userId);
+        if (User == null || (User != null && User.Id != userId))
+        {
+            User = await _userHandler.GetUser(userId);
+        }
 
         FollowStateHasChanged();
     }
 
-    public bool IsFollowing()
-    {
-        return _isFollowing;
-    }
+    public bool IsFollowing() => _isFollowing;
 
     public async Task FollowUser()
     {
-        if (User == null) return;
+        if (User == null)
+        {
+            return;
+        }
 
         await _userHandler.FollowUser(User.GetCachedVersion());
     }
 
     public async Task UnfollowUser()
     {
-        if (User == null) return;
+        if (User == null)
+        {
+            return;
+        }
 
         await _userHandler.UnfollowUser(User.GetCachedVersion());
     }

@@ -1,8 +1,6 @@
 ﻿using BigScreen.Core.Models.BigScreen;
-using BigScreen.Core.Models.TMDb;
 using BigScreen.Core.Models.TMDb.Base;
 using BigScreen.Frontend.Components.MediaDetailsPageLayout.Models;
-using BigScreen.Frontend.Core;
 
 namespace BigScreen.Frontend.Pages.DetailsPages.ViewModel;
 

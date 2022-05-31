@@ -25,13 +25,12 @@ public class TopListViewModel : ITopListViewModel
     public async Task InitializeAsync(string toplistId)
     {
         if (_topList == null || _topList?.Id != toplistId)
+        {
             _topList = await _handler.GetTopListAsync(toplistId) ?? throw new InvalidOperationException();
+        }
     }
 
-    public TopListDto GetTopList()
-    {
-        return _topList!;
-    }
+    public TopListDto GetTopList() => _topList!;
 
     public async Task<TopListDto> RemoveMediaAsync(string id)
     {
@@ -46,7 +45,7 @@ public class TopListViewModel : ITopListViewModel
         parameters.Add("Id", _topList?.Id);
         var dialog = _dialogService.Show<ConfirmDelete>(_topList?.Title, parameters);
         var result = await dialog.Result;
-        if ((string?) result.Data == _topList?.Id)
+        if ((string?)result.Data == _topList?.Id)
         {
             await _handler.DeleteTopListAsync(_topList?.Id!);
             _navigationManager.NavigateTo($"account/{_topList?.Owner?.Id}");

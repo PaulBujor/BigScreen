@@ -1,18 +1,17 @@
 ﻿using BigScreen.Core.Models.BigScreen;
-using BigScreen.Core.Models.TMDb;
 using BigScreen.Core.Models.TMDb.Base;
 using BigScreen.Frontend.Client.Handlers.Interfaces;
 using BigScreen.Frontend.Components.MediaDetailsPageLayout.Models;
 using BigScreen.Frontend.Components.SelectTopList;
-using BigScreen.Frontend.Core;
 using MudBlazor;
 
 namespace BigScreen.Frontend.Pages.DetailsPages.ViewModel;
 
-public abstract class BaseMediaDetailsPageViewModel<TDto> : IBaseMediaDetailsPageViewModel<TDto> where TDto : BaseMediaDetailsDto
+public abstract class BaseMediaDetailsPageViewModel<TDto> : IBaseMediaDetailsPageViewModel<TDto>
+    where TDto : BaseMediaDetailsDto
 {
-    private readonly IDetailsPageHandler<TDto> _mediaHandler;
     private readonly IDialogService _dialogService;
+    private readonly IDetailsPageHandler<TDto> _mediaHandler;
     private readonly IRatingHandler _ratingHandler;
 
     protected BaseMediaDetailsPageViewModel(IDetailsPageHandler<TDto> mediaHandler, IDialogService dialogService,
@@ -28,6 +27,7 @@ public abstract class BaseMediaDetailsPageViewModel<TDto> : IBaseMediaDetailsPag
     public double BigScreenScore { get; private set; }
     public TDto? MediaDetails { get; private set; }
     public MediaModel MediaModel { get; set; } = null!;
+
     public async Task OnUserScoreChanged(int score)
     {
         if (string.IsNullOrEmpty(UserScore?.ETag))
@@ -42,17 +42,6 @@ public abstract class BaseMediaDetailsPageViewModel<TDto> : IBaseMediaDetailsPag
 
         await GetBigScreenScore();
         UpdateScores();
-    }
-    
-    private async Task GetBigScreenScore()
-    {
-        BigScreenScore = await _ratingHandler.GetBigScreenRating(GetFullId());
-    }
-
-    private void UpdateScores()
-    {
-        MediaModel.BigScreenScore = BigScreenScore;
-        MediaModel.UserScore = UserScore;
     }
 
     public async Task GetMediaDetails()
@@ -77,5 +66,17 @@ public abstract class BaseMediaDetailsPageViewModel<TDto> : IBaseMediaDetailsPag
         });
         _dialogService.Show<SelectTopList>("Select a Top List", parameters);
     }
+
     public abstract string GetFullId();
+
+    private async Task GetBigScreenScore()
+    {
+        BigScreenScore = await _ratingHandler.GetBigScreenRating(GetFullId());
+    }
+
+    private void UpdateScores()
+    {
+        MediaModel.BigScreenScore = BigScreenScore;
+        MediaModel.UserScore = UserScore;
+    }
 }
