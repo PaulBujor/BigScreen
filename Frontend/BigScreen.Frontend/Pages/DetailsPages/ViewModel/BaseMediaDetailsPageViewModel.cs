@@ -48,8 +48,8 @@ public abstract class BaseMediaDetailsPageViewModel<TDto> : IBaseMediaDetailsPag
     {
         MediaDetails = await _mediaHandler.GetMediaDetailsAsync(Id);
         var mediaModel = MediaModel.FromMediaDto(MediaDetails) ?? new MediaModel();
-        UserScore = await _ratingHandler.GetUserRating(GetFullId());
         await GetBigScreenScore();
+        UserScore = await _ratingHandler.GetUserRating(GetFullId());
         mediaModel.UserScore = UserScore;
         mediaModel.BigScreenScore = BigScreenScore;
         MediaModel = mediaModel;
