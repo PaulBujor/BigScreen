@@ -1,103 +1,29 @@
 ﻿using BigScreen.Core.Models.BigScreen;
 using BigScreen.Frontend.Client.Handlers.Interfaces;
+using BigScreen.Frontend.Client.Security;
+using BigScreen.SDK.Client.Abstractions;
 
 namespace BigScreen.Frontend.Client.Handlers;
 
 public class DiscussionHandler : IDiscussionHandler
 {
-    private static readonly CachedUserDto CachedUserDto1 = new()
-    {
-        Id = "1",
-        Username = "Username1"
-    };
+    private readonly IODataClient<CommentDto> _handler;
+    private readonly UserState _userState;
 
-    private static readonly CachedUserDto CachedUserDto2 = new()
+    public DiscussionHandler(IODataClient<CommentDto> handler, UserState userState)
     {
-        Id = "2",
-        Username = "Username2"
-    };
-
-    private static readonly CachedUserDto CachedUserDto3 = new()
-    {
-        Id = "3",
-        Username = "Username3"
-    };
-
-    private readonly List<CommentDto> _dummyComments = new()
-    {
-        new CommentDto
-        {
-            Id = "1",
-            ForMedia = "movie-550",
-            Text = "1 Root Comment 1",
-            ReplyTo = "-1",
-            ByUser = CachedUserDto1
-        },
-        new CommentDto
-        {
-            Id = "2",
-            ForMedia = "movie-550",
-            Text = "2 Root Comment 2",
-            ReplyTo = "-1",
-            ByUser = CachedUserDto1
-        },
-        new CommentDto
-        {
-            Id = "3",
-            ForMedia = "movie-550",
-            Text = "3 Reply to 1",
-            ReplyTo = "1",
-            ByUser = CachedUserDto2
-        },
-        new CommentDto
-        {
-            Id = "4",
-            ForMedia = "movie-550",
-            Text = "4 Reply to 2",
-            ReplyTo = "2",
-            ByUser = CachedUserDto3
-        },
-        new CommentDto
-        {
-            Id = "5",
-            ForMedia = "movie-550",
-            Text = "5 Reply to 3",
-            ReplyTo = "1",
-            ByUser = CachedUserDto3
-        },
-        new CommentDto
-        {
-            Id = "6",
-            ForMedia = "movie-550",
-            Text = "6 Reply to 3",
-            ReplyTo = "2",
-            ByUser = CachedUserDto2
-        },
-        new CommentDto
-        {
-            Id = "7",
-            ForMedia = "movie-551",
-            Text = "Should not see 7",
-            ByUser = CachedUserDto2
-        },
-        new CommentDto
-        {
-            Id = "8",
-            ForMedia = "movie-551",
-            Text = "Should not see 8",
-            ByUser = CachedUserDto3
-        }
-    };
+        _handler = handler;
+        _userState = userState;
+    }
 
     public async Task<IEnumerable<CommentDto>> GetComments(string mediaId)
     {
-        return await Task.FromResult(_dummyComments.Where(c => c.ForMedia == mediaId).ToList());
+        return (await _handler.GetAllAsync($"?$filter=ForMedia eq '{mediaId}'"))!;
     }
 
     public async Task<CommentDto> PostCommentAsync(CommentDto comment)
     {
-        comment.Id = Guid.NewGuid().ToString();
-        _dummyComments.Add(comment);
-        return await Task.FromResult(comment);
+        comment.ByUser = _userState.User!.GetCachedVersion();
+        return (await _handler.PostAsync(comment))!;
     }
 }

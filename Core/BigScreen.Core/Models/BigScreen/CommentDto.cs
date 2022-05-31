@@ -17,15 +17,13 @@ public class CommentDto : BaseDto
 
     [DataMember] public string? Text { get; set; }
 
-    public static CommentDto GetDefaultEmptyState(string? mediaId = null, string? commentId = "-1",
-        CachedUserDto? byUser = null)
+    public static CommentDto GetDefaultEmptyState(string mediaId, string? commentId = "-1")
     {
         return new CommentDto
         {
             ForMedia = mediaId,
             ReplyTo = commentId,
-            Text = "",
-            ByUser = byUser
+            Text = ""
         };
     }
 }

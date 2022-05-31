@@ -3,7 +3,7 @@ using BigScreen.SDK.DataAccess.Core.Attributes;
 
 namespace BigScreen.Backend.Models;
 
-[DbContainer(PartitionKey = "owner/id")]
+[DbContainer(PartitionKey = "Owner/id")]
 public class TopListDbEntry : BaseDbEntry
 {
     public string? Title { get; set; }
