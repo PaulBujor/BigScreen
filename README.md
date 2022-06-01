@@ -3,7 +3,9 @@
 
 # People
 PaulBujor: 293176 - Paul-Andrei Bujor
+
 alexantrutatarciuc: 293667 - Alexandru Tatarciuc
+
 Ranteidz: 293718 - Aurimas Bruzgys 
 
 # Getting Started
