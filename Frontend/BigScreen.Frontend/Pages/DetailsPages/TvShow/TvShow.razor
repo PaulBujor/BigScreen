@@ -36,7 +36,7 @@ else
                 <DetailsContentContainer Name="Similar" IsScrollable="true">
                     @foreach (var media in ViewModel.MediaDetails.Similar.Results!)
                     {
-                        <Card Id="media.Id" Header="@media.Name" Image="@media.ImageUrl" Caption="@media.ReleaseDate?.GetTextForCardCaption()" LowEmphasisTitle="true" RoutableTo="RoutableTo.Movie"/>
+                        <Card Id="media.Id" Header="@media.Name" Image="@media.ImageUrl" Caption="@media.ReleaseDate?.GetTextForCardCaption()" LowEmphasisTitle="true" RoutableTo="RoutableTo.TvShow"/>
                     }
                 </DetailsContentContainer>
                 <MudDivider Class="my-6"/>
@@ -46,7 +46,7 @@ else
                 <DetailsContentContainer Name="Recommendations" IsScrollable="true">
                     @foreach (var media in ViewModel.MediaDetails.Recommendations.Results!)
                     {
-                        <Card Id="media.Id" Header="@media.Name" Image="@media.ImageUrl" Caption="@media.ReleaseDate?.GetTextForCardCaption()" LowEmphasisTitle="true" RoutableTo="RoutableTo.Movie"/>
+                        <Card Id="media.Id" Header="@media.Name" Image="@media.ImageUrl" Caption="@media.ReleaseDate?.GetTextForCardCaption()" LowEmphasisTitle="true" RoutableTo="RoutableTo.TvShow"/>
                     }
                 </DetailsContentContainer>
                 <MudDivider Class="my-6"/>
